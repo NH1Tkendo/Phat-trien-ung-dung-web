@@ -11,17 +11,13 @@
 <h2>Chương 1: Web back-end</h2>
 <h2>Chương 2: Git thực hành</h2>
 <h2>Chương 3: Trắc nghiệm</h2>
-Câu hỏi trắc nghiệm về Web, Git, Node.js và JavaScript
-
-1. Kiến thức cơ bản về Web
-
 Câu 1.3: Phát biểu nào không đúng khi nói về web, trang web và website?
 
 A. Web là hệ thống thông tin toàn cầu
 
 B. Web được tạo thành nhờ các trang web và sự liên kết giữa chúng
 
-C. Một trang web chứa nhiều website
+**C. Một trang web chứa nhiều website**
 
 D. Một website chứa nhiều trang web có liên quan đến nhau
 
@@ -33,7 +29,7 @@ B. Một website và ứng dụng web có một địa chỉ URL để truy cậ
 
 C. Website và ứng dụng web hoạt động dựa trên mô hình client-server
 
-D. Chỉ cần sử dụng HTML và CSS là có thể tạo ra được ứng dụng web
+**D. Chỉ cần sử dụng HTML và CSS là có thể tạo ra được ứng dụng web**
 
 2. Phát triển ứng dụng Web
 
