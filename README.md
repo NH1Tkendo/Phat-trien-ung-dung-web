@@ -5,11 +5,11 @@ Giảng viên: thầy Lê Gia Công<br>
 Chương 1: Web back-end<br>
 Chương 2: Git thực hành<br>
 Chương 3: Trắc nghiệm<br>
-Câu 1.3 Phát biểu nào không đúng khi nói về web, trang web và website?
-A. Web là hệ thống thông tin toàn cầu
-B. Web được tạo thành nhờ các trang web và sự liên kết giữa chúng
-C. Một trang web chứa nhiều website
-D. Một website chứa nhiều trang web có liên quan đến nhau
+Câu 1.3 Phát biểu nào không đúng khi nói về web, trang web và website?<br>
+A. Web là hệ thống thông tin toàn cầu<br>
+B. Web được tạo thành nhờ các trang web và sự liên kết giữa chúng<br>
+C. Một trang web chứa nhiều website<br>
+D. Một website chứa nhiều trang web có liên quan đến nhau<br>
 
 Câu 1.4 Phát biểu nào không đúng khi nói về website và ứng dụng web?
 A. Không có sự phân biệt rõ ràng giữa website và ứng dụng web
