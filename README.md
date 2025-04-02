@@ -1,5 +1,5 @@
-<h1>Self note dành cho môn Phát triển ứng dụng web</h1><br>
-<h2>Giảng viên hướng dẫn: </h2><br>
+<h1>Self note dành cho môn Phát triển ứng dụng web</h1>
+<h2>Giảng viên hướng dẫn: </h2>
 <ul>
   <li>Thầy Lê Gia Công</li>
 </ul>
