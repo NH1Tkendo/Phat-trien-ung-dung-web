@@ -11,11 +11,11 @@ B. Web được tạo thành nhờ các trang web và sự liên kết giữa ch
 C. Một trang web chứa nhiều website<br>
 D. Một website chứa nhiều trang web có liên quan đến nhau<br>
 
-Câu 1.4 Phát biểu nào không đúng khi nói về website và ứng dụng web?
-A. Không có sự phân biệt rõ ràng giữa website và ứng dụng web
-B. Một website và ứng dụng web có một địa chỉ URL để truy cập
-C. Website và ứng dụng web hoạt động dựa trên mô hình client-server
-D. Chỉ cần sử dụng HTML và CSS là có thể tạo ra được ứng dụng web
+Câu 1.4 Phát biểu nào không đúng khi nói về website và ứng dụng web?  
+A. Không có sự phân biệt rõ ràng giữa website và ứng dụng web  
+B. Một website và ứng dụng web có một địa chỉ URL để truy cập  
+C. Website và ứng dụng web hoạt động dựa trên mô hình client-server  
+D. Chỉ cần sử dụng HTML và CSS là có thể tạo ra được ứng dụng web  
 2.3 Có 3 cách để tạo ra một ứng dụng web? Phát biểu nào không đúng?
 A. Sử dụng CMS
 B. Sử dụng framework và thư viện hỗ trợ
