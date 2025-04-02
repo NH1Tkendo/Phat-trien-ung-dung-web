@@ -1,5 +1,5 @@
 
-<h1>Self note dành cho môn Phát triển ứng dụng web</h1><br><hr>
+<h1>Self note dành cho môn Phát triển ứng dụng web</h1><br>
 <b>Giảng viên: thầy Lê Gia Công</b><br>
 <b>Tác giả: Ngô Bá Tài</b>  
 
