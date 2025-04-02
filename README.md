@@ -1,6 +1,7 @@
 
-Self note dành cho môn Phát triển ứng dụng web<br>
-Giảng viên: thầy Lê Gia Công<br>
+<b>Self note dành cho môn Phát triển ứng dụng web</b><br><hr>
+<b>Giảng viên: thầy Lê Gia Công</b><br>
+<b>Tác giả: Ngô Bá Tài</b>  
 
 Chương 1: Web back-end<br>
 Chương 2: Git thực hành<br>
