@@ -5,7 +5,8 @@
 * Ngô Bá Tài
 ## Chương 1: Web back-end
 ### 1.1 Một số khái niệm cơ bản
-* Web: Web hay WWW là từ viết tắt của World Wide Web là mạng lưới thông tin toàn cầu
+* **Web:** Web hay WWW là từ viết tắt của World Wide Web là mạng lưới thông tin toàn cầu. Ưeb bao gồm rất nhiều các trang web kết nối lại với nhau, với thông tin đa dạng như văn bản, 
+  hình ảnh, âm thanh, video và nhiều loại dữ liệu khác
 ## Chương 2: Git thực hành
 ## Chương 3: Trắc nghiệm
 Câu 1.3: Phát biểu nào không đúng khi nói về web, trang web và website?
