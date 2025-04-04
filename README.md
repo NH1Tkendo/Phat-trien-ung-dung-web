@@ -7,6 +7,7 @@
 ### 1.1 Một số khái niệm cơ bản
 * **Web:** Web hay WWW là từ viết tắt của World Wide Web là mạng lưới thông tin toàn cầu. Ưeb bao gồm rất nhiều các trang web kết nối lại với nhau, với thông tin đa dạng như văn bản, 
   hình ảnh, âm thanh, video và nhiều loại dữ liệu khác
+* **Trang web(web page):** là một trang tài liệu trên hệ thống web. Trang web có thể chứa văn bản, hình ảnh, âm thanh, video, và các nội dung đa phương tiện khác.
 ## Chương 2: Git thực hành
 ## Chương 3: Trắc nghiệm
 Câu 1.3: Phát biểu nào không đúng khi nói về web, trang web và website?
