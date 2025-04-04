@@ -10,7 +10,7 @@
 
 <h2>Chương 1: Web back-end</h2>
 <h3>1.1 Một số khái niệm cơ bản</h3>
-* Web: Web hay WWW là từ viết tắt của World Wide Web là mạng lưới thông tin toàn cầu
+ * Web: Web hay WWW là từ viết tắt của World Wide Web là mạng lưới thông tin toàn cầu
 <h2>Chương 2: Git thực hành</h2>
 <h2>Chương 3: Trắc nghiệm</h2>
 Câu 1.3: Phát biểu nào không đúng khi nói về web, trang web và website?
