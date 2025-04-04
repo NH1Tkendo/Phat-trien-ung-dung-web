@@ -7,7 +7,7 @@
 ### 1.1 Một số khái niệm cơ bản
 * Web: Web hay WWW là từ viết tắt của World Wide Web là mạng lưới thông tin toàn cầu
 ## Chương 2: Git thực hành
-## Chương 3: Trắc nghiệm<
+## Chương 3: Trắc nghiệm
 Câu 1.3: Phát biểu nào không đúng khi nói về web, trang web và website?
 
 A. Web là hệ thống thông tin toàn cầu
