@@ -5,9 +5,16 @@
 * Ngô Bá Tài
 ## Chương 1: Web back-end
 ### 1.1 Một số khái niệm cơ bản
-* **Web:** Web hay WWW là từ viết tắt của World Wide Web là mạng lưới thông tin toàn cầu. Ưeb bao gồm rất nhiều các trang web kết nối lại với nhau, với thông tin đa dạng như văn bản, 
+* **Web:** Web hay WWW là từ viết tắt của World Wide Web là mạng lưới thông tin toàn cầu. Web bao gồm rất nhiều các trang web kết nối lại với nhau, với thông tin đa dạng như văn bản, 
   hình ảnh, âm thanh, video và nhiều loại dữ liệu khác
 * **Trang web(web page):** là một trang tài liệu trên hệ thống web. Trang web có thể chứa văn bản, hình ảnh, âm thanh, video, và các nội dung đa phương tiện khác.
+  * Trang web được tạo ra bằng HTML, CSS, JavaScript và một trong các ngôn ngữ lập trình phía server(Python, JavaScript, C#, PHP, Go, Java, Ruby...)
+  * Mã nguồn của trang web được lưu trên máy chủ (máy web server)
+  * Mỗi trang web có một địa chỉ URL duy nhất. URL là một chuỗi ký tự, xác định vị trí của một trang web trên Internet
+  * Trang web có thể được dùng để: cung cấp thông tin, bán hàng, chia sẻ ý kiến, kết nối mọi người, giáo dục, quản lý, giải trí
+* **Website:** Website là một tập hợp nhiều trang web có liên quan đến nhau, có một địa chỉ URL duy nhất
+![image](https://github.com/user-attachments/assets/c8c933f3-a6d5-4561-9377-08df31c14565)
+
 ## Chương 2: Git thực hành
 ## Chương 3: Trắc nghiệm
 Câu 1.3: Phát biểu nào không đúng khi nói về web, trang web và website?
