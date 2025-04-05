@@ -13,7 +13,7 @@
   * Mỗi trang web có một địa chỉ URL duy nhất. URL là một chuỗi ký tự, xác định vị trí của một trang web trên Internet
   * Trang web có thể được dùng để: cung cấp thông tin, bán hàng, chia sẻ ý kiến, kết nối mọi người, giáo dục, quản lý, giải trí
 * **Website:** Website là một tập hợp nhiều trang web có liên quan đến nhau, có một địa chỉ URL duy nhất
-![image](https://github.com/user-attachments/assets/c8c933f3-a6d5-4561-9377-08df31c14565)
+![image](md_assets/website.png)
 
 ## Chương 2: Git thực hành
 ## Chương 3: Trắc nghiệm
