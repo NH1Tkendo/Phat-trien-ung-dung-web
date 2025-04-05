@@ -20,6 +20,8 @@
       * Mã nguồn của ứng dụng web được để trên máy server, giao diện ứng dụng web được hiển thị trên trình duyệt
       * Ứng dụng web hoạt động dựa trên mô hình client-server
       * Không có sự phân biệt rõ ràng giữa website và ứng dụng web
+  * Điểm khác nhau giữa Website và Ứng dụng web:
+  ![image](md_assets/diff_website_webapp.png)
 ## Chương 2: Git thực hành
 ## Chương 3: Trắc nghiệm
 Câu 1.3: Phát biểu nào không đúng khi nói về web, trang web và website?
