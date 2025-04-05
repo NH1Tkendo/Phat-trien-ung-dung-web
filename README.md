@@ -81,6 +81,46 @@ Tạo ra ứng dụng web cũng là quá trình tạo ra ứng dụng máy tính
     - Khả năng tùy chỉnh chức năng thấp
 
     - Phụ thuộc hạ tầng, công nghệ, chức năng vào nhà cung cấp
+* Frameword và thư viện hỗ trợ:
+  - Frontend: jQuery, Bootstrap, D3, React, Angular, Vue, Svelte 
+
+  - Backend: Express.js (Nodejs), Django, Flask (Python), ASP.NET (C#), Spring Boot (Java), Laravel (PHP), Ruby on Rails (Ruby), Gin, Echo (Go, Golang)
+    
+  - Ưu điểm khi sử dụng framework và thư viện:
+      - Tăng tốc độ phát triển
+      - Cải thiện chất lượng viết mã
+      - Tăng cường bảo mật
+      - Dễ dàng bảo trì và mở rộng
+      - Cộng đồng hỗ trợ lớn
+  - Nhược điểm của việc sử dụng framework:
+    - Để sử dụng một framework hiệu quả, bạn cần phải dành thời gian để học và làm quen với nó
+
+    - Một số framework có thể làm tăng kích thước của ứng dụng, các ứng dụng quá đơn giản thì không nhất thiết phải dùng framework
+
+    - Một số framework có thể hạn chế khả năng tùy chỉnh của bạn
+* Viết thuần: Việc phát triển ứng dụng web bằng cách tự viết mã từ đầu (hay còn gọi là "viết thuần”, “viết tay") cũng là một cách bạn có thể sử dụng để tạo ra ứng dụng web. Bạn sẽ không 
+  sử dụng bất kì framework hay thư viện hỗ trợ nào. Các ngôn ngữ bạn sẽ sử dụng:
+  - Frontend: HTML, CSS, JavaScript
+  - Backend: một trong các ngôn ngữ lập trình: JavaScript, Python, C#, PHP, Java, Go, Ruby
+  - Ưu điểm:
+    - Toàn quyền kiểm soát và tùy chỉnh mã nguồn, không bị bất kì ràng buộc hay giới hạn nào
+
+    - Tối ưu hóa mã nguồn để ứng dụng chạy nhanh và hiệu quả nhất
+
+    - Hiểu rất sâu và nắm vững các ngôn ngữ lập trình, kỹ thuật lập trình, kỹ thuật bảo mật, công nghệ web
+
+    - Tư duy logic và giải quyết vấn đề tố
+  - Nhược điểm:
+    - Tốn thời gian, công sức
+
+    - Khối lượng công việc rất lớn
+
+    - Yêu cần kiến thức chuyên môn cao, toàn diện
+
+    - Khó bảo trì và mở rộng
+
+    - Chi phí cao
+  
 ## Chương 2: Git thực hành
 ## Chương 3: Trắc nghiệm
 Câu 1.3: Phát biểu nào không đúng khi nói về web, trang web và website?
@@ -113,11 +153,11 @@ B. Sử dụng framework và thư viện hỗ trợ
 
 C. Viết thuần bằng ngôn ngữ lập trình mà không sử dụng framework, thư viện hỗ trợ
 
-D. Sử dụng trình duyệt web
+**D. Sử dụng trình duyệt web**
 
 Câu 2.4: Những ưu điểm khi sử dụng CMS để tạo ra ứng dụng web. Phát biểu nào không đúng?
 
-A. Cần kiến thức lập trình chuyên sâu
+**A. Cần kiến thức lập trình chuyên sâu**
 
 B. Tối ưu SEO
 
@@ -131,11 +171,9 @@ A. Tăng tốc độ phát triển
 
 B. Cải thiện chất lượng viết mã
 
-C. Giảm khả năng bảo mật
+**C. Giảm khả năng bảo mật**
 
 D. Dễ dàng bảo trì và mở rộng
-
-3. Web Server
 
 Câu 3.2: Một số phần mềm web server phổ biến. Phát biểu nào không đúng?
 
