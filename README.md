@@ -40,6 +40,47 @@ Tạo ra ứng dụng web cũng là quá trình tạo ra ứng dụng máy tính
 - Triển khai
 
 - Bảo trì và cập nhật
+
+![image](md_assets/DuAn.png)
+#### 1.2.1 Một số cách để tạo ra ứng dụng web
+- Sử dụng hệ quản trị nội dung
+
+- Sử dụng framework và thư viện hỗ trợ
+
+- Viết thuần bằng ngôn ngữ lập trình mà không sử dụng framework và thư viện hỗ trợ
+
+![image](md_assets/taoUngDungWeb.png)
+
+* Hệ quản trị nội dung (Content Management System - CMS) là một phần mềm hoặc một tập hợp các phần mềm được sử dụng để tạo, quản lý và sửa đổi nội dung trên một trang web mà 
+  không cần đến các kiến thức chuyên sâu về lập trình. Ví dụ: WordPress, Wix, Joomla, Drupal, Magento, Shopify, WordPress, Blogger...
+  * Các chức năng chính của một CMS:
+    - Tạo và quản lý nội dung: cho phép người dùng dễ dàng tạo, chỉnh sửa, xóa và sắp xếp nội dung (văn bản, hình ảnh, video) trên trang web
+
+    - Quản lý người dùng: cho phép phân quyền truy cập và quản lý các tài khoản người dùng khác nhau, ví dụ: quản trị viên, nhân viên, biên tập viên, tác giả.
+
+    - Quản lý giao diện: cho phép tùy chỉnh giao diện của trang web thông qua các mẫu giao diện (template), các kho giao diện (theme)
+
+    - Quản lý các mô-đun, các tiện ích bổ sung: cho phép mở rộng chức năng của trang web thông qua việc cài đặt các mô-đun (module) hoặc các tiện ích bổ sung (plugin)
+
+    - Tối ưu hóa SEO: hỗ trợ các công cụ và tính năng để tối ưu hóa công cụ tìm kiếm (SEO) cho trang web, giúp trang web dễ dàng được tìm thấy trên các công cụ tìm kiếm như Google
+  * Ưu điểm của CMS:
+    - Dễ sử dụng, dễ quản lý, tiết kiệm thời gian
+
+    - Không cần kiến thức lập trình chuyên sâu
+
+    - Linh hoạt trong việc lựa chọn giao diện, các mô-đun chức năng
+
+    - Tối ưu SEO
+
+    - Chi phí phát triển ứng dụng thấp
+  * Nhược điểm của CMS:
+    - Vấn đề bảo mật, tấn công hệ thống
+
+    - Hiệu suất, tốc độ thực thi có thể chậm nếu không được tối ưu đúng cách; mã nguồn lớn, dư thừa
+
+    - Khả năng tùy chỉnh chức năng thấp
+
+    - Phụ thuộc hạ tầng, công nghệ, chức năng vào nhà cung cấp
 ## Chương 2: Git thực hành
 ## Chương 3: Trắc nghiệm
 Câu 1.3: Phát biểu nào không đúng khi nói về web, trang web và website?
