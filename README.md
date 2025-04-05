@@ -21,6 +21,7 @@
       * Ứng dụng web hoạt động dựa trên mô hình client-server
       * Không có sự phân biệt rõ ràng giữa website và ứng dụng web
   * Điểm khác nhau giữa Website và Ứng dụng web:
+    
   ![image](md_assets/diff_website_webapp.png)
 ### 1.2 Phát triển ứng dụng web là gì?
 Phát triển ứng dụng web là quá trình tạo ra ứng dụng web
