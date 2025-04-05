@@ -22,6 +22,23 @@
       * Không có sự phân biệt rõ ràng giữa website và ứng dụng web
   * Điểm khác nhau giữa Website và Ứng dụng web:
   ![image](md_assets/diff_website_webapp.png)
+### 1.2 Phát triển ứng dụng web là gì?
+Phát triển ứng dụng web là quá trình tạo ra ứng dụng web
+
+Tạo ra ứng dụng web cũng là quá trình tạo ra ứng dụng máy tính hay phần mềm nói chung, vì vậy nó cũng cần trải qua các giai đoạn cơ bản như:
+- Lập dự án
+
+- Xác định yêu cầu
+
+- Phân tích
+
+- Thiết kế
+
+- Lập trình
+
+- Triển khai
+
+- Bảo trì và cập nhật
 ## Chương 2: Git thực hành
 ## Chương 3: Trắc nghiệm
 Câu 1.3: Phát biểu nào không đúng khi nói về web, trang web và website?
@@ -186,5 +203,6 @@ C. Callback hell là một cách hiệu quả để quản lý các tác vụ b�
 
 D. Callback hell có thể được giải quyết bằng Promise hoặc async/await.
 
-Tài liệu được biên soạn nhằm hỗ trợ học tập và ôn tập kiến thức về Web, Git, Node.js và JavaScript.
+## Chương 4: Kiến thức thêm
+### 4.1 Cách để biết ngôn ngữ mà phía server sử dụng của 1 website
 
