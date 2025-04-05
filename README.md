@@ -120,8 +120,105 @@ Tạo ra ứng dụng web cũng là quá trình tạo ra ứng dụng máy tính
     - Khó bảo trì và mở rộng
 
     - Chi phí cao
+### 1.3 Web Server
+Web server (máy chủ web) là một máy tính (hoặc một phần mềm), được sử dụng để lưu trữ và cung cấp toàn bộ nội dung cho một website/ứng dụng web (tạm gọi chung là ứng dụng web).
+Một số chức năng chính của web server
+- Lưu trữ các tập tin của ứng dụng web: web server lưu trữ tất cả các tập tin và dữ liệu tạo nên ứng dụng web, ví dụ các tập tin HTML, hình ảnh và video.
+
+- Nhận yêu cầu (request): khi người dùng truy cập một ứng dụng web, trình duyệt web của họ sẽ gửi một request tới web server. Web server sẽ tiếp nhận request này.
+
+- Xử lý request: sau khi nhận được request, web server sẽ thực hiện xử lý request. Việc xử lý request có thể là: đọc nội dung các tập tin, thực thi các đoạn mã nguồn, kết nối và làm việc với cơ sở dữ liệu.
+
+- Gửi phản hồi (response): sau khi xử lý xong request, web server sẽ gửi response cho trình duyệt của người dùng, sau đó, trình duyệt sẽ hiển thị kết quả response cho người dùng
+
+* Một số phần mềm web server phổ biến: Apache, Nginx, NodeJS, IIS, Tom cat, Lighttpd
+* Kiến trúc của 1 web server
   
+![image](md_assets/webserver_kientruc.png)
+
+* Một máy web server có các đặc điểm sau:
+
+  - Phần cứng là một máy server chuyên dụng, cấu hình mạnh, khả năng chịu lỗi cao, chạy liên tục
+
+  - Hệ điều hành dành cho máy chủ
+
+  - Có cài đặt phần mềm web server (HTTP server - Apache, Nginx, IIS), có thể có hệ quản trị cơ sở dữ liệu (Database), trình dịch và thực thi mã nguồn (Scripting Language)
+#### 1.3.1 Nginx
+Nginx là phần mềm web server mã nguồn mở
+* Một số lệnh quan trọng của nginx
+- start nginx: khởi chạy Nginx 
+
+- nginx -s stop: tắt Nginx ngay lập tức
+
+- nginx -s quit: không chấp nhận kết nối mới, chờ các client hoàn thành tác vụ dang dở rồi mới tắt Nginx
+
+- nginx -s reload: thay đổi cấu hình, khởi chạy lại worker process với cấu hình mới
+
+- nginx -s reopen: mở lại các tập tin log
 ## Chương 2: Git thực hành
+### 2.1 Hệ thống quản lý phiên bản
+* **Phiên bản(version):** là các bản khác nhau của tập tin, thư mục hoặc toàn bộ mã nguồn dự án (từ đây gọi chung là dự án để tiện trình bày)
+* **Hệ thống quản lý phiên bản (Version Control System - VCS):** một phần mềm giúp chúng ta lưu lại từng thay đổi của mã nguồn dự án, và giúp lấy lại được các phiên bản trước đó nếu 
+  cần.
+  * Các chức năng chính:
+    - Khôi phục lại trạng thái của dự án ở các thời điểm khác nhau trong quá khứ
+
+    - Biết được ai đã thực hiện các thay đổi trên dự án, và đã thay đổi những gì
+
+    - Dễ dàng khôi phục lại các nội dung mã nguồn bị xóa 
+
+    - Dễ dàng so sánh những thay đổi của dự án theo các mốc thời gian
+  * Phân loại:
+    - Hệ thống quản lý phiên bản cục bộ
+
+    - Hệ thống quản lý phiên bản tập trung
+
+    - Hệ thống quản lý phiên bản phân tán
+
+#### 2.1.1 Hệ thống quản lý phiên bản cục bộ
+phương pháp tự lưu trữ các phiên bản của thư mục dự án ở các thời điểm khác nhau trong quá trình làm việc thành các tên khác nhau. 
+
+![image](md_assets/CucBo.png)
+
+* Ưu điểm:
+  * Hiệu suất nhanh
+  * Tự kiểm soát dữ liệu
+  * Dễ quản lý
+  * Làm việc offline
+* Nhược điểm:
+  * Không hỗ trợ làm việc nhóm
+  * Không có backup tự động
+  * Khó kiểm soát khi số lượng phiên bản lớn
+#### 2.1.2 Hệ thống quản lý phiên bản tập trung
+Gồm máy chủ chứa các phiên bản của thư mục dự án và danh sách các máy khách được phép thay đổi thư mục dự án trên máy chủ. Các máy khách sẽ lấy các phiên bản của thư mục dự án từ máy chủ về, thực hiện các thay đổi trên thư mục dự án và cập nhật lại các thay đổi về máy chủ
+
+![image](md_assets/TapTrung.png)
+
+* Ưu điểm:
+  * Dễ quản lý tập trung
+  * Hỗ trợ làm việc nhóm
+  * Phân quyền dễ dàng
+  * Nhật ký thay đổi rõ ràng
+  * Dung lượng máy client nhẹ
+* Nhược điểm:
+  * Phụ thuộc lớn vào server
+  * Phụ thuộc vào mạng
+  * Không làm việc offline
+#### 2.1.3 Hệ thống quản lý phiên bản phân tán
+Các máy client không chỉ lấy thư mục mới nhất như **hệ thống quản lý phiên bản tập trung** mà nó còn chép toàn bộ cả kho chứa (repository, repo), trong đó bao gồm cả lịch sử các phiên bản
+
+![image](md_assets/PhanTan.png)
+
+* Ưu điểm:
+  * Mỗi client đều có bản sao đầy đủ
+  * Làm việc offline dễ dàng
+  * Bảo mật và an toàn cao
+  * Quản lý nhánh mạnh mẽ
+  * Hiệu suất cao khi làm việc nhóm
+* Nhược điểm:
+  * Tốn dung lượng máy client
+  * Cần cấu hình remote hợp lý
+  * phụ thuộc vào tool khi merge
 ## Chương 3: Trắc nghiệm
 Câu 1.3: Phát biểu nào không đúng khi nói về web, trang web và website?
 
@@ -181,7 +278,7 @@ A. Apache
 
 B. Nginx
 
-C. SSI
+**C. SSI**
 
 D. Node.js
 
@@ -193,96 +290,101 @@ B. Nhận request từ client
 
 C. Xử lý request
 
-D. Nhận response từ máy client
+**D. Nhận response từ máy client**
 
-4. Hệ thống quản lý phiên bản Git
+4.2 Lệnh nào được sử dụng để nhúng Git vào thư mục dự án?
 
-Câu 4.2: Ba khu vực làm việc chính của Git là gì? Phát biểu nào không đúng?
+**A. git init**
 
-A. Thư mục làm việc (working directory) là nơi bạn chỉnh sửa tập tin trực tiếp.
+B. git --init
 
-B. Khu tạm (staging area) là nơi lưu trữ lịch sử phiên bản của dự án.
+C. git initialize
 
-C. Kho chứa (repository) là nơi lưu trữ dữ liệu chính thức của dự án.
+D. git embed
 
-D. Lệnh git add được sử dụng để chuyển các thay đổi từ Thư mục làm việc sang Khu tạm.
+4.3 Lệnh nào sử dụng để kiểm tra trên máy tính đã có phần mềm Git hay chưa?
 
-5. Node.js và NPM
+A. git ver
 
-Câu 5.2: Node.js là gì? Phát biểu nào không đúng?
+B. git version
 
-A. Node.js là môi trường phát triển ứng dụng
+**C. git --version hoặc git -v**
 
-B. Node.js là một ngôn ngữ lập trình
+D. git --ver
 
-C. Node.js là nền tảng phát triển ứng dụng
+4.4 Trong Git, kho lưu trữ (repo, repository) là gì?
 
-D. Có thể sử dụng Node.js để tạo web server
+A. Là thư mục dự án
 
-Câu 5.3: NPM là gì? Phát biểu nào không đúng?
+B. Là thư mục dự án đã được nhúng Git
 
-A. NPM là viết tắt của Node Package Manager
+C. Là thư mục cài đặt phần mềm Git
 
-B. NPM là công cụ để quản lý các thư viện dùng trong một ứng dụng chạy trên nền Node.js
+**D. Là thư mục .git (trong thư mục dự án)**
 
-C. NPM được cài đặt mặc định khi cài đặt Node.js
+4.5 Bạn có thể sử dụng các công cụ sau để viết mã. Phát biểu nào không đúng?
 
-D. NPM gồm 3 thành phần: website, GUI và registry
+A. Text editor
 
-6. Lập trình JavaScript
+**B. MS Word**
 
-Câu 6.4: Trong ứng dụng chạy trên nền Node.js, tập tin package.json dùng để làm gì? Phát biểu nào không đúng?
+C. IDE, Code Editor
 
-A. Chứa thông tin mô tả về ứng dụng
+D. Chatbot (Gemini), Trang web (https://codepen.io/) 
 
-B. Quản lý các phụ thuộc
+Câu 1.1 Các đặc điểm của hệ thống quản lý phiên bản cục bộ. Phát
+biểu nào không đúng?
 
-C. Chỉ ra tập tin JavaScript đầu tiên được thực thi
+A. Có thể thực hiện thủ công
 
-D. Chứa mã để tạo giao diện ứng dụng
+B. Không hỗ trợ trong môi trường cộng tác nhiều người
 
-Câu 6.6: Express trong Node.js được sử dụng để làm gì?
+C. Có thể dùng phần mềm để quản lý phiên bản kiểu cục bộ
 
-A. Tạo ứng dụng web và API
+**D. Các phiên bản của dự án được lưu tập trung trên một máy server**
 
-B. Quản lý cơ sở dữ liệu
+Câu 1.2 Các đặc điểm của hệ thống quản lý phiên bản tập trung.
+Phát biểu nào không đúng?
 
-C. Thiết kế giao diện người dùng
+A. Các phiên bản của dự án được lưu tập trung trên máy server
 
-D. Kiểm tra hiệu suất ứng dụng
+**B. Các máy client sẽ chứa tất cả các phiên bản của thư mục dự án
+cùng với lịch sử thay đổi** 
 
-Câu 6.7: Nodemon trong Node.js được sử dụng để làm gì?
+C. Máy client không thể tải phiên bản của dự án về, khi máy server
+không hoạt động
 
-A. Kết nối với cơ sở dữ liệu
+D. Hỗ trợ làm việc cộng tác nhiều người
 
-B. Tạo giao diện người dùng cho ứng dụng
+Câu 1.3 Các đặc điểm của hệ thống quản lý phiên bản phân tán. Phát
+biểu nào không đúng?
 
-C. Quản lý các gói phụ thuộc
+A. Các máy client sẽ chứa toàn bộ các phiên bản của dự án, cùng
+lịch sử thay đổi
 
-D. Tự động khởi động lại server khi mã thay đổi
+B. Hỗ trợ làm việc cộng tác nhiều người
 
-7. Lập trình bất đồng bộ
+C. Các phiên bản của dự án được lưu trên máy server
 
-Câu 7.2: Lập trình đồng bộ trong JavaScript là gì? Phát biểu nào sau đây không đúng?
-
-A. Lập trình đồng bộ không chặn luồng, cho phép các lệnh tiếp theo chạy ngay cả khi tác vụ chưa hoàn tất.
-
-B. Các lệnh được thực thi tuần tự, theo thứ tự từ trên xuống dưới.
-
-C. Mỗi lệnh phải hoàn thành trước khi lệnh tiếp theo được thực thi.
-
-D. Phù hợp với các tác vụ đơn giản như tính toán cơ bản không cần chờ đợi.
-
-Câu 7.3: Callback hell trong JavaScript là gì? Phát biểu nào sau đây không đúng?
-
-A. Callback hell xảy ra khi có quá nhiều hàm callback lồng nhau, khiến mã nguồn khó đọc và bảo trì.
-
-B. Callback hell thường xuất hiện khi xử lý các tác vụ bất đồng bộ phức tạp.
-
-C. Callback hell là một cách hiệu quả để quản lý các tác vụ bất đồng bộ trong JavaScript.
-
-D. Callback hell có thể được giải quyết bằng Promise hoặc async/await.
-
+**D. Bạn không thể tạo và lưu phiên bản khi không có kết nối mạng
+tới máy server**
 ## Chương 4: Kiến thức thêm
 ### 4.1 Cách để biết ngôn ngữ mà phía server sử dụng của 1 website
+### 4.2 Phân tích quá trình xử lý của web server (Quan trọng)
+![image](md_assets/webserver.png)
+
+[1] nhận request
+
+[2] phân tích request, gửi tới ứng dụng web để xử lý
+
+[3] đọc dữ liệu từ cơ sở dữ liệu
+
+[4] đổ dữ liệu vào trang HTML (các template HTML)
+
+[5] gửi trang HTML (đã bao gồm dữ liệu) (response) về trình duyệt người dùng
+
+[6] trình duyệt người dùng hiển thị nội dung response
+
+[7] trình duyệt gửi riêng một request khác để lấy các nội dung tĩnh của ứng dụng web (HTML, CSS, JavaScript, hình ảnh, và các tài nguyên khác)
+### 4.3 Chu trình học tập Kolb
 
