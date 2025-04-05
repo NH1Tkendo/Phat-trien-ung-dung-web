@@ -14,7 +14,12 @@
   * Trang web có thể được dùng để: cung cấp thông tin, bán hàng, chia sẻ ý kiến, kết nối mọi người, giáo dục, quản lý, giải trí
 * **Website:** Website là một tập hợp nhiều trang web có liên quan đến nhau, có một địa chỉ URL duy nhất
 ![image](md_assets/website.png)
-
+* **Ứng dụng web (web application hay web app):** là một loại ứng dụng mà người dùng có thể truy cập và sử dụng thông qua Internet hoặc mạng nội bộ (hoặc trên máy cục bộ) bằng trình 
+  duyệt web. Ví dụ: Google Drive
+  * Một số đặc điểm:
+      * Mã nguồn của ứng dụng web được để trên máy server, giao diện ứng dụng web được hiển thị trên trình duyệt
+      * Ứng dụng web hoạt động dựa trên mô hình client-server
+      * Không có sự phân biệt rõ ràng giữa website và ứng dụng web
 ## Chương 2: Git thực hành
 ## Chương 3: Trắc nghiệm
 Câu 1.3: Phát biểu nào không đúng khi nói về web, trang web và website?
