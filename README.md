@@ -205,7 +205,7 @@ Dùng NPM để tạo ra file package.json (sử dụng terminal của vs code c
   cho tất cả các câu hỏi này và tạo ngay tập tin package.json mà không yêu cầu sự can thiệp của bạn.
 #### 1.5.2 Cài đặt PNPM, Express, Web server, Nodemon
 * Cài đặt PNPM(Performant Node Package Manager):
-  Gõ lệnh: npm install -g pnpm@latest-10
+  Gõ lệnh: ```npm install -g pnpm@latest-10```
   - npm install: lệnh của npm, dùng để cài đặt các gói, thư viện, công cụ
   
   - g: tham số global (cài đặt ở phạm vi toàn cục)
@@ -214,7 +214,7 @@ Dùng NPM để tạo ra file package.json (sử dụng terminal của vs code c
     
   - @latest-10: phiên bản mới nhất của bản 10-x
 * Cài đặt Express:
-  Gõ lệnh trong terminal của vscode:
+  Gõ lệnh trong terminal của vscode: ```pnpm i -s express```
   - i có nghĩa là cài đặt (install)
     
   - s là viết tắt của --save, với tùy chọn này, thông tin của Express sẽ được thêm vào phần dependencies trong package.json, thư viện Express sẽ được lưu trong thư mục node_modules của 
@@ -226,30 +226,36 @@ Dùng NPM để tạo ra file package.json (sử dụng terminal của vs code c
 * Tạo file index.js và khai báo như sau để tạo web server:
 ```
 'use strict'
-
 const express = require('express')
-
 const app = express();
-
 const port =
 process.env.PORT || 9000
-
 // xu ly khi nguoi dung gui request toi web server
-
 app.get("/", (req, res) => {
-
     res.send('Chao ban den voi TeoShop!!');
-
 })
-
 // khoi dong web server
-
 app.listen(port, () => {
-
     console.log(`server dang chay tren cong ${port}`);
-
 })
 ```
+Sau đó sử dụng lệnh node index.js để khởi chạy web server, để tắt web server, chuyển dấu nhắc chuột vào cửa sổ dòng lệnh, dùng tổ hợp phím Ctrl + C.
+* Cài đặt Nodemon:
+Trong quá trình làm việc với web server, mỗi lần thay đổi mã nguồn của tập tin (index.js), chúng ta đều phải tắt web server (Ctrl + C), và chạy lại. Mục đích để web server cập nhật lại mã nguồn. Điều này khá bất tiện.
+
+Sử dụng câu lệnh để cài đặt: ```npm install --g nodemon```
+
+Vào terminal gõ: ```nodemon``` (Thay vì dùng lệnh node index.js thì gõ nodemon mỗi lần chạy web server)
+### 1.5.3 Thông tin thêm
+* Vậy package.json và node_modules khác nhau như nào?
+  * package.json là một file mô tả dự án với mục đích chính là lưu thông tin về project, thư viện và ứng dụng
+  * node_modules là một thư mục chứa code thư viện (Nơi chứa mã nguồn của các package đã cài qua npm)
+* Làm sao biết được một gói cài đặt ở chế độ cục bộ (locally) hay toàn cục (globally)? Khi cài đặt các gói (package) ở chế độ cục bộ và toàn cục (globally) thì các gói sẽ được lưu ở 
+  đâu?
+  * Làm sao biết được một gói cài đặt ở chế độ cục bộ (locally) hay toàn cục (globally): Trong câu lệnh cài đặt có quy ước -g (Cài đặt global) còn nếu không có thì mặc định là local
+  * Khi cài đặt các gói (package) ở chế độ cục bộ và toàn cục (globally) thì các gói sẽ được lưu ở đâu: Cài đặt cục bộ thì sẽ lưu trong node_modules còn cài đặt toàn cục thì lưu trong     thư mục golbal của npm
+### 1.6 Local và Global, Dependencies và devDependencies
+#### 1.7 Local và Global
 ## Chương 2: Git thực hành
 ### 2.1 Hệ thống quản lý phiên bản
 * **Phiên bản(version):** là các bản khác nhau của tập tin, thư mục hoặc toàn bộ mã nguồn dự án (từ đây gọi chung là dự án để tiện trình bày)
@@ -499,6 +505,46 @@ B. NPM là công cụ để quản lý các thư viện dùng trong một ứng 
 C. NPM được cài đặt mặc định khi cài đặt Nodejs
 
 **D. NPM gồm 3 thành phần: website, GUI và registry**
+
+Câu 6.4 Trong ứng dụng chạy trên nền Nodejs, tập tin package.json dùng để làm gì? Phát biểu nào không đúng?
+
+A. Chứa thông tin mô tả về ứng dụng
+
+B. Quản lý các phụ thuộc
+
+C. Chỉ ra tập tin JavaScript đầu tiên được thực thi
+
+**D. Chứa mã để tạo giao diện ứng dụng**
+
+Câu 6.5 PNPM là gì? Phát biểu nào không đúng?
+
+A. Giúp tiết kiệm dung lượng đĩa
+
+B. Có thể thay thế hoặc bổ sung cho NPM
+
+C. Là viết tắt của Performant Node Package Manager 
+
+**D. Không thể thay thế hoặc bổ sung cho NPM**
+
+Câu 6.6 Express trong Node.js được sử dụng để làm gì?
+
+**A. Tạo ứng dụng web và API**
+
+B. Quản lý cơ sở dữ liệu
+
+C. Thiết kế giao diện người dùng
+
+D. Kiểm tra hiệu suất ứng dụng
+
+Câu 6.7 Nodemon trong Node.js được sử dụng để làm gì?
+
+A. Kết nối với cơ sở dữ liệu
+
+B. Tạo giao diện người dùng cho ứng dụng
+
+C. Quản lý các gói phụ thuộc
+
+**D. Tự động khởi động lại server khi mã thay đổi**
 ## Chương 4: Kiến thức thêm
 ### 4.1 Cách để biết ngôn ngữ mà phía server sử dụng của 1 website
 ### 4.2 Phân tích quá trình xử lý của web server (Quan trọng)
