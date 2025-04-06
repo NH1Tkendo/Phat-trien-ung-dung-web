@@ -184,6 +184,39 @@ NPM gồm 3 thành phần
 - Công cụ dòng lệnh (Command Line Interface - CLI): lập trình viên sử dụng công cụ này để tương tác với npm, để cài đặt, sử dụng và quản lý các thư viện
 
 - Registry: là kho lưu trữ các thư viện
+### 1.5 Cấu hình web server trong NodeJS
+#### 1.5.1 Package.json
+Trong một ứng dụng viết trên Nodejs, tập tin package.json cũng đóng vai trò như một cuốn sổ tay, là “sổ tay ứng dụng”, cũng có thể gọi là “hồ sơ ứng dụng” (manifest)
+Tập tin package.json chứa thông tin sau:
+  - Thông tin mô tả về ứng dụng
+
+  - Quản lý các phụ thuộc (quản lý các thư viện sử dụng trong ứng dụng)
+
+  - Các lệnh chạy (scripts), định nghĩa ngắn gọn các lệnh để điều khiển ứng dụng
+
+  - Đầu vào (entry point, main) của dự án, cho biết tập tin đầu tiên được triệu gọi
+
+Dùng NPM để tạo ra file package.json (sử dụng terminal của vs code cho tiện)
+  * B1: Mở terminal của vscode và trỏ tới thư mục dự án
+  * B2: Chạy lệnh npm init -y (Nếu có kết quả như ảnh thì là đúng)
+![image](md_assets/package_success.png)
+* Lệnh npm init -y: được sử dụng để khởi tạo một dự án Node.js mới với file package.json mà không cần phải trả lời các câu hỏi cấu hình thủ công. Nếu không có tham số -y thì sẽ hiện một 
+  loạt các câu hỏi về thông tin dự án (như tên dự án, phiên bản, mô tả, tác giả...). Tùy chọn -y là viết tắt của yes, khi có tùy chọn này thì npm sẽ tự động điền các giá trị mặc định 
+  cho tất cả các câu hỏi này và tạo ngay tập tin package.json mà không yêu cầu sự can thiệp của bạn.
+#### 1.5.2 Cài đặt PNPM, Express, Web server, Nodemon
+* Cài đặt PNPM(Performant Node Package Manager):
+  Gõ lệnh: npm install -g pnpm@latest-10
+  - npm install: lệnh của npm, dùng để cài đặt các gói, thư viện, công cụ
+  - g: tham số global (cài đặt ở phạm vi toàn cục)
+  - pnpm: tên công cụ cần cài đặt
+  - @latest-10: phiên bản mới nhất của bản 10-x
+* Cài đặt Express:
+  Gõ lệnh trong terminal của vscode:
+  - i có nghĩa là cài đặt (install)
+  - s là viết tắt của --save, với tùy chọn này, thông tin của Express sẽ được thêm vào phần dependencies trong package.json, thư viện Express sẽ được lưu trong thư mục node_modules của 
+  dự án.
+  - Sau khi cài được Express, mở tập tin package.json, sẽ thấy thông tin của Express được lưu trong phần dependencies.
+![image](md_assets/express.png)
 ## Chương 2: Git thực hành
 ### 2.1 Hệ thống quản lý phiên bản
 * **Phiên bản(version):** là các bản khác nhau của tập tin, thư mục hoặc toàn bộ mã nguồn dự án (từ đây gọi chung là dự án để tiện trình bày)
@@ -191,19 +224,13 @@ NPM gồm 3 thành phần
   cần.
   * Các chức năng chính:
     - Khôi phục lại trạng thái của dự án ở các thời điểm khác nhau trong quá khứ
-
     - Biết được ai đã thực hiện các thay đổi trên dự án, và đã thay đổi những gì
-
     - Dễ dàng khôi phục lại các nội dung mã nguồn bị xóa 
-
     - Dễ dàng so sánh những thay đổi của dự án theo các mốc thời gian
   * Phân loại:
     - Hệ thống quản lý phiên bản cục bộ
-
     - Hệ thống quản lý phiên bản tập trung
-
     - Hệ thống quản lý phiên bản phân tán
-
 #### 2.1.1 Hệ thống quản lý phiên bản cục bộ
 phương pháp tự lưu trữ các phiên bản của thư mục dự án ở các thời điểm khác nhau trong quá trình làm việc thành các tên khác nhau. 
 
