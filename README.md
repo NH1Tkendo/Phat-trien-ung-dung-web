@@ -717,4 +717,4 @@ Dưới đây là cách để bạn thực hiện điều đó:
 
   Các ứng dụng như FaceBook, Instagram... đều bắt đầu theo cách này
   
-**Tóm lại, cách tốt nhất để xây dựng dự án là lược bỏ những bước không cần thiết, tập trung vào những gì quan trọng và cải tiến sau **
+  ** Tóm lại, cách tốt nhất để xây dựng dự án là lược bỏ những bước không cần thiết, tập trung vào những gì quan trọng và cải tiến sau **
