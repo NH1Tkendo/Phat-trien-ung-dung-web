@@ -155,6 +155,35 @@ Nginx là phần mềm web server mã nguồn mở
 - nginx -s reload: thay đổi cấu hình, khởi chạy lại worker process với cấu hình mới
 
 - nginx -s reopen: mở lại các tập tin log
+### 1.4 NodeJS và NPM
+#### 1.4.1 NodeJS là gì?
+Nodejs là một môi trường để chạy mã nguồn JavaScript đa nền tảng, mã nguồn mở, miễn phí. Bạn có thể dùng Nodejs để tạo server (web server), ứng dụng web, các công cụ dòng lệnh và các ứng dụng khác.
+
+Là một lập trình viên, bạn sẽ lập trình một ứng dụng bằng ngôn ngữ JavaScript thuần hoặc dùng một JavaScript framework (ví dụ Express), sau đó chuyển mã nguồn cho Nodejs dịch mã, thực thi chương trình, xuất kết quả
+
+![image](md_assets/node.png)
+#### 1.4.2 Các thành phần của NodeJS
+![image](md_assets/cac thanh phan cua node.png)
+
+- V8 để dịch và thực thi mã JavaScript
+
+- HTTP module để tạo web server (hay còn gọi là HTTP server)
+
+- Chương trình để quản lý gói và các thư viện có tên là NPM
+
+- Các module, thư viện để lập trình ứng dụng web
+#### 1.4.3 NPM
+Vì số lượng các thư viện cần tải trong quá trình phát triển web là rất nhiều nên không thể quản lý thủ công mà cần tới phần mềm để quản lý. NPM chính là công cụ để quản lý các thư viện mà chúng ta sử dụng khi làm ứng dụng web.
+
+NPM (Node Package Manager) là công cụ đi kèm với Nodejs, được sử dụng để quản lý các thư viện dùng trong ứng dụng web.
+
+NPM gồm 3 thành phần
+
+- Website: địa chỉ là https://www.npmjs.com/, bạn vào trang này để tìm kiếm các gói thư viện cần dùng
+
+- Công cụ dòng lệnh (Command Line Interface - CLI): lập trình viên sử dụng công cụ này để tương tác với npm, để cài đặt, sử dụng và quản lý các thư viện
+
+- Registry: là kho lưu trữ các thư viện
 ## Chương 2: Git thực hành
 ### 2.1 Hệ thống quản lý phiên bản
 * **Phiên bản(version):** là các bản khác nhau của tập tin, thư mục hoặc toàn bộ mã nguồn dự án (từ đây gọi chung là dự án để tiện trình bày)
@@ -390,6 +419,26 @@ C. Các phiên bản của dự án được lưu trên máy server
 
 **D. Bạn không thể tạo và lưu phiên bản khi không có kết nối mạng
 tới máy server**
+
+Câu 5.2 Nodejs là gì? Phát biểu nào không đúng?
+
+A. Nodejs là môi trường phát triển ứng dụng
+
+**B. Nodejs là một ngôn ngữ lập trình**
+
+C. Nodejs là nền tảng phát triển ứng dụng
+
+D. Có thể sử dụng Nodejs để tạo web server
+
+Câu 5.3 NPM là gì? Phát biểu nào không đúng?
+
+A. NPM là viết tắt của Node Package Manager
+
+B. NPM là công cụ để quản lý các thư viện dùng trong một ứng dụng chạy trên nền Nodejs
+
+C. NPM được cài đặt mặc định khi cài đặt Nodejs
+
+**D. NPM gồm 3 thành phần: website, GUI và registry**
 ## Chương 4: Kiến thức thêm
 ### 4.1 Cách để biết ngôn ngữ mà phía server sử dụng của 1 website
 ### 4.2 Phân tích quá trình xử lý của web server (Quan trọng)
