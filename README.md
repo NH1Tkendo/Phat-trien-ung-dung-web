@@ -207,16 +207,49 @@ Dùng NPM để tạo ra file package.json (sử dụng terminal của vs code c
 * Cài đặt PNPM(Performant Node Package Manager):
   Gõ lệnh: npm install -g pnpm@latest-10
   - npm install: lệnh của npm, dùng để cài đặt các gói, thư viện, công cụ
+  
   - g: tham số global (cài đặt ở phạm vi toàn cục)
+    
   - pnpm: tên công cụ cần cài đặt
+    
   - @latest-10: phiên bản mới nhất của bản 10-x
 * Cài đặt Express:
   Gõ lệnh trong terminal của vscode:
   - i có nghĩa là cài đặt (install)
+    
   - s là viết tắt của --save, với tùy chọn này, thông tin của Express sẽ được thêm vào phần dependencies trong package.json, thư viện Express sẽ được lưu trong thư mục node_modules của 
   dự án.
-  - Sau khi cài được Express, mở tập tin package.json, sẽ thấy thông tin của Express được lưu trong phần dependencies.
+
+  - Sau khi cài được Express, mở tập tin package.json, sẽ thấy thông tin của Express được lưu trong phần dependencies. Trong thư mục dự án cũng xuất hiện thêm thư mục 
+  node_modules. Thư mục node_modules này dùng để lưu trữ các gói mà dự án sẽ sử dụng. Như vậy, Express cũng được lưu trong node_modules.
 ![image](md_assets/express.png)
+* Tạo file index.js và khai báo như sau để tạo web server:
+```
+'use strict'
+
+const express = require('express')
+
+const app = express();
+
+const port =
+process.env.PORT || 9000
+
+// xu ly khi nguoi dung gui request toi web server
+
+app.get("/", (req, res) => {
+
+    res.send('Chao ban den voi TeoShop!!');
+
+})
+
+// khoi dong web server
+
+app.listen(port, () => {
+
+    console.log(`server dang chay tren cong ${port}`);
+
+})
+```
 ## Chương 2: Git thực hành
 ### 2.1 Hệ thống quản lý phiên bản
 * **Phiên bản(version):** là các bản khác nhau của tập tin, thư mục hoặc toàn bộ mã nguồn dự án (từ đây gọi chung là dự án để tiện trình bày)
