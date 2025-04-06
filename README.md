@@ -255,7 +255,68 @@ Vào terminal gõ: ```nodemon``` (Thay vì dùng lệnh node index.js thì gõ n
   * Làm sao biết được một gói cài đặt ở chế độ cục bộ (locally) hay toàn cục (globally): Trong câu lệnh cài đặt có quy ước -g (Cài đặt global) còn nếu không có thì mặc định là local
   * Khi cài đặt các gói (package) ở chế độ cục bộ và toàn cục (globally) thì các gói sẽ được lưu ở đâu: Cài đặt cục bộ thì sẽ lưu trong node_modules còn cài đặt toàn cục thì lưu trong     thư mục golbal của npm
 ### 1.6 Local và Global, Dependencies và devDependencies
-#### 1.7 Local và Global
+#### 1.6.1 Local và Global
+* Cài đặt gói kiểu cục bộ
+  Sử dụng cú pháp '''npm install <package_name>'''
+  
+  Sau khi cài đặt xong thì thông tin về gói này sẽ được ghi lại trong tập tin package.json, mục dependencies
+
+  Khi một gói được cài đặt theo kiểu cục bộ, mã nguồn của gói sẽ được lưu trong dự án, tại thư mục node_modules.
+* Gỡ bỏ một gói cục bộ
+  Dùng lệnh ```npm uninstall <package_name>``` để gỡ cài đặt 1 gói cục bộ
+
+  Sau khi gỡ bỏ gói, mục dependencies trong package.json cũng được cập nhật lại.
+* Cài đặt một gói kiểu toàn cục (global)
+  Dùng lệnh ```npm install <package_name> -g``` -g là viết tắt của global
+* Vị trí lưu trữ gói toàn cục
+  Dùng lệnh ```npm root -g``` để biết được vị trí lưu trữ các gói toàn cục
+
+  Dùng lệnh ```npm ls -g --depth 0``` để xem được các gói toàn cục đã cài đặt
+  - npm ls: để liệt kê các gói đã được cài đặt trên máy, ls là viết tắt của list
+
+  - -g là cờ báo, để chỉ hiển thị các gói kiểu toàn cục (global)
+
+  -  --depth 0: chỉ hiển thị các gói toàn cục cấp cao nhất
+  (top-level), không hiển thị các gói là con-cháu (sub-dependencies) của gói cấp cao nhất
+* Nên cài đặt gói theo kiểu cục bộ hay toàn cục
+  * Các trường hợp nên cài gói cục bộ:
+  - Khi gói chỉ cần thiết cho một dự án cụ thể và không cần sử dụng ở phạm vi rộng hơn
+
+  - Khi bạn muốn các phụ thuộc (dependencies) của dự án được quản lý chặt chẽ trong tập tin package.json, giúp dễ dàng tái tạo môi trường phát triển ở máy khác (ví dụ: khi chia sẻ mã       nguồn hoặc triển khai)
+  
+  - Khi gói là một phần của ứng dụng hoặc thư viện mà bạn đang phát triển (ví dụ: express)
+  * Các trường hợp nên cài gói toàn cục:
+  - Khi gói là công cụ dòng lệnh (CLI) hoặc tiện ích mà bạn muốn sử dụng ở bất kỳ đâu trong hệ thống, không phụ thuộc vào dự án cụ thể (ví dụ: nodemon)
+
+  - Khi bạn cần chạy gói như một lệnh độc lập từ cửa sổ dòng lệnh mà không cần viết script trong package.json
+
+  * Một số lưu ý
+  * Ưu tiên cài cục bộ khi có thể: ngay cả với các công cụ dòng lệnh như eslint hay prettier, bạn vẫn có thể cài cục bộ và chạy chúng thông qua script trong package.json. Điều này giúp     đảm bảo mọi thành viên trong nhóm hoặc môi trường CI/CD sử dụng cùng phiên bản
+  * Khi nào cần cả hai? Đôi khi bạn muốn cài toàn cục để tiện sử dụng cá nhân, nhưng vẫn cài cục bộ cho dự án để đảm bảo tính nhất quán
+  * Tránh lạm dụng cài toàn cục: chỉ nên cài toàn cục cho các công cụ thực sự cần thiết ở phạm vi hệ thống. Việc cài quá nhiều gói toàn cục có thể dẫn đến khó quản lý và xung đột phiên    bản.
+#### 1.6.2 Dependencies và devDependencies
+Chỉ có các gói được cài đặt theo kiểu **cục bộ (trong dự án)**, thì mới được cập nhật thông tin trong package.json, trong mục dependencies và devDependencies.
+
+Như vậy, dependencies và devDependencies là hai phần trong tập tin package.json, dùng để quản lý các gói mà dự án của bạn phụ thuộc vào. Sự khác biệt giữa chúng nằm ở mục đích sử dụng và giai đoạn mà chúng được yêu cầu trong vòng đời của dự án
+
+##### a) Các gói nằm trong mục dependencies
+Là các gói cần thiết để ứng dụng của bạn chạy trơn tru trong môi trường sản xuất, triển khai (production). Đây là những phụ thuộc "cốt lõi" mà mã nguồn của bạn trực tiếp sử dụng để hoạt động.
+
+- Là một phần không thể thiếu trong xử lý logic của ứng dụng, ví dụ: framework express, thư viện xử lý HTTP, truy vấn cơ sở dữ liệu
+
+- Khi người khác cài đặt dự án của bạn bằng lệnh npm install, các gói trong dependencies sẽ được tải về, vì chúng cần thiết để chạy ứng dụng
+
+**Cách cài đặt một gói là dependencies**
+Dùng lệnh ```npm install <package-name>```
+##### b) Các gói nằm trong mục devDependencies
+- Là các gói chỉ cần thiết trong quá trình phát triển ứng dụng (development) hoặc kiểm thử (testing), không cần thiết khi ứng dụng chạy ở môi trường sản xuất, triển khai (production)
+
+- Khi gói là công cụ hỗ trợ lập trình viên, như công cụ kiểm tra cú pháp (linter), trình biên dịch (transpiler), framework kiểm thử (testing framework), hoặc công cụ khởi động server trong lúc thử nghiệm (nodemon)
+
+- Khi cài đặt ứng dụng lên môi trường triển khai (production), các gói trong devDependencies sẽ không được cài đặt, giúp giảm dung lượng và tăng hiệu suất
+
+**Cách cài đặt một gói là devDependencies**
+Dùng lệnh ```npm install <package-name> --save-dev```
 ## Chương 2: Git thực hành
 ### 2.1 Hệ thống quản lý phiên bản
 * **Phiên bản(version):** là các bản khác nhau của tập tin, thư mục hoặc toàn bộ mã nguồn dự án (từ đây gọi chung là dự án để tiện trình bày)
@@ -545,6 +606,46 @@ B. Tạo giao diện người dùng cho ứng dụng
 C. Quản lý các gói phụ thuộc
 
 **D. Tự động khởi động lại server khi mã thay đổi**
+
+Câu 7.2 Trong môi trường phát triển ứng dụng Nodejs, phát biểu nào không đúng khi nói về gói cục bộ?
+
+A. Gói cục bộ được cài đặt trong thư mục node_modules của dự án
+
+B. Gói cục bộ chỉ có thể được sử dụng trong dự án mà nó được cài đặt
+
+C. Gói cục bộ được quản lý thông qua file package.json và có thể sử dụng các phiên bản khác nhau giữa các dự án
+
+**D. Gói cục bộ luôn được cài đặt toàn cục trên hệ thống để tất cả các dự án đều có thể truy cập**
+
+Câu 7.3 Trong môi trường phát triển ứng dụng Nodejs, phát biểu nào không đúng khi nói về gói toàn cục?
+
+**A. Gói toàn cục luôn được liệt kê trong tập tin package.json của dự án**
+
+B. Gói toàn cục thường được sử dụng cho các công cụ dòng lệnh (CLI) như nodemon
+
+C. Gói toàn cục được lưu trong thư mục toàn cục của hệ thống và có thể truy cập từ bất kỳ dự án nào
+
+D. Gói toàn cục được cài đặt bằng lệnh npm install -g <package-name>
+
+Câu 7.4 Trong môi trường phát triển ứng dụng Nodejs, phát biểu nào không đúng khi nói về kiểu cài đặt dependencies?
+
+A. Các gói trong dependencies được cài đặt cục bộ trong dự án bằng lệnh npm install <package-name>
+
+B. Các gói trong dependencies là các phụ thuộc cần thiết để ứng dụng chạy trong môi trường triển khai, sản xuất (production)
+
+**C. Các gói trong dependencies chỉ được sử dụng trong giai đoạn phát triển và không cần thiết khi triển khai ứng dụng (production)**
+
+D. Các gói trong dependencies được liệt kê trong tập tin package.json và tự động cài đặt khi chạy npm install
+
+Câu 7.5 Trong môi trường phát triển ứng dụng Nodejs, phát biểu nào không đúng khi nói về kiểu cài đặt devDependencies?
+
+A. Các gói trong devDependencies được cài đặt bằng lệnh npm install <package-name> --save-dev
+
+**B. Các gói trong devDependencies là các phụ thuộc cốt lỗi để ứng dụng chạy trong môi trường triển khai (production)**
+
+C. Các gói trong devDependencies chỉ cần thiết trong giai đoạn phát triển hoặc kiểm thử, không cần cho môi trường triển khai (production)
+
+D. Các gói trong devDependencies không được cài đặt khi chạy npm install --production
 ## Chương 4: Kiến thức thêm
 ### 4.1 Cách để biết ngôn ngữ mà phía server sử dụng của 1 website
 ### 4.2 Phân tích quá trình xử lý của web server (Quan trọng)
@@ -565,4 +666,55 @@ C. Quản lý các gói phụ thuộc
 [7] trình duyệt gửi riêng một request khác để lấy các nội dung tĩnh của ứng dụng web (HTML, CSS, JavaScript, hình ảnh, và các tài nguyên khác)
 ### 4.3 Chu trình học tập Kolb
 ### 4.4 Code một dự án trong 1 tiếng ?
+Code 1 dự án trong 1 tiếng, nghe thật điên rồ đúng không ? Nhưng nhiều người đang lãng phí cả tuần bởi vì họ làm mọi thứ trở nên quá phức tạp. 
 
+Họ dành nhiều thời gian để
+* Thiết lập các công cụ
+* Viết các đoạn mã hoàn hảo
+* Sửa các tiểu tiết **không quan trọng**
+
+Nhưng nếu bạn tập trung vào nhưng thứ thật sự quan trọng thì bạn có thể hoàn thành công việc nhanh hơn bạn nghĩ
+Dưới đây là cách để bạn thực hiện điều đó:
+* **Bỏ qua giai đoạn setup**
+  Nhiều người dành hơn 30 phút để: cài đặt các framework, triển khai database...
+
+  Nhưng bạn thật sự không cần những điều đó vào lúc bắt đầu. Thay vì cài đặt thủ công tất cả mọi thứ thì bạn nên dùng các mẫu có sẵn (templates), các đoạn mã có sẵn ...
+
+  Những thứ này giúp bạn tiết kiệm thời gian và nhảy thẳng vào những việc quan trọng
+  * Bạn cần một trang web ? Dùng mẫu có sẵn với phong cách và thiết kế đơn giản
+  * Bạn đang xây dựng một API ? Dùng một framework xử lý khâu routing và authentication cho bạn
+  * Bạn cần một cơ sở dữ lieuj ? Cứ dùng một file JSON hoặc sang hơn là Firebase thay vì thiết lập MySQL từ con số 0
+* **"Chôm" cấu trúc có sẵn**
+  Thay vì tự mình nghĩ ra mọi thứ thì cứ lấy đại cái cấu trúc ở đâu đó về đi, cứ search Google là "Best folder structure for [dự án của bạn]" và chọn một cái mà bạn ưng ý
+
+  Điều này làm mã của bạn dễ đọc, định hướng hơn
+* **Code trâu trước, Fix sau**
+  Nhiều người hay mắc lỗi là muốn làm mọi thứ "sống động", có khả năng tái sử dụng và linh hoạt nhất có thể
+
+  Thay vì thế thì bạn hãy code thẳng luôn:
+  * Bạn cần dữ liệu (data) ? Viết thẳng trong code luôn thay vì setup một cái database hẳn hoi
+  * Bạn cần một cái nút ? Cứ làm cho nó hoạt động được là tốt rồi, không cần phải có hiệu ứng hay màu sắc lòe loẹt gì hết
+  * Bạn cần xác thực người dùng ? Dùng đoạn mã đơn giản để kiểm tra trước khi đưa OAuth và hay gì đó
+
+  Một khi bạn đã hoàn thành được dự án thì hãy quay lại và cải tiển sau
+
+  **Chìa khóa ở đây là làm cho nó hoạt động trước rồi cải tiến nó sau**
+* **Dùng AI, nhưng đừng hoàn toàn tin nó**
+  AI có thể code nhanh nhưng đôi khi chúng có thể sai
+
+  Thay vào đó thì hãy dùng AI một cách thông minh:
+  * Để AI xử lý các đoạn code lặp lại
+  * Dùng AI cho ác đoạn mã có logic đơn giản, nhưng luôn kiểm tra chúng trước khi dùng
+  * **KHÔNG** để AI viết các đoạn mã phức tạp, chúng sẽ phạm lỗi khiến dự án của bạn bị "nát"
+  * **KHÔNG** để AI viết quá nhiều chức năng cùng lúc, chúng có thể xóa các chức năng trước đó bạn đã làm
+* **Tạo ra con vịt, cải tiến thành thiên nga**
+  Nhiều người không thể hoàn thành dự án của họ vì họ muốn nó phải hoàn hảo trước khi ra mắt
+
+  Một dự án đơn giản, hoàn thiện luôn tốt hơn dự án không bao giờ hoàn thành được
+  * Nếu UI của bạn xấu, không ai quan tâm đâu, để sau rồi hẳn sửa
+  * Nếu code của bạn không hoàn hảo, sửa nó sau khi hoàn thành dự án
+  * Nếu dự án của bạn thiếu tính năng, cập nhật sau
+
+  Các ứng dụng như FaceBook, Instagram... đều bắt đầu theo cách này
+  
+**Tóm lại, cách tốt nhất để xây dựng dự án là lược bỏ những bước không cần thiết, tập trung vào những gì quan trọng và cải tiến sau **
