@@ -317,6 +317,12 @@ Dùng lệnh ```npm install <package-name>```
 
 **Cách cài đặt một gói là devDependencies**
 Dùng lệnh ```npm install <package-name> --save-dev```
+### 1.7 Một số chủ đề JavaScript
+#### 1.7.1 Lập trình đồng bộ trong JavaScript
+Lập trình đồng bộ (synchronous programming) là kỹ thuật lập trình mà các lệnh (statements) được thực thi tuần tự, theo thứ tự từ trên xuống dưới. Mỗi lệnh phải hoàn thành trước khi lệnh tiếp theo được thực thi
+
+* Đặc điểm:
+  
 ## Chương 2: Git thực hành
 ### 2.1 Hệ thống quản lý phiên bản
 * **Phiên bản(version):** là các bản khác nhau của tập tin, thư mục hoặc toàn bộ mã nguồn dự án (từ đây gọi chung là dự án để tiện trình bày)
