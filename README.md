@@ -381,7 +381,12 @@ Hàm mũi tên là một tính năng quan trọng được giới thiệu trong 
 
   - Nhiều tham số: (x, y) => { ... }
 * Ví dụ: **Trong file hammuiten.js**
-#### 1.7.4
+* Từ khóa this trong hàm mũi tên
+  
+#### 1.7.4 Lập trình bất đồng bộ
+Trong JavaScript, lập trình bất đồng bộ (asynchronous programming) là một mô hình lập trình cho phép chương trình thực hiện nhiều tác vụ cùng lúc mà không cần chờ đợi tác vụ trước đó hoàn thành. Điều này đặc biệt hữu ích khi xử lý các tác vụ tốn thời gian như yêu cầu xử lý qua mạng (gọi API, giao tiếp client-server), đọc/ghi tập tin hoặc tương tác với cơ sở dữ liệu
+
+
 ## Chương 2: Git thực hành
 ### 2.1 Hệ thống quản lý phiên bản
 * **Phiên bản(version):** là các bản khác nhau của tập tin, thư mục hoặc toàn bộ mã nguồn dự án (từ đây gọi chung là dự án để tiện trình bày)
@@ -731,6 +736,26 @@ B. Hàm ẩn danh là hàm không có tên khi được định nghĩa.
 C. Hàm ẩn danh thường được gán vào biến hoặc truyền làm tham số cho hàm khác.
 
 **D. Hàm ẩn danh được "nâng lên" (hoisted) giống như hàm khai báo (function declaration).**
+
+Câu 9.2: Hàm mũi tên (arrow function) là gì? Phát biểu nào sau đây không đúng về hàm mũi tên?
+
+A. Hàm mũi tên có cú pháp ngắn gọn, giúp viết mã dễ đọc hơn.
+
+**B. Hàm mũi tên có this (ngữ cảnh) riêng, không kế thừa từ phạm vi bên ngoài.**
+
+C. Hàm mũi tên không thể được dùng làm hàm tạo (constructor).
+
+D. Hàm mũi tên không có biến arguments để truy cập danh sách tham số.
+
+Câu 9.3: Lập trình bất đồng bộ là gì? Phát biểu nào sau đây không đúng về lập trình bất đồng bộ?
+
+A. Lập trình bất đồng bộ cho phép chương trình thực hiện nhiều tác vụ cùng lúc mà không cần chờ đợi tác vụ trước đó hoàn thành.
+
+B. Lập trình bất đồng bộ đặc biệt hữu ích khi xử lý các tác vụ tốn thời gian như yêu cầu mạng, đọc/ghi tập tin hoặc tương tác với cơ sở dữ liệu.
+
+**C. Callback là một kỹ thuật bất đồng bộ, nó sẽ làm cho code dễ đọc và dễ bảo trì hơn khi code có nhiều callback lồng nhau.**
+
+D. Async/await cho phép viết mã bất đồng bộ trông giống như mã đồng bộ, giúp mã trở nên dễ đọc và dễ hiểu hơn
 ## Chương 4: Kiến thức thêm
 ### 4.1 Cách để biết ngôn ngữ mà phía server sử dụng của 1 website
 ### 4.2 Phân tích quá trình xử lý của web server (Quan trọng)
