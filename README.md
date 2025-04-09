@@ -360,6 +360,28 @@ Hàm ẩn danh (anonymous function) là một hàm không có tên (không đư�
   }
   ```
 * Ví dụ: **nằm trong file dongbo.js**
+* Hạn chế:
+  - Khó gỡ lỗi (debug); vì không có tên, việc xác định lỗi trong stack trace có thể khó khăn hơn.
+  - Không tái sử dụng được: nếu cần dùng lại, bạn phải gán nó cho một biến hoặc đặt tên
+#### 1.7.3 Hàm mũi tên
+Hàm mũi tên là một tính năng quan trọng được giới thiệu trong ES6 (ECMAScript 2015). Đây là cách viết hàm ngắn gọn và hiện đại trong JavaScript, thường được dùng trong lập trình bất đồng bộ và các tình huống khác.
+
+* Đặc điểm:
+  - Cú pháp ngắn gọn: do loại bỏ từ khóa function, dấu {} và lệnh return trong một số trường hợp
+
+  - Không có this (ngữ cảnh) riêng: this trong hàm mũi tên được kế thừa từ phạm vi bên ngoài (lexical scoping), không bị ràng buộc (bound) như hàm thông thường
+
+  - Không có arguments: không tự động tạo biến arguments để truy cập danh sách tham số
+
+  - Không thể dùng làm hàm tạo (constructor): không thể gọi với từ khóa new để tạo đối tượng
+* Cú pháp:
+  - Không tham số: () => { ... }
+
+  - Một tham số: x => { ... } (không cần dấu ngoặc cho một tham số)
+
+  - Nhiều tham số: (x, y) => { ... }
+* Ví dụ: **Trong file hammuiten.js**
+#### 1.7.4
 ## Chương 2: Git thực hành
 ### 2.1 Hệ thống quản lý phiên bản
 * **Phiên bản(version):** là các bản khác nhau của tập tin, thư mục hoặc toàn bộ mã nguồn dự án (từ đây gọi chung là dự án để tiện trình bày)
@@ -689,6 +711,26 @@ A. Các gói trong devDependencies được cài đặt bằng lệnh npm instal
 C. Các gói trong devDependencies chỉ cần thiết trong giai đoạn phát triển hoặc kiểm thử, không cần cho môi trường triển khai (production)
 
 D. Các gói trong devDependencies không được cài đặt khi chạy npm install --production
+
+Câu 8.2: Lập trình đồng bộ trong JavaScript là gì? Phát biểu nào sau đây không đúng?
+
+**A. Lập trình đồng bộ không chặn luồng, cho phép các lệnh tiếp theo chạy ngay cả khi tác vụ chưa hoàn tất.**
+
+B. Các lệnh được thực thi tuần tự, theo thứ tự từ trên xuống dưới.
+
+C. Mỗi lệnh phải hoàn thành trước khi lệnh tiếp theo được thực thi.
+
+D. Phù hợp với các tác vụ đơn giản như tính toán cơ bản không cần chờ đợi.
+
+Câu 8.3: Hàm ẩn danh (anonymous function) trong JavaScript là gì? Phát biểu nào sau đây không đúng?
+
+A. Hàm ẩn danh có thể truy cập biến trong phạm vi bao quanh nhờ closure.
+
+B. Hàm ẩn danh là hàm không có tên khi được định nghĩa.
+
+C. Hàm ẩn danh thường được gán vào biến hoặc truyền làm tham số cho hàm khác.
+
+**D. Hàm ẩn danh được "nâng lên" (hoisted) giống như hàm khai báo (function declaration).**
 ## Chương 4: Kiến thức thêm
 ### 4.1 Cách để biết ngôn ngữ mà phía server sử dụng của 1 website
 ### 4.2 Phân tích quá trình xử lý của web server (Quan trọng)
