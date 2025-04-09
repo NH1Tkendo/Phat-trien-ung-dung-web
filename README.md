@@ -327,6 +327,14 @@ Lập trình đồng bộ (synchronous programming) là kỹ thuật lập trìn
   - Chặn luồng (blocking): một lệnh chưa xong thì lệnh tiếp theo không thể chạy
 
   - Phù hợp với tác vụ đơn giản: các tác vụ không cần chờ đợi (như tính toán cơ bản) thường được xử lý đồng bộ
+* Ưu điểm:
+  - Dễ hiểu và dễ debug
+  - Phù hợp với tác vụ nhanh
+* Nhược điểm:
+  - Gây chặn luồng (blocking)
+  - Không hiệu quả cho các tác vụ I/O
+  - Không tận dụng được khả năng xử lý song song
+  - Không thích hợp cho ứng dụng lớn hoặc real time
 #### 1.7.2 Hàm ẩn danh
 Hàm ẩn danh (anonymous function) là một hàm không có tên (không được đặt tên) khi định nghĩa. Thay vì khai báo với từ khóa function đi kèm với tên như hàm thông thường, hàm ẩn danh thường được gán trực tiếp vào biến, truyền làm tham số, hoặc thực thi ngay lập tức mà không cần gọi hàm.
 
@@ -338,6 +346,20 @@ Hàm ẩn danh (anonymous function) là một hàm không có tên (không đư�
   - Phạm vi: có thể truy cập biến trong phạm vi bao quanh (closure)
     
   - Không hoisting: không được "nâng lên" (hoisted) như hàm khai báo (function declaration)
+  * Cú pháp
+    Hàm ẩn danh thông thường
+    ```
+    function() {
+    // thân hàm
+    }
+    ```
+    Hàm ẩn danh kiểu mũi tên
+    ```
+    () => {
+    // thân hàm
+    }
+    ```
+  
 ## Chương 2: Git thực hành
 ### 2.1 Hệ thống quản lý phiên bản
 * **Phiên bản(version):** là các bản khác nhau của tập tin, thư mục hoặc toàn bộ mã nguồn dự án (từ đây gọi chung là dự án để tiện trình bày)
