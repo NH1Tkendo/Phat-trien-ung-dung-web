@@ -346,20 +346,20 @@ Hàm ẩn danh (anonymous function) là một hàm không có tên (không đư�
   - Phạm vi: có thể truy cập biến trong phạm vi bao quanh (closure)
     
   - Không hoisting: không được "nâng lên" (hoisted) như hàm khai báo (function declaration)
-  * Cú pháp
-    Hàm ẩn danh thông thường
-    ```
-    function() {
+* Cú pháp
+  Hàm ẩn danh thông thường
+  ```
+  function() {
     // thân hàm
-    }
-    ```
-    Hàm ẩn danh kiểu mũi tên
-    ```
-    () => {
+  }
+  ```
+  Hàm ẩn danh kiểu mũi tên
+  ```
+  () => {
     // thân hàm
-    }
-    ```
-  
+  }
+  ```
+* Ví dụ: **nằm trong file dongbo.js**
 ## Chương 2: Git thực hành
 ### 2.1 Hệ thống quản lý phiên bản
 * **Phiên bản(version):** là các bản khác nhau của tập tin, thư mục hoặc toàn bộ mã nguồn dự án (từ đây gọi chung là dự án để tiện trình bày)
