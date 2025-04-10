@@ -382,11 +382,54 @@ Hàm mũi tên là một tính năng quan trọng được giới thiệu trong 
   - Nhiều tham số: (x, y) => { ... }
 * Ví dụ: **Trong file hammuiten.js**
 * Từ khóa this trong hàm mũi tên
-  
+Hàm mũi tên không tạo this (biến ngữ cảnh) riêng, mà lấy this từ phạm vi bao quanh.
+```
+function Person() {
+    this.age = 0;
+    setInterval(() => {
+        this.age++; // 'this' tham chiếu đến đối tượng Person
+        console.log(this.age);
+    }, 1000);
+}
+
+const p = new Person(); // Kết quả: 1, 2, 3, ... (tăng mỗi giây)
+```
 #### 1.7.4 Lập trình bất đồng bộ
 Trong JavaScript, lập trình bất đồng bộ (asynchronous programming) là một mô hình lập trình cho phép chương trình thực hiện nhiều tác vụ cùng lúc mà không cần chờ đợi tác vụ trước đó hoàn thành. Điều này đặc biệt hữu ích khi xử lý các tác vụ tốn thời gian như yêu cầu xử lý qua mạng (gọi API, giao tiếp client-server), đọc/ghi tập tin hoặc tương tác với cơ sở dữ liệu
 
+* Các kỹ thuật lập trình bất đồng bộ:
+  * Callback:
+    - Đây là cách tiếp cận truyền thống để xử lý bất đồng bộ trong JavaScript.
+    - Một callback là một hàm được truyền vào một hàm khác và được thực thi khi tác vụ bất đồng bộ hoàn thành.
+    - Tuy nhiên, sử dụng quá nhiều callback có thể dẫn đến "callback hell", khiến mã nguồn trở nên khó đọc và khó bảo trì.
+  * Promises:
+    - Promises là một đối tượng đại diện cho kết quả cuối cùng của một tác vụ bất đồng bộ.
+    - Chúng cung cấp một cách viết mã bất đồng bộ rõ ràng và dễ bảo trì hơn so với callback.
+    - then() được sử dụng khi thực hiện thành công, catch() được sử dụng khi gặp lỗi.
+  * Async/await:
+    - Async/await là một cú pháp mới hơn để viết mã bất đồng bộ, được giới thiệu trong ES2017.
 
+    - Nó cho phép bạn viết mã bất đồng bộ trông giống như mã đồng bộ, giúp mã trở nên dễ đọc và dễ hiểu hơn.
+
+    - async được đặt trước function, await được đặt trước các lời gọi hàm bất đồng bộ.
+### 1.8 Callback
+Hàm callback là một hàm được truyền vào một hàm khác như một tham số, và sẽ được thực thi sau khi hàm "cha" hoàn thành một tác vụ nào đó. Nói một cách đơn giản, nó là một cách để đảm bảo một đoạn mã được thực thi sau khi một đoạn mã khác hoàn thành.
+* Các đặc điểm của hàm callback:
+  - Truyền như tham số: callback là một hàm được truyền vào hàm khác để thực thi sau khi một điều kiện hoặc tác vụ hoàn tất.
+  - Thực thi bất đồng bộ: thường dùng để xử lý các tác vụ không chặn luồng chính (non-blocking), như truy cập thiết bị (đọc/ghi tập tin), gọi API, hoặc trong các hàm hẹn giờ (timer).
+  - Tính linh hoạt: có thể là hàm ẩn danh (anonymous function), hàm mũi tên (arrow function), hoặc hàm đã được định nghĩa trước (function expression).
+  - "Callback Hell": nếu lồng quá nhiều callback, mã nguồn có thể trở nên khó đọc và bảo trì. Callback hell thường được giải quyết bằng Promise hoặc async/await.
+* Một số tình huống có thể sử dụng hàm Callback:
+  - Xử lý sự kiện (event handling): gắn hàm callback để phản hồi hành động của người dùng (ví dụ: click, hover, submit).
+  - Tác vụ bất đồng bộ: gọi API, đọc/ghi tập tin, hoặc sử dụng trong các hàm hẹn giờ (ví dụ: setTimeout, setInterval).
+  - Xử lý mảng: sử dụng trong các phương thức như forEach, map, filter, reduce.
+  - Hoàn thành tác vụ: đảm bảo một đoạn mã chạy sau khi tác vụ khác hoàn tất (ví dụ: tải dữ liệu từ server rồi hiển thị lên giao diện).
+  - Tùy chỉnh logic: cho phép người dùng truyền logic riêng vào hàm tổng quát.
+* Ví dụ: **Trong file HamCallBack.js**
+* Nhược điểm của hàm callback
+  - Callback Hell: lồng quá nhiều callback dẫn đến mã khó đọc.
+  - Xử lý lỗi phức tạp: cần kiểm tra lỗi thủ công trong mỗi callback.
+  - Không trực quan: với các luồng phức tạp, khó theo dõi thứ tự thực thi.
 ## Chương 2: Git thực hành
 ### 2.1 Hệ thống quản lý phiên bản
 * **Phiên bản(version):** là các bản khác nhau của tập tin, thư mục hoặc toàn bộ mã nguồn dự án (từ đây gọi chung là dự án để tiện trình bày)
@@ -756,6 +799,46 @@ B. Lập trình bất đồng bộ đặc biệt hữu ích khi xử lý các t�
 **C. Callback là một kỹ thuật bất đồng bộ, nó sẽ làm cho code dễ đọc và dễ bảo trì hơn khi code có nhiều callback lồng nhau.**
 
 D. Async/await cho phép viết mã bất đồng bộ trông giống như mã đồng bộ, giúp mã trở nên dễ đọc và dễ hiểu hơn
+
+Câu 9.2: Hàm mũi tên (arrow function) là gì? Phát biểu nào sau đây không đúng về hàm mũi tên?
+
+A. Hàm mũi tên có cú pháp ngắn gọn, giúp viết mã dễ đọc hơn.
+
+**B. Hàm mũi tên có this (ngữ cảnh) riêng, không kế thừa từ phạm vi bên ngoài.**
+
+C. Hàm mũi tên không thể được dùng làm hàm tạo (constructor).
+
+D. Hàm mũi tên không có biến arguments để truy cập danh sách tham số.
+
+Câu 9.3: Lập trình bất đồng bộ là gì? Phát biểu nào sau đây không đúng về lập trình bất đồng bộ?
+
+A. Lập trình bất đồng bộ cho phép chương trình thực hiện nhiều tác vụ cùng lúc mà không cần chờ đợi tác vụ trước đó hoàn thành.
+
+B. Lập trình bất đồng bộ đặc biệt hữu ích khi xử lý các tác vụ tốn thời gian như yêu cầu mạng, đọc/ghi tập tin hoặc tương tác với cơ sở dữ liệu.
+
+**C. Callback là một kỹ thuật bất đồng bộ, nó sẽ làm cho code dễ đọc và dễ bảo trì hơn khi code có nhiều callback lồng nhau.**
+
+D. Async/await cho phép viết mã bất đồng bộ trông giống như mã đồng bộ, giúp mã trở nên dễ đọc và dễ hiểu hơn.
+
+Câu 10.2 Hàm callback trong JavaScript là gì? Phát biểu nào sau đây không đúng?
+
+A. Hàm callback là một hàm được truyền vào một hàm khác như một tham số.
+
+B. Hàm callback thường được sử dụng để xử lý các tác vụ bất đồng bộ.
+
+C. Hàm callback có thể là hàm ẩn danh, hàm mũi tên hoặc hàm đã được định nghĩa trước.
+
+**D. Hàm callback được thực thi ngay lập tức sau khi hàm "cha" bắt đầu thực hiện.**
+
+Câu 10.3 Callback hell trong JavaScript là gì? Phát biểu nào sau đây không đúng?
+
+A. Callback hell xảy ra khi có quá nhiều hàm callback lồng nhau, khiến mã nguồn khó đọc và bảo trì.
+
+B. Callback hell thường xuất hiện khi xử lý các tác vụ bất đồng bộ phức tạp.
+
+**C. Callback hell là một cách hiệu quả để quản lý các tác vụ bất đồng bộ trong JavaScript.**
+
+D. Callback hell có thể được giải quyết bằng Promise hoặc async/await.
 ## Chương 4: Kiến thức thêm
 ### 4.1 Cách để biết ngôn ngữ mà phía server sử dụng của 1 website
 ### 4.2 Phân tích quá trình xử lý của web server (Quan trọng)
