@@ -510,6 +510,107 @@ Các bước nhúng Git vào dự án:
 * B2: Gõ lệnh git init (Nếu thành công thì sẽ hiện thông báo "initialized empty Git repository in [Path của ban]")
 * B3: Quan sát sự thay đổi của thư mục dự án (Có thêm thư mục .git - Đây chính là kho chứa (kho lưu trữ) mà phần mềm Git thêm tạo ra trong thư mục dự án để sử dụng cho các tác vụ của nó)
 ![image](md_assets/GitInit.png)
+### 2.4 Cấu hình định danh người dùng
+#### 2.4.1 Định danh người dùng
+Trong quá trình phát triển phần mềm, đặc biệt là khi làm việc nhóm, việc theo dõi và quản lý các thay đổi là vô cùng quan trọng.
+
+Để đảm bảo tính minh bạch và trách nhiệm, Git yêu cầu mỗi commit (bản ghi thay đổi) đều phải gắn liền với thông tin người thực hiện. Điều này cho phép chúng ta:
+- Xác định tác giả: dễ dàng biết được ai là người viết hoặc chỉnh sửa một đoạn mã cụ thể.
+- Theo dõi đóng góp: nắm bắt được lịch sử đóng góp của từng thành viên trong dự án. 
+- Phân công trách nhiệm: quy trách nhiệm cho từng thành viên đối với những thay đổi mà họ thực hiện.
+Để thực hiện điều này, chúng ta cần tiến hành cấu hình định danh người dùng cho Git. Quá trình này sẽ thiết lập thông tin cá nhân, bao gồm tên và địa chỉ email, được sử dụng để gắn vào các commit. Nhờ đó, mỗi thay đổi trong dự án sẽ được gắn với một cá nhân cụ thể, tạo nên một lịch sử làm việc rõ ràng và dễ theo dõi.
+
+Bạn sẽ không thể thực hiện commit nếu chưa thiết lập thông tin cá nhân trong hệ thống Git.
+
+**Cấu hình thông tin cá nhân với lệnh git config:**
+
+Lệnh ```git config```được sử dụng để đọc, ghi hoặc cập nhật các thiết lập cấu hình của Git. Git cho phép bạn cấu hình ở ba phạm vi khác nhau: system, global và local, mỗi phạm vi có mức độ ảnh hưởng và ưu tiên riêng.
+
+* system (phạm vi hệ thống):
+  * Phạm vi này áp dụng cho tất cả người dùng và tất cả kho lưu trữ trên hệ thống
+  * Tập tin cấu hình được lưu tại C:\Program Files\Git\etc (trên Windows).
+  * Cần quyền quản trị hệ thống để thực hiện cấu hình ở mức này.
+  * Để cấu hình, sử dụng tham số --system với lệnh git config.
+Ví dụ: git config --system user.name "NH1Tkendo"
+* global (phạm vi người dùng):
+  * Phạm vi này áp dụng cho tài khoản người dùng hiện tại và cho tất cả kho lưu trữ mà người dùng đó làm việc.
+  * Tập tin cấu hình được lưu tại C:\Users\<tên_người_dùng>\.gitconfig (trên Windows).
+  * Đây là phạm vi cấu hình được sử dụng nhiều nhất.
+  * Để cấu hình, sử dụng tham số --global với lệnh git config.
+Ví dụ:  git config --global user.name "NH1Tkendo"
+- local (phạm vi kho lưu trữ, repo)
+  * Phạm vi này áp dụng cho một kho lưu trữ cụ thể.
+  * Tập tin cấu hình được lưu tại .git/config trong thư mục gốc của kho lưu trữ
+  * Để cấu hình, sử dụng lệnh git config mà không có tham số --system hoặc --global. Tất nhiên, bạn phải di chuyển dấu nhắc chuột vào thư mục gốc của kho lưu trữ, để gõ lệnh.
+Ví dụ: git config user.name "NH1Tkendo"
+
+**Xem thông tin cấu hình**
+
+Để xem thông tin cấu hình, sử dụng lệnh: ```git config --list```
+
+Tùy thuộc vào vị trí dấu nhắc chuột bạn sẽ xem được thông tin cấu hinh ở các phạm vi khác nhau (system, global hay local).
+
+Khi xem thông tin cấu hình trong CMD, nếu thông tin cấu hình nhiều hơn một màn hình, bạn sẽ thấy dấu nhắc (:), bấm enter để xem thêm thông tin. Khi hết thông tin sẽ có chữ (END). Để thoát màn hình, bấm dấu hai chấm (:) kèm theo chữ q.
+
+**Độ ưu tiên của cấu hình**
+
+Khi có cấu hình ở cả ba phạm vi, Git sẽ sử dụng cấu hình có độ ưu tiên cao nhất. 
+
+Thứ tự ưu tiên là: local > global > system. Nghĩa là cấu hình ở local có độ ưu tiên cao nhất, sau đó đến global và cuối cùng là system. Điều này cho phép bạn ghi đè các cấu hình chung bằng các cấu hình cụ thể cho từng dự án.
+
+**Kinh nghiệm thực tế**
+- Trước khi thực hiện bất kỳ commit nào, bạn cần kiểm tra cấu hình tên và địa chỉ email của mình. Git sẽ sử dụng thông tin này để gắn với mỗi commit, giúp xác định tác giả của các thay đổi.
+- Nên cấu hình danh tính ở phạm vi global để áp dụng cho tất cả dự án.
+- Nếu cần sử dụng thông tin khác cho một dự án cụ thể, hãy cấu hình ở phạm vi local cho dự án đó.
+**Cấu hình địa chỉ email**
+Để cấu hình địa chỉ email, bạn thực hiện tương tự như cấu hình tên. Chỉ việc thay đổi tham số user.name thành user.email.
+
+VD: ```git config --global user.email "ngobatai1711@gmail.com"```
+#### 2.4.2 Xóa hoặc thay đổi định danh
+**Xóa định danh người dùng**
+Nếu bạn muốn xóa hoàn toàn định danh người dùng đã cấu hình (ở phạm vi global), bạn có thể sử dụng lệnh:
+```
+git config --global --unset user.name
+git config --global --unset user.email
+```
+Tương tự, bạn có thể xóa cấu hình ở phạm vi local hoặc system bằng cách bỏ qua hoặc thay thế --global bằng --local hoặc --system.
+**Thay đổi định danh người dùng**
+Nếu bạn muốn thay đổi định danh người dùng đã cấu hình (ở phạm vi global), bạn có thể sử dụng lệnh:
+```
+git config --global user.name "Tên mới của bạn"
+git config --global user.email "email_mới@example.com"
+```
+
+Lệnh này sẽ ghi đè lên cấu hình cũ.
+
+Tương tự, bạn có thể thay đổi cấu hình ở mức local hoặc system bằng cách bỏ qua hoặc thay thế --global bằng --local hoặc --system.
+### 2.5 Các khu vực làm việc của Git
+#### 2.5.1 Ba khu vực làm việc của Git
+* Thư mục làm việc (working directory): là nơi bạn chỉnh sửa tập tin trực tiếp trên máy tính. Đây là bản sao hiện tại của dự án, chứa cả các thay đổi chưa được theo dõi bởi Git
+* Khu vực tổ chức tạm (staging area) gọi tắt là Khu tạm: là vùng trung gian, lưu trữ các thay đổi mà bạn đã chọn để commit, được quản lý bằng tập tin .git\index
+  Dùng lệnh ```git add``` để thêm tập tin vào Khu tạm. Ví dụ: ```git add index.js```, sẽ đưa tập tin index.js vào Khu tạm.
+* Kho chứa (repository) lưu trữ tất cả các tập tin và lịch sử thay đổi của một dự án. Thư mục .git trong dự án chính là Kho chứa. Dùng git commit để chuyển tập tin từ Khu tạm sang Kho chứa. Ví dụ: sau lệnh git commit, những thay đổi của tập tin index.js sẽ được lưu vào Kho chứa.
+
+Với việc phân chia thành 3 khu vực, Git sẽ giúp bạn quản lý mã nguồn một cách hiệu quả. Quy trình làm việc cụ thể như sau: chỉnh sửa mã nguồn ở Thư mục làm việc > chuẩn bị nội dung commit ở Khu tạm > lưu trữ mã nguồn, lịch sử ở Kho chứa.
+![image](md_assets/3khuGit1.jpg)
+#### 2.5.2 Thư mục làm việc
+**Thư mục làm việc (working directory) để làm gì?**
+- Chỉnh sửa mã nguồn: là nơi bạn tạo, sửa, hoặc xóa tập tin trước khi đưa thay đổi vào .git.
+
+- Xem trạng thái dự án: phản ánh các thay đổi so với commit cuối cùng, giúp bạn quyết định những gì cần thêm vào Khu tạm.
+
+- Thử nghiệm: cho phép thử nghiệm các đoạn mã mà không ảnh hưởng ngay đến lịch sử phiên bản trong Kho chứa.
+
+**Có 2 cách để có Thư mục làm việc:**
+* Khởi tạo kho chứa mới: dùng lệnh git init
+* Sao chép một kho chứa có sẵn từ nơi khác (ví dụ từ Github): dùng lệnh git clone 
+  ```VD: git clone https://github.com/username/my-project.git```
+
+**Lệnh ```git add```**
+Lệnh git add dùng để đưa các thay đổi từ Thư mục làm việc vào Khu tạm. Lệnh này giúp bạn chọn lọc những tập tin hoặc phần thay đổi cụ thể để chuẩn bị cho lần commit tiếp theo, thay vì commit tất cả mọi thứ trong Thư mục làm việc. Nói cách khác, git add là bước "đánh dấu" những gì bạn muốn lưu vào lịch sử phiên bản.
+
+* Cú pháp:
+  * 
 ## Chương 3: Trắc nghiệm
 Câu 1.3: Phát biểu nào không đúng khi nói về web, trang web và website?
 
@@ -839,6 +940,16 @@ B. Callback hell thường xuất hiện khi xử lý các tác vụ bất đồ
 **C. Callback hell là một cách hiệu quả để quản lý các tác vụ bất đồng bộ trong JavaScript.**
 
 D. Callback hell có thể được giải quyết bằng Promise hoặc async/await.
+
+Câu 3.2 Phạm vi cấu hình định danh trong Git là gì? Phát biểu nào sau đây không đúng?
+
+A. Phạm vi system áp dụng cho tất cả người dùng và kho lưu trữ trên hệ thống.
+
+B. Phạm vi global áp dụng cho tài khoản người dùng hiện tại và tất cả kho lưu trữ mà người dùng đó làm việc.
+
+**C. Phạm vi local áp dụng cho một kho lưu trữ cụ thể và có độ ưu tiên thấp nhất.**
+
+D. Phạm vi local áp dụng cho một kho lưu trữ cụ thể và có độ ưu tiên cao nhất.
 ## Chương 4: Kiến thức thêm
 ### 4.1 Cách để biết ngôn ngữ mà phía server sử dụng của 1 website
 ### 4.2 Phân tích quá trình xử lý của web server (Quan trọng)
