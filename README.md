@@ -610,7 +610,121 @@ Với việc phân chia thành 3 khu vực, Git sẽ giúp bạn quản lý mã 
 Lệnh git add dùng để đưa các thay đổi từ Thư mục làm việc vào Khu tạm. Lệnh này giúp bạn chọn lọc những tập tin hoặc phần thay đổi cụ thể để chuẩn bị cho lần commit tiếp theo, thay vì commit tất cả mọi thứ trong Thư mục làm việc. Nói cách khác, git add là bước "đánh dấu" những gì bạn muốn lưu vào lịch sử phiên bản.
 
 * Cú pháp:
-  * 
+  * git add <tập_tin>: thêm một tập tin cụ thể.
+  * git add .: thêm tất cả thay đổi.
+  * git add -p: thêm từng phần thay đổi (patch) trong tập tin.
+
+**Lệnh ```git status```**
+Lệnh git status được sử dụng để hiển thị trạng thái hiện tại của Kho lưu trữ và Thư mục làm việc. 
+
+```
+$ git status
+On branch test/login
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   index.js
+
+no changes added to commit (use "git add" and/or "git commit -a")
+```
+Lệnh git status ở trên cho biết: có tập tin mới xuất hiện (index.js) trong dự án mà chưa được Git theo dõi (untracked). Hiện tại trong Khu tạm chưa có gì (nothing added to commit). Nếu muốn theo dõi tập tin và chuẩn bị đưa tập tin vào Kho chứa thì sử dụng lệnh git add <tên_tập_tin>.
+
+Kết quả khi gõ lại ```git status``` 1 lần nữa sau khi dùng lệnh ```git add```
+```
+$ git status
+On branch test/login
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        modified:   cau_hinh_webserver/index.js
+```
+Lệnh git status ở trên cho biết: có một tập tin (index.js) đã sẵn sàng để đưa vào Kho chứa (commit).
+#### 2.5.3 Khu tạm
+Là một khu vực trung gian giữa Thư mục làm việc (working directory) và Kho chứa (repository). Nó cho phép bạn chọn lọc và tổ chức các thay đổi bạn muốn đưa vào commit tiếp theo.
+
+Khu tạm là tập tin index trong thư mục .git.
+
+Lệnh ```git rm --cached <tên_tập_tin>```
+
+Lệnh này sẽ bỏ tập tin ra khỏi khi tạm trong trường hợp add nhầm tập tin vào khu này hoặc không muốn commit tập tin này nữa
+#### 2.5.4 Gitignore
+Git ignore là một cơ chế trong Git, cho phép bạn chỉ định các tập tin hoặc thư mục mà Git sẽ bỏ qua (không theo dõi - untracked) khi thực hiện các lệnh như git add hoặc git status. Điều này được thực hiện thông qua tập tin .gitignore, thường được đặt ở thư mục gốc của dự án. Mục đích là loại bỏ các tập tin không cần thiết khỏi lịch sử phiên bản, như tập tin tạm, tập tin nhị phân, hoặc thư viện phụ thuộc.
+
+**Công dụng của gitignore**
+- Tránh commit rác: không thêm các tập tin không liên quan (ví dụ: node_modules, tập tin log) vào kho chứa.
+- Giữ lịch sử sạch: tập trung vào mã nguồn chính.
+- Tăng hiệu quả: giảm kích thước kho chứa và tránh xung đột không cần thiết.
+**Cách sử dụng gitignore**
+- Tạo tập tin .gitignore trong thư mục dự án.
+- Trong tập tin .gitignore, ghi các mẫu (pattern) của tập tin/thư mục muốn bỏ qua.
+**Ví dụ về gitignore**
+[.gitignore]
+```
+node_modules/
+dist/
+.env
+*.txt
+*.tmp
+```
+Bỏ qua toàn bộ thư mục node_modules, dist; bỏ qua tập tin.env; bỏ qua các tập tin có đuôi là .env, .txt, .tmp.
+
+Lưu ý: Tập tin .gitignore cũng cần được commit vào kho chứa, để các thành viên trong nhóm cùng dùng một bộ quy tắc của gitignore. Điều này đảm bảo mọi người sẽ làm việc với một kho chứa gọn gàng, tránh được các xung đột không cần thiết.
+#### 2.5.5 Kho chứa
+Kho chứa (repository) là nơi lưu trữ tất cả các tập tin và lịch sử thay đổi của một dự án. Thư mục .git trong dự án chính là Kho chứa. Dùng git commit để chuyển tập tin từ Khu tạm sang Kho chứa.
+
+Kho chứa giống như một cơ sở dữ liệu, chứa mọi phiên bản của mã nguồn, cho phép bạn quay lại bất kỳ thời điểm nào trong quá trình phát triển.
+
+Có 2 loại kho chứa: kho chứa cục bộ và kho chứa ở xa
+* **Kho chứa cục bộ (local repository)**
+- Là kho chứa nằm trên máy tính cá nhân của bạn.
+- Bạn có thể tạo kho chứa cục bộ bằng lệnh git init.
+- Đây là nơi bạn làm việc trực tiếp với mã nguồn và thực hiện các commit.
+* **Kho chứa ở xa (remote repository)**
+- Là kho chứa được lưu trữ trên một máy chủ ở xa, chẳng hạn như GitHub, GitLab hoặc Bitbucket.
+- Kho chứa ở xa cho phép nhiều người cùng làm việc trên một dự án và chia sẻ các thay đổi.
+- Bạn có thể sao chép kho chứa ở xa về máy tính của mình bằng lệnh git clone.
+#### 2.5.6 Lệnh Git commit
+git commit là lệnh trong Git, dùng để lưu các thay đổi từ Khu tạm vào Kho chứa, tạo ra một "ảnh chụp" (snapshot) mới trong lịch sử phiên bản. Mỗi commit đi kèm một thông điệp (message) mô tả thay đổi, giúp theo dõi và quản lý mã nguồn hiệu quả.
+
+**Vai trò của lệnh git commit**
+- Ghi nhận thay đổi: lưu vĩnh viễn các tập tin/thay đổi đã được thêm bằng git add.
+- Tạo lịch sử: mỗi commit là một mốc thời gian, gắn với định danh người dùng (tác giả).
+- Hỗ trợ cộng tác: giúp nhóm biết ai đã làm gì và khi nào.
+**Cú pháp cơ bản**
+- git commit -m "Thông điệp": commit với thông điệp ngắn gọn.
+- git commit: mở trình soạn thảo để viết thông điệp chi tiết.
+- git commit -a -m "Thông điệp": tự động thêm các tập tin đã theo dõi (tracked) và commit.
+**Quy trình làm việc thực tế**
+- Chỉnh sửa tập tin trong Khu vực làm việc (working directory).
+- Dùng git add để đưa vào Khu tạm (staging area).
+- Dùng git commit để lưu vào Kho chứa (repository).
+**Cách viết thông điệp trong lệnh commit**
+Thông điệp commit là phần mô tả ngắn gọn nhưng rõ ràng về thay đổi bạn vừa thực hiện. Nó được viết khi dùng git commit, giúp bạn và nhóm hiểu mục đích của commit khi xem lại lịch sử.
+
+Cách viết theo chuẩn thường dùng
+[1] Dòng đầu tiên (Subject): 
+- Ngắn gọn (dưới 50 ký tự), mô tả chính xác thay đổi. 
+- Dùng động từ ở dạng mệnh lệnh (imperative), như "Add", "Fix", "Update".
+- Ví dụ: "Add login feature".
+[2] Dòng trống (nếu cần chi tiết):
+- Để cách dòng đầu một dòng trống.
+[3] Phần mô tả chi tiết (body, tùy chọn):
+- Giải thích "tại sao" và "cái gì" nếu cần, dài không quá 72 ký tự.
+- Dùng khi thay đổi phức tạp.
+[4] Cách nhập thông điệp:
+- Dùng -m cho thông điệp ngắn: git commit -m "Thông điệp".
+- Không dùng -m để mở trình soạn thảo (như Vim) viết chi tiết.
+
+**Ví dụ dùng -m với thông điệp ngắn:**
+```git commit -m "Initialize Node.js project with Express and Nodemon"```
+
+**Ví dụ dùng thông điệp chi tiết:**
+```
+Fix: resolve issue with user login 
+
+This commit addresses a bug where users were unable to log in due to an incorrect password validation. 
+- Modified the password validation logic in `auth.py`. 
+- Added unit tests to verify the fix.
+```
 ## Chương 3: Trắc nghiệm
 Câu 1.3: Phát biểu nào không đúng khi nói về web, trang web và website?
 
@@ -950,6 +1064,67 @@ B. Phạm vi global áp dụng cho tài khoản người dùng hiện tại và 
 **C. Phạm vi local áp dụng cho một kho lưu trữ cụ thể và có độ ưu tiên thấp nhất.**
 
 D. Phạm vi local áp dụng cho một kho lưu trữ cụ thể và có độ ưu tiên cao nhất.
+
+Câu 4.2 Ba khu vực làm việc chính của Git là gì? Phát biểu nào sau đây không đúng?
+
+A. Thư mục làm việc (working directory) là nơi bạn chỉnh sửa tập tin trực tiếp.
+
+**B. Khu tạm (staging area) là nơi lưu trữ lịch sử phiên bản của dự án.**
+
+C. Kho chứa (repository) là nơi lưu trữ dữ liệu chính thức của dự án.
+
+D. Lệnh git add được sử dụng để chuyển các thay đổi từ Thư mục làm việc sang Khu
+tạm.
+
+Câu 4.3 Thư mục làm việc (working directory) trong Git là gì? Phát biểu nào sau đây không đúng?
+
+A. Là thư mục thực tế trên máy tính, nơi bạn làm việc trực tiếp với các tập tin của dự án.
+
+B. Là nơi bạn tạo, sửa, hoặc xóa tập tin trước khi đưa thay đổi vào .git.
+
+**C. Là nơi lưu trữ lịch sử phiên bản và dữ liệu chính thức của dự án.**
+
+D. Phản ánh các thay đổi so với commit cuối cùng, giúp bạn quyết định những gì cần thêm vào Khu tạm (staging area).
+
+Câu hỏi 5.2 Khu tạm (staging area) trong Git là gì? Phát biểu nào sau đây không đúng?
+
+A. Khu tạm là một khu vực trung gian giữa Thư mục làm việc (working directory) và Kho chứa (repository).
+
+**B. Khu tạm là một thư mục vật lý trong Thư mục làm việc.**
+
+C. Khu tạm cho phép bạn chọn lọc và tổ chức các thay đổi bạn muốn đưa vào commit tiếp theo.
+
+D. Lệnh git rm --cached <tên_tập_tin> được sử dụng để gỡ bỏ tên tập tin ra khỏi Khu tạm.
+
+Câu hỏi 5.3 gitignore là gì? Phát biểu nào sau đây không đúng?
+
+**A. gitignore giúp thêm các tập tin không liên quan (ví dụ: node_modules, tập tin log) vào kho chứa.**
+
+B. gitignore là một cơ chế trong Git, cho phép bạn chỉ định các tập tin hoặc thư mục mà Git sẽ bỏ qua khi thực hiện các lệnh như git add hoặc git status.
+
+C. gitignore được thực hiện thông qua tập tin có tên là .gitignore, thường đặt ở thư mục gốc của dự án.
+
+D. Mục đích của gitignore là loại bỏ các tập tin không cần thiết khỏi lịch sử phiên bản, như tập tin tạm, tập tin nhị phân, hoặc thư viện phụ thuộc.
+
+Câu hỏi 5.4 Kho chứa (repository) trong Git là gì? Phát biểu nào sau đây không đúng?
+
+A. Kho chứa là nơi lưu trữ tất cả các tập tin và lịch sử thay đổi của một dự án.
+
+B. Thư mục .git trong dự án chính là Kho chứa.
+
+**C. Lệnh git commit được sử dụng để chuyển tập tin từ Thư mục làm việc (working directory) sang Kho chứa.**
+
+D. Kho chứa cục bộ (local repository) là kho chứa được lưu trữ trên một máy chủ ở xa.
+
+Câu 5.5 Commit trong Git là gì? Phát biểu nào sau đây không đúng?
+
+A. Commit là lệnh trong Git dùng để lưu các thay đổi từ Khu tạm vào Kho chứa.
+
+B. Commit tạo ra một "ảnh chụp" (snapshot) mới trong lịch sử phiên bản.
+
+**C. Commit dùng để chuyển tập tin từ Kho chứa sang Khu tạm.**
+
+D. Mỗi commit đi kèm một thông điệp (message) mô tả thay đổi.
 ## Chương 4: Kiến thức thêm
 ### 4.1 Cách để biết ngôn ngữ mà phía server sử dụng của 1 website
 ### 4.2 Phân tích quá trình xử lý của web server (Quan trọng)
