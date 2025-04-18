@@ -787,7 +787,99 @@ app.listen(port, () => {
 **Route handler**
 Route handler là các hàm xử lý được gắn với một luồng (route) cụ thể trong ứng dụng Express. Chúng được gọi khi một HTTP request (như GET, POST, PUT, DELETE) từ client khớp với route và method tương ứng. Route handler đóng vai trò như Event handler trong lập trình hướng sự kiện, xử lý logic chính cho request và trả về response.
 
-###
+**Route handler nhận 3 tham số chính:**
+- req (request): đối tượng chứa thông tin về request từ client (URL, headers, body).
+- res (response): đối tượng dùng để gửi response về client.
+- next (optional): hàm gọi để chuyển tiếp request sang middleware hoặc handler tiếp theo (nếu có).
+
+Cú pháp: ```app.METHOD(path, callback);```
+- Trong đó METHOD là HTTP method (get, post, put, delete), path là luồng, và callback là Route handler.
+
+Ví dụ:
+```
+// Express lắng nghe sự kiện GET request, tại route /
+// nếu có sự kiện, gọi hàm callback (route handler) tương ứng
+app.get('/', (req, res) =>
+{
+    const name = req.query.name;
+    res.send(`Web server chào bạn ${name}`);
+});
+```
+
+**Đặc điểm của Route handler:**
+- Cụ thể cho route và method: mỗi Route handler chỉ được gọi khi request khớp (match) với route và HTTP method đã định nghĩa.
+- Xử lý logic chính: thường chứa logic nghiệp vụ như truy vấn cơ sở dữ liệu, xử lý dữ liệu, hoặc trả về kết quả.
+- Có thể nối tiếp: nhiều Route handler có thể được gắn vào cùng một route bằng cách truyền nhiều callback hoặc dùng next().
+
+Ví dụ nối tiếp Route handler:
+[index.js]
+```
+'use strict'
+const express = require('express')
+const app = express();
+const port = process.env.PORT || 9000
+// Nối tiếp Route handler
+app.get('/profile', (req, res, next) =>
+{
+      console.log('Kiểm tra quyền truy cập...');
+      req.user = { name: "Tai"}; // Giả lập thêm dữ liệu
+      next(); // Chuyển tiếp
+    },
+    (req, res) => { 
+res.send(`Chào bạn: ${req.user.name}`);
+    }
+  );
+// khoi dong web server
+app.listen(port, () => {
+    console.log(`server dang chay tren cong ${port}`);
+});
+```
+
+**Middleware** là các hàm được thực thi trong quá trình xử lý một HTTP request, trước hoặc sau Route handler. Chúng có thể:
+- Xử lý request (như xác thực, ghi log).
+- Sửa đổi đối tượng req hoặc res.
+- Chuyển tiếp request bằng next() hoặc dừng luồng xử lý bằng cách gửi response.
+
+Middleware hoạt động như một "lớp trung gian" trong pipeline (dây chuyền, đường ống) xử lý request, giúp tách biệt logic chung khỏi Route handler.
+
+Cấu trúc cơ bản
+- Middleware cũng nhận 3 tham số: req, res, và next.
+- Được đăng ký bằng app.use() (áp dụng cho tất cả route) hoặc gắn vào route cụ thể.
+
+Cú pháp: ```app.use(middlewareFunction);```
+Ví dụ: 
+```
+// Middleware: ghi log mỗi khi có GET request
+app.use((req, res, next) =>
+{
+    console.log(`[${new Date().toISOString()}] nhận GET request tại ${req.url}`)
+    // Chuyển tiếp sự kiện đến route handler
+    next();
+});
+```
+Minh họa:
+![image](md_assets/middleware.jpg)
+
+**Các loại Middleware**
+[1] Application-level middleware: áp dụng cho toàn bộ ứng dụng với app.use()
+```
+// middleware mức ứng dụng
+app.use((req, res, next) =>
+{
+    req.timestamp = new Date();
+    next();
+});
+app.get('/',(req, res) => {
+    res.send(`Khach truy cap web ap luc ${req.timestamp.toISOString()}`);
+});
+```
+[2] Router-level middleware: áp dụng cho một nhóm route cụ thể bằng express.Router()
+
+[3] Error-handling middleware: xử lý lỗi, nhận thêm tham số err.
+
+[4] Built-in middleware: các middleware do Express cung cấp sẵn như express.json(), express.static().
+
+[5] Third-party middleware: middleware của các nhà cung cấp khác, ví dụ body-parser, cors, morgan.
 ## Chương 2: Git thực hành
 ### 2.1 Hệ thống quản lý phiên bản
 * **Phiên bản(version):** là các bản khác nhau của tập tin, thư mục hoặc toàn bộ mã nguồn dự án (từ đây gọi chung là dự án để tiện trình bày)
@@ -1543,6 +1635,36 @@ B. Event là các hành động hoặc sự thay đổi trạng thái xảy ra t
 C. Event Loop liên tục kiểm tra hàng đợi sự kiện và thực thi các hàm callback khi có sự kiện xảy ra.
 
 D. Event Handler là các hàm được gọi khi một sự kiện xảy ra.
+
+Câu hỏi 15.2 Mô hình lập trình hướng sự kiện của Express. Phát biểu nào sau đây không đúng?
+
+A. Mỗi request từ client (như GET, POST, PUT, DELETE) được xem là một sự kiện (Event).
+
+B. Các module http, fs, stream là các Bộ quản lý sự kiện (Event Emitter) của Express.
+
+**C. Express sử dụng Vòng lặp sự kiện (Event Loop) của trình duyệt để lắng nghe và xử lý các sự kiện theo kiểu bất đồng bộ (asynchronous), không chặn luồng (non-blocking).**
+
+D. Các route handler và middleware đóng vai trò như các Hàm xử lý sự kiện (Event Handler), được gọi khi sự kiện tương ứng xảy ra.
+
+Câu hỏi 15.3 Route handler trong Express là gì? Phát biểu nào sau đây không đúng?
+
+A. Route handler chỉ được gọi khi request khớp với route và HTTP method đã định nghĩa.
+
+B. Route handler thường chứa logic nghiệp vụ như truy vấn cơ sở dữ liệu hoặc xử lý dữ liệu.
+
+C. Route handler có thể chuyển tiếp request sang middleware hoặc handler tiếp theo bằng hàm next().
+
+**D. Chỉ có duy nhất một Route handler được gắn vào một route.**
+
+15.4. Middleware trong Express là gì? Phát biểu nào sau đây không đúng?
+
+A. Middleware là các hàm được thực thi trong quá trình xử lý một HTTP request, trước hoặc sau Route handler.
+
+B. Xử lý request (như xác thực, ghi log).
+
+C. Sửa đổi đối tượng req hoặc res.
+
+**D. Middleware nhận 2 tham số: req, res.**
 ## Chương 4: Kiến thức thêm
 ### 4.1 Cách để biết ngôn ngữ mà phía server sử dụng của 1 website
 ### 4.2 Phân tích quá trình xử lý của web server (Quan trọng)
