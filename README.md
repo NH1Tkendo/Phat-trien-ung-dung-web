@@ -430,6 +430,7 @@ Hàm callback là một hàm được truyền vào một hàm khác như một 
   - Callback Hell: lồng quá nhiều callback dẫn đến mã khó đọc.
   - Xử lý lỗi phức tạp: cần kiểm tra lỗi thủ công trong mỗi callback.
   - Không trực quan: với các luồng phức tạp, khó theo dõi thứ tự thực thi.
+### 1.9 Lập trình giao diện
 ## Chương 2: Git thực hành
 ### 2.1 Hệ thống quản lý phiên bản
 * **Phiên bản(version):** là các bản khác nhau của tập tin, thư mục hoặc toàn bộ mã nguồn dự án (từ đây gọi chung là dự án để tiện trình bày)
