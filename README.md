@@ -608,6 +608,186 @@ Lưu lại mã nguồn, khởi động lại web server (nếu dùng Nodemon th�
 Ví dụ nằm trong file ```lap_trinh_client_server```
 **Bước 6: client (trình duyệt) nhận response, hiển thị thông tin lên trình duyệt**
 Bây giờ trên trình duyệt sẽ xuất hiện dòng chữ: ```Bạn muốn mua shoes cỡ 40```
+### 1.12 Lập trình hướng sự kiện
+Lập trình hướng sự kiện (event-driven) là một mô hình lập trình mà luồng thực thi của chương trình được quyết định bởi các sự kiện (events). Các sự kiện này có thể là:
+- Hành động của người dùng (nhấp chuột, gõ phím).
+- Các thông điệp từ các chương trình khác.
+- Các sự kiện do hệ thống tạo ra (nhận được request, thao tác đọc/ghi tập tin).
+Thay vì chạy theo thứ tự mã nguồn từ trên xuống dưới, chương trình sẽ chờ đợi các sự kiện xảy ra và thực thi các hàm xử lý sự kiện (event handler) tương ứng.
+
+#### 1.12.1 Lập trình hướng sự kiện trong Nodejs
+Nodejs là một môi trường được xây dựng dựa trên mô hình lập trình hướng sự kiện. Đây là một trong những đặc điểm cốt lõi giúp Node.js hoạt động hiệu quả và có khả năng xử lý nhiều kết nối đồng thời, đặc biệt phù hợp với các ứng dụng thời gian thực, các ứng dụng chuyên về I/O như ứng dụng web, API, hoặc ứng dụng mạng.
+
+Ứng dụng chuyên về I/O (I/O-intensive application) là các ứng dụng mà phần lớn thời gian xử lý hoặc tài nguyên được dành cho các hoạt động nhập/xuất (Input/Output), tức là các tác vụ liên quan đến việc đọc/ghi dữ liệu từ hoặc đến các nguồn bên ngoài như tập tin, cơ sở dữ liệu, mạng, hoặc thiết bị phần cứng, thay vì tập trung nhiều vào tính toán (CPU-intensive)
+
+**Các thành phần của Mô hình lập trình hướng sự kiện**
+Mô hình lập trình hướng sự kiện trong Nodejs gồm các thành phần:
+- Event: sự kiện
+- Event Emitter: bộ quản lý sự kiện
+- Event loop: vòng lặp sự kiện
+- Event handler: hàm xử lý sự kiện
+Xem hình minh họa:
+![image](md_assets/event-driven.jpg)
+
+Mô tả cách hoạt động của mô hình:
+
+[1] EventEmitter
+
+Trong hệ thống sẽ có một thành phần điều khiển, nó quản lý việc phát ra sự kiện của các đối tượng và gửi sự kiện tới nơi cần nghe (các đối tượng đang lắng nghe sự kiện tương ứng). Thành phần này được gọi là EventEmitter - Bộ quản lý sự kiện). 
+
+Các phương thức chính của EventEmitter:
+- on(eventName, listener): khai báo một tên sự kiện (eventName) sẽ phát ra, và đăng ký một hàm lắng nghe và xử lý đi kèm.
+- emit(eventName, [arguments...]): phát ra một sự kiện, có tên là eventName, và các tham số đi kèm (nếu có).
+
+[2] Event
+
+Event là một hành động hoặc sự thay đổi trạng thái xảy ra trong ứng dụng, gọi chung là sự kiện (Event). Ví dụ:
+- Yêu cầu HTTP đến máy chủ (GET request, POST request).
+- Hoàn thành việc đọc/ghi tập tin.
+- Hết thời gian chờ (timeout).
+- Sự kiện lỗi.
+
+[3] Event Loop (Vòng lặp sự kiện)
+- Event Loop là cơ chế cốt lõi của Nodejs, cho phép nó xử lý các sự kiện không đồng bộ một cách hiệu quả.
+- Event Loop liên tục kiểm tra hàng đợi sự kiện (event queue) và thực thi các hàm callback khi có sự kiện xảy ra.
+- Điều này cho phép Nodejs xử lý nhiều yêu cầu đồng thời mà không bị chặn (blocking).
+
+[4] Event Handler (Hàm xử lý sự kiện)
+- Event handler là một hàm được gọi khi một sự kiện xảy ra. 
+- Event handler thường được đăng ký với một EventEmitter bằng phương thức on().
+#### 1.12.2 Thực hành lập trình hướng sự kiện
+Chúng ta sẽ viết một chương trình đơn giản như sau:
+- Sử dụng module events của Nodejs để lập trình hướng sự kiện
+- Tạo một bộ quản lý sự kiện (EventEmitter)
+- Sử dụng EventEmitter để khai báo một sự kiện, và đăng ký hàm xử lý đi kèm
+- Phát sinh sự kiện (đã khai báo), để kiểm tra hoạt động của các thành phần
+  
+**[1] Viết theo kiểu hàm thông thường**
+
+[index.js]
+```
+'use strict'
+const express = require('express')
+const app = express();
+const port = process.env.PORT || 9000
+// gọi module events
+const events = require('events');
+// tạo ra một EventEmitter
+const eventEmitter = new events.EventEmitter();
+// đăng ký tên sự kiện, gắn với hàm lắng nghe và
+// xử lý sự kiện tương ứng - xuLythongBao là event handler
+eventEmitter.on('hetGio', xuLyThongBao);
+// định nghĩa hàm xuLyThongBao
+function xuLyThongBao(tb) {
+    console.log(tb);
+}
+// phát ra sự kiện, kèm theo thông điệp
+setTimeout(()=> {
+    eventEmitter.emit('hetGio','Hết giờ học rồi, về thôi!!!!!!!')
+}, 2000);
+// khoi dong web server
+app.listen(port, () => {
+    console.log(`server dang chay tren cong ${port}`);
+});
+```
+**[2] Viết theo kiểu hàm mũi tên**
+
+[index.js]
+```
+'use strict'
+const express = require('express')
+const app = express();
+const port = process.env.PORT || 9000
+
+// gọi module events
+const events = require('events');
+
+// tạo ra một EventEmitter
+const eventEmitter = new events.EventEmitter();
+
+// đăng ký tên sự kiện, gắn với hàm lắng nghe và
+// xử lý sự kiện tương ứng
+eventEmitter.on('hetGio', (thongBao) => {
+    console.log(thongBao);
+});
+
+// phát ra sự kiện, kèm theo thông điệp
+setTimeout(()=> {
+    eventEmitter.emit('hetGio','Hết giờ học rồi, về thôi!!!!!!!')
+}, 2000);
+
+// khoi dong web server
+app.listen(port, () => {
+    console.log(`server dang chay tren cong ${port}`);
+});
+```
+### 1.13 Event-driven, Route handler và Middleware trong Express
+#### 1.13.1 Lập trình hướng sự kiện trong Express
+Express là một framework, xây dựng trên nền tảng Nodejs. Express sử dụng mô hình lập trình hướng sự kiện để xử lý các HTTP request, đọc/ghi tập tin, làm việc với cơ sở dữ liệu, websocket, stream.
+
+Trong mô hình này:
+- Mỗi request từ client (như GET, POST, PUT, DELETE) được xem là một sự kiện (Event).
+- Các module http, fs, stream là các Bộ quản lý sự kiện (Event Emitter) của Express.
+- Express sử dụng Vòng lặp sự kiện (Event Loop) của Node.js để lắng nghe và xử lý các sự kiện theo kiểu bất đồng bộ (asynchronous), không chặn luồng (non-blocking).
+- Các route handler và middleware đóng vai trò như các Hàm xử lý sự kiện (Event Handler), được gọi khi sự kiện tương ứng xảy ra.
+
+#### 1.13.2 Thực hành với GET request
+Để hiểu rõ hơn về lập trình hướng sự kiện trong Express, chúng ta cùng thực hành với GET request.
+
+Tình huống cụ thể như sau:
+- Client gửi GET request tới web server
+- Web server phát hiện sự kiện GET request và chuyển nó đến Express.
+- Express kiểm tra URL và method (GET) để tìm route handler phù hợp.
+- Hàm callback (route handler) được gọi để xử lý sự kiện, trả về response cho client.
+
+[index.js]
+```
+'use strict'
+const express = require('express')
+const app = express();
+const port = process.env.PORT || 9000
+// Express lắng nghe sự kiện GET request, tại route /
+// nếu có sự kiện, gọi hàm callback (route handler) tương ứng
+app.get('/', (req, res) =>
+{
+    const name = req.query.name;
+    res.send(`Web server chào bạn ${name}`);
+});
+// khoi dong web server
+app.listen(port, () => {
+    console.log(`server dang chay tren cong ${port}`);
+});
+```
+**Sử dụng Middleware cho GET request**
+```
+'use strict'
+const express = require('express')
+const app = express();
+const port = process.env.PORT || 9000
+// Middleware: ghi log mỗi khi có GET request
+app.use((req, res, next) =>
+{
+    console.log(`[${new Date().toISOString()}] nhận GET request tại ${req.url}`)
+    // Chuyển tiếp sự kiện đến route handler
+    next();
+});
+// Express lắng nghe sự kiện GET request, tại route /
+// nếu có sự kiện, gọi hàm callback (route handler) tương ứng
+app.get('/', (req, res) =>
+{
+    const name = req.query.name;
+    res.send(`Web server chào bạn ${name}`);
+});
+// khoi dong web server
+app.listen(port, () => {
+    console.log(`server dang chay tren cong ${port}`);
+});
+```
+#### 1.13.3 Route handler và Middleware trong Express
+**Route handler**
+Route handler là các hàm xử lý được gắn với một luồng (route) cụ thể trong ứng dụng Express. Chúng được gọi khi một HTTP request (như GET, POST, PUT, DELETE) từ client khớp với route và method tương ứng. Route handler đóng vai trò như Event handler trong lập trình hướng sự kiện, xử lý logic chính cho request và trả về response.
+
+###
 ## Chương 2: Git thực hành
 ### 2.1 Hệ thống quản lý phiên bản
 * **Phiên bản(version):** là các bản khác nhau của tập tin, thư mục hoặc toàn bộ mã nguồn dự án (từ đây gọi chung là dự án để tiện trình bày)
@@ -1353,6 +1533,16 @@ B. URL bao gồm các thành phần như giao thức, tên miền, đường d�
 C. Phần "truy vấn" (query) trong URL được sử dụng để truyền dữ liệu đến máy chủ thông qua các tham số.
 
 **D. Giao thức "FTP" là giao thức phổ biến nhất được sử dụng trong URL để truy cập các trang web.**
+
+Câu hỏi 14.3 Mô hình lập trình hướng sự kiện trong Node.js là gì? Phát biểu nào sau đây không đúng?
+
+**A. Event Emitter liên tục kiểm tra hàng đợi sự kiện và thực thi các hàm callback khi có sự kiện xảy ra.**
+
+B. Event là các hành động hoặc sự thay đổi trạng thái xảy ra trong ứng dụng.
+
+C. Event Loop liên tục kiểm tra hàng đợi sự kiện và thực thi các hàm callback khi có sự kiện xảy ra.
+
+D. Event Handler là các hàm được gọi khi một sự kiện xảy ra.
 ## Chương 4: Kiến thức thêm
 ### 4.1 Cách để biết ngôn ngữ mà phía server sử dụng của 1 website
 ### 4.2 Phân tích quá trình xử lý của web server (Quan trọng)
