@@ -431,6 +431,183 @@ Hàm callback là một hàm được truyền vào một hàm khác như một 
   - Xử lý lỗi phức tạp: cần kiểm tra lỗi thủ công trong mỗi callback.
   - Không trực quan: với các luồng phức tạp, khó theo dõi thứ tự thực thi.
 ### 1.9 Lập trình giao diện
+* Các bước xử lý trên github:
+  * B1 (Tùy chọn): ```git status``` để xem thử các file chưa được git theo dõi
+  * B2: ```git add``` để đưa các file chưa được git theo dõi vào khu tạm
+  * B3 (Tùy chọn): ```git status``` lại lần nữa để xem các file đã được đưa vào khu tạm
+  * B4: ```git commit -m""``` để đưa các file trong khu tạm vào kho chứa cục bộ
+#### 1.9.1 Sử dụng Free HTML template
+Free HTML Template là các mẫu giao diện web được thiết kế sẵn, bao gồm HTML, CSS, và đôi khi JavaScript, được cung cấp miễn phí từ các nguồn như ThemeForest (miễn phí giới hạn), BootstrapMade, FreeHTML5.co, htmlcodex, hoặc GitHub. Chúng thường có giao diện đẹp, cấu trúc cơ bản (header, footer, sidebar), và phù hợp cho nhiều loại dự án như blog, portfolio, hoặc trang doanh nghiệp nhỏ.
+
+**Khi nào nên sử dụng Free HTML Template trong dự án**
+- Dự án nhỏ, thời gian gấp: template giúp tiết kiệm thời gian thiết kế giao diện từ đầu.
+- Khách hàng cần prototype nhanh: dùng để trình bày ý tưởng ban đầu.
+- Ngân sách thấp: phù hợp khi khách hàng không đủ chi phí thuê thiết kế riêng.
+**Cách sử dụng**
+- Tải về: chọn template từ nguồn uy tín, kiểm tra giấy phép (thường là Creative Commons hoặc MIT).
+- Tùy chỉnh: điều chỉnh CSS, thay đổi nội dung (văn bản, hình ảnh), tích hợp back-end (như Node.js, PHP).
+- Tối ưu: nén CSS/JS, kiểm tra responsive, đảm bảo tốc độ tải trang.
+**Ưu điểm khi dùng template**
+- Tiết kiệm thời gian.
+- Giao diện chuyên nghiệp: template thường được thiết kế bởi chuyên gia, đảm bảo thẩm mỹ (ví dụ: bố cục gọn gàng, màu sắc hài hòa).
+- Học hỏi: phân tích mã nguồn của template để học các kỹ thuật thiết kế.
+**Nhược điểm**
+- Giới hạn tùy chỉnh: sẽ bị thiếu một số tính năng, vì mỗi dự án của bạn sẽ có những đặc thù riêng.
+- Mã nguồn dư thừa: template thường có CSS/JS không cần thiết, làm chậm trang.
+- Không độc đáo: dùng template miễn phí dễ trùng lặp với web khác, gây khó cho khách hàng nếu họ muốn tạo thương hiệu riêng.
+#### 1.9.2 Static file
+Trong Express, static files (tập tin tĩnh) là các tập tin không thay đổi nội dung hoặc không cần xử lý logic phía server, như HTML, CSS, JavaScript, hình ảnh, font. Chúng được gửi trực tiếp cho client thông qua middleware express.static.
+
+Các tập tin tĩnh được chứa trong một thư mục riêng (ví dụ: public).
+
+**Mục đích static files:**
+- Tối ưu hóa hiệu suất: việc gửi trực tiếp tập tin tĩnh từ máy chủ giúp giảm tải cho ứng dụng Express, cải thiện tốc độ tải trang.
+- Tổ chức dự án: giúp cấu trúc dự án rõ ràng, dễ quản lý hơn.
+- Bảo mật: chỉ cho phép truy cập các tập tin được công khai, bảo vệ các tập tin quan trọng khác.
+
+Bài tập ví dụ trong thư mục ```lap_trinh_giao_dien```
+### 1.10 Ứng dụng client-server
+#### 1.10.1 Ứng dụng kiểu cục bộ
+Trước khi tìm hiểu về ứng dụng kiểu client-server, chúng ta cùng tìm hiểu về ứng dụng kiểu cục bộ (gọi tắt là ứng dụng cục bộ).
+
+Ứng dụng cục bộ (local application) là các ứng dụng chạy trực tiếp trên thiết bị của người dùng, như máy tính cá nhân, điện thoại hoặc máy tính bảng, mà không cần kết nối liên tục với máy chủ ở xa.
+
+**Một số đặc điểm của ứng dụng cục bộ:**
+- Chạy độc lập: ứng dụng cục bộ được cài đặt và chạy trực tiếp trên thiết bị của người dùng, không phụ thuộc vào kết nối internet để thực hiện các chức năng cơ bản.
+- Truy cập tài nguyên thiết bị: ứng dụng cục bộ có thể truy cập trực tiếp vào các tài nguyên của thiết bị, chẳng hạn như hệ thống tập tin, phần cứng và các ứng dụng khác.
+- Hiệu suất cao: do chạy trực tiếp trên thiết bị, ứng dụng cục bộ thường có hiệu suất cao hơn so với các ứng dụng web hoặc ứng dụng dựa trên đám mây.
+- Khả năng ngoại tuyến: nhiều ứng dụng cục bộ có thể hoạt động mà không cần kết nối Internet, cho phép người dùng làm việc khi không có mạng.
+- Bảo mật: dữ liệu của ứng dụng cục bộ thường được lưu trữ trên thiết bị của người dùng, giúp tăng cường bảo mật và quyền riêng tư.
+**Lập trình ứng dụng cục bộ**
+Dù bạn lập trình theo kiểu hướng cấu trúc hay hướng đối tượng thì cấu trúc của một chương trình thường là: 
+- Có một điểm vào chương trình (entry point) là hàm main().
+- Khi chạy hàm main() sẽ xuất ra một menu, hoặc một màn hình chính (main window).
+- Chờ các tương tác của người dùng để xử lý, thực thi các xử lý logic, đọc dữ liệu, xuất kết quả.
+- Sử dụng một trình dịch (trình thông dịch hoặc biên dịch) trên máy cục bộ để chuyển từ mã nguồn thành mã thực thi.
+- Sử dụng các bộ thư viện cục bộ, truy cập cơ sở dữ liệu trên máy cục bộ.
+#### 1.10.2 Ứng dụng kiểu client-server
+Ứng dụng kiểu client-server (gọi tắt là ứng dụng client-server) là một ứng dụng, trong đó công việc được phân chia giữa hai thành phần chính là client và server.
+- Client (máy khách): gửi yêu cầu (request) để truy cập dịch vụ hoặc tài nguyên. Client là giao diện người dùng (UI) trên máy tính, điện thoại, hoặc trình duyệt.
+- Server (máy chủ): nhận yêu cầu, xử lý, và gửi phản hồi (response) về client. Server lưu trữ dữ liệu, thực hiện xử lý logic, và cung cấp dịch vụ.
+- Giao tiếp giữa client và server được thực hiện qua mạng (thường dùng giao thức HTTP, TCP/IP). Client và server chạy trên các thiết bị khác nhau. Tuy nhiên, trong giai đoạn phát triển phần mềm, client và server có thể chạy trên cùng một máy tính.
+
+**Đặc điểm của một ứng dụng client-server:**
+- Phân vai trò: client tập trung hiển thị, server tập trung xử lý logic, xử lý dữ liệu.
+- Kết nối mạng: yêu cầu giao tiếp qua giao thức mạng như HTTP, WebSocket, TCP/IP.
+Một số ứng dụng client-server: ứng dụng web, ứng dụng email, trò chơi trực tuyến, hệ quản trị cơ sở dữ liệu.
+#### 1.10.3 Ứng dụng web dưới góc nhìn của lập trình viên
+Ứng dụng web dưới góc nhìn của lập trình viên:
+- Là ứng dụng kiểu client-server. Client là trình duyệt web, server là web server.
+- Giao diện của ứng dụng được hiển thị trên trình duyệt web.
+- Hầu hết các xử lý logic, xử lý dữ liệu được thực hiện tại server.
+- Để lập trình phía client (client-side) cần các ngôn ngữ HTML, CSS, JavaScript, các thư viện và framework. Lập trình phía client được gọi là lập trình front-end. Người làm mảng công việc này được gọi là lập trình viên front-end (front-end developer).
+- Để lập trình phía server (server-side) cần một trong các ngôn ngữ lập trình phía back-end (C#, Java, Python, Ruby, PHP, Go, JavaScript), SQL, các thư viện, và framework. Lập trình
+phía server được gọi là lập trình back-end. Người làm mảng này được gọi là lập trình viên back-end (back-end developer)
+- Người làm được cả front-end và back-end được gọi là full-stack developer.
+- Tùy theo khả năng, một lập trình viên có thể chọn làm ở mảng front-end, hoặc back-end hoặc cả hai (full-stack). Dù làm ở mảng front-end thì bạn cũng phải biết căn bản về mảng
+back-end và ngược lại.
+![image](md_assets/fullstack.jpg)
+
+### 1.11 Lập trình client-server
+#### 1.11.1 Gửi request tới web server
+Phần này, chúng ta sẽ tìm hiểu chi tiết hơn về lập trình giao tiếp giữa client và server.
+
+Như đã đề cập, các bước xử lý ở web server gồm 7 bước, như hình sau:
+![image](md_assets/webserver.png)
+[1] nhận request
+[2] phân tích request, gửi tới ứng dụng web để xử lý
+[3] đọc dữ liệu từ cơ sở dữ liệu
+[4] đổ dữ liệu vào trang HTML (các template HTML)
+[5] gửi trang HTML (đã bao gồm dữ liệu) (response) về trình duyệt người dùng
+[6] trình duyệt người dùng hiển thị nội dung response
+[7] trình duyệt gửi riêng một request khác để lấy các nội dung tĩnh của ứng dụng web (HTML, CSS, JavaScript, hình ảnh, và các tài nguyên khác)
+
+Để đơn giản, chúng ta sẽ lập trình theo tình huống sau:
+- Bước 1: web server luôn ở trạng thái đang hoạt động, sẵn sàng chờ client gửi yêu cầu (request) tới.
+- Bước 2: một người dùng bất kỳ, sử dụng trình duyệt web, gửi request tới web server.
+- Bước 3: web server nhận request
+- Bước 4: web server phân tích, xử lý request
+- Bước 5: web server gửi response về client
+- Bước 6: client (trình duyệt) nhận response, hiển thị thông tin lên trình duyệt.
+
+**Bước 1: web server luôn ở trạng thái đang hoạt động, sẵn sàng chờ client gửi yêu cầu (request) tới**
+Mở tập tin index.js nhập đoạn mã sau:
+```
+'use strict'
+const express = require('express')
+const app = express();
+const port = process.env.PORT || 9000
+// khoi dong web server
+app.listen(port, () => {
+    console.log(`server dang chay tren cong ${port}`);
+});
+```
+Dòng mã app.listen() luôn được đặt ở **cuối** tập tin index.js. Dòng mã này sẽ khởi chạy web server, mở cổng có số hiệu là port (ví dụ 9000) để chờ đón các request từ client; đồng thời xuất một dòng thông báo server dang chay tren cong ${port}. 
+
+**Bước 2: một người dùng bất kỳ, sử dụng trình duyệt web, gửi request tới web server**
+Khi web server đang chạy, và sẵn sàng nhận request. Chúng ta sẽ sử dụng trình duyệt để gửi các request về web server.
+
+Để gửi request về web server, bạn có thể sử dụng thanh địa chỉ của trình duyệt, web form, hoặc dùng hàm JavaScript (AJAX, fetch). Để đơn giản, chúng ta sẽ sử dụng thanh địa chỉ của trình duyệt.
+
+Mở trình duyệt web (tuy nhiên, bạn phải hiểu là mở trình duyệt trên máy tính của người dùng, vì đang trong giai đoạn phát triển phần mềm, nên máy web server và máy người dùng sẽ  chạy chung trên một máy), gõ vào thanh địa chỉ URL sau: ```http://localhost:9000/```
+
+Bấm Enter, bạn sẽ nhận được thông báo trên trình duyệt là:
+
+```Cannot GET /```
+
+Lý do có thông báo trên: client gửi request về web server, tuy nhiên, server mới chỉ mở cổng (9000) để lắng nghe request, nhận request, nhưng chưa có xử lý request và gửi trả lời (response) cho client. Nó giống như kiot đã mở bán, nhưng bên trong chưa có sản phẩm, chưa có người bán (kiot trống).
+
+Xem phần 4.5 để hiểu hơn về URL
+
+Như vậy, URL http://localhost:9000/
+- Client sử dụng giao thức http để gửi request tới web server
+- Web server có địa chỉ là localhost
+- Gửi request vào cổng 9000 của web server
+- Gửi request
+  
+Ngoài việc dùng thanh địa chỉ của trình duyệt để gửi request, chúng ta còn có 2 cách khác để gửi request là web form và hàm JavaScript (AJAX, fetch). Chúng ta sẽ tìm hiểu về web form, AJAX, fetch ở các phần sau.
+#### 1.11.2 Gửi response về client
+**Bước 3: web server nhận request, Bước [4] phân tích, xử lý request, Bước [5] gửi kết quả (response) về cho client**
+
+Tại web server, chúng ta sử dụng phương thức GET của Express để nhận và xử lý các HTTP request kiểu GET (request gửi bằng giao thức HTTP) do client gửi tới.
+
+Cú pháp ```app.get(path, callback)```
+Trong đó:
+- path: luồng dùng để xử lý các request kiểu GET (GET request). 
+- callback: hàm sẽ được thực thi khi có GET request đến luồng tương ứng. Hàm này thường có dạng (req, res) => { ... }, trong đó: 
+  + req (request): đối tượng chứa thông tin request từ client.
+  + res (response): đối tượng dùng để gửi response về client.
+
+Chúng ta sẽ viết đoạn mã xử lý như sau:
+
+[index.js]
+
+```
+'use strict'
+const express = require('express')
+const app = express();
+const port = process.env.PORT || 9000
+//xử lý khi người dùng gửi
+//request kiểu GET tới thư mục gốc (/)
+app.get("/", (req,res) =>
+{
+    //dùng phương thức query của req để lấy thông tin
+    //của GET request
+    const product = req.query.name;
+    const size = req.query.size;
+    //dùng hàm send() của đối tượng res
+    //để gửi dữ liệu về client
+    res.send(`Bạn muốn mua ${product} cỡ ${size}`);
+});
+//khoi dong web server
+app.listen(port,() => {
+    console.log(`server dang chay tren cong ${port}`);
+});
+Lưu lại mã nguồn, khởi động lại web server (nếu dùng Nodemon thì không cần).
+```
+Ví dụ nằm trong file ```lap_trinh_client_server```
+**Bước 6: client (trình duyệt) nhận response, hiển thị thông tin lên trình duyệt**
+Bây giờ trên trình duyệt sẽ xuất hiện dòng chữ: ```Bạn muốn mua shoes cỡ 40```
 ## Chương 2: Git thực hành
 ### 2.1 Hệ thống quản lý phiên bản
 * **Phiên bản(version):** là các bản khác nhau của tập tin, thư mục hoặc toàn bộ mã nguồn dự án (từ đây gọi chung là dự án để tiện trình bày)
@@ -1126,6 +1303,56 @@ B. Commit tạo ra một "ảnh chụp" (snapshot) mới trong lịch sử phiê
 **C. Commit dùng để chuyển tập tin từ Kho chứa sang Khu tạm.**
 
 D. Mỗi commit đi kèm một thông điệp (message) mô tả thay đổi.
+
+Câu 11.2 Free HTML template là gì? Phát biểu nào sau đây không đúng?
+
+A. Free HTML template là các mẫu giao diện web được thiết kế sẵn, bao gồm HTML, CSS, và đôi khi JavaScript, được cung cấp miễn phí.
+
+B. Free HTML template thường có giao diện đẹp, cấu trúc cơ bản (header, footer, sidebar), và phù hợp cho nhiều loại dự án như blog, portfolio, hoặc trang doanh nghiệp nhỏ.
+
+**C. Sử dụng Free HTML template tốn nhiều thời gian, phù hợp cho các dự án lớn.**
+
+D. Free HTML template cho phép bạn tùy chỉnh CSS, thay đổi nội dung (văn bản, hình ảnh), tích hợp back-end (như Node.js, PHP).
+
+Câu 11.3 Static files (tập tin tĩnh) trong Express là gì? Phát biểu nào sau đây không đúng?
+
+A. Static files là các tập tin không thay đổi nội dung hoặc không cần xử lý logic phía server.
+
+B. Static files được gửi trực tiếp cho client thông qua middleware express.static.
+
+C. Mục đích của static files là tối ưu hóa hiệu suất, tổ chức dự án và bảo mật.
+
+**D. Không nên đặt các static files trong thư mục public**
+
+Câu hỏi 12.1 Ứng dụng cục bộ là gì? Phát biểu nào sau đây không đúng?
+
+A. Ứng dụng cục bộ chạy trực tiếp trên thiết bị của người dùng mà không cần kết nối liên tục với máy chủ ở xa.
+
+**B. Ứng dụng cục bộ luôn yêu cầu kết nối internet ổn định để hoạt động hiệu quả.**
+
+C. Ứng dụng cục bộ có thể truy cập trực tiếp vào các tài nguyên của thiết bị như hệ thống tập tin và phần cứng.
+
+D. Dữ liệu của ứng dụng cục bộ thường được lưu trữ trên thiết bị của người dùng, giúp tăng cường bảo mật và quyền riêng tư.
+
+Câu hỏi 12.2 Ứng dụng kiểu client-server là gì? Phát biểu nào sau đây không đúng?
+
+A. Client tập trung chủ yếu vào việc hiển thị giao diện người dùng, trong khi server tập trung xử lý logic và dữ liệu.
+
+B. Giao tiếp giữa client và server thường được thực hiện qua mạng, sử dụng các giao thức như HTTP, WebSocket hoặc TCP/IP.
+
+**C. Client và server luôn phải chạy trên các thiết bị riêng biệt, không bao giờ có thể cùng chạy trên một máy tính.**
+
+D. Server có nhiệm vụ nhận yêu cầu từ client, xử lý chúng, và gửi phản hồi lại cho client.
+
+Câu hỏi 13.2 URL (Uniform Resource Locator) là gì? Phát biểu nào sau đây không đúng?
+
+A. URL là một địa chỉ duy nhất xác định vị trí của một tài nguyên trên Internet.
+
+B. URL bao gồm các thành phần như giao thức, tên miền, đường dẫn, truy vấn và phân mảnh.
+
+C. Phần "truy vấn" (query) trong URL được sử dụng để truyền dữ liệu đến máy chủ thông qua các tham số.
+
+**D. Giao thức "FTP" là giao thức phổ biến nhất được sử dụng trong URL để truy cập các trang web.**
 ## Chương 4: Kiến thức thêm
 ### 4.1 Cách để biết ngôn ngữ mà phía server sử dụng của 1 website
 ### 4.2 Phân tích quá trình xử lý của web server (Quan trọng)
@@ -1198,3 +1425,15 @@ Dưới đây là cách để bạn thực hiện điều đó:
   Các ứng dụng như FaceBook, Instagram... đều bắt đầu theo cách này
   
 **Tóm lại, cách tốt nhất để xây dựng dự án là lược bỏ những bước không cần thiết, tập trung vào những gì quan trọng và cải tiến sau**
+### 4.5 Cú pháp của URL
+URL (Uniform Resource Locator) là địa chỉ duy nhất, dùng để định vị tài nguyên trên web, như trang HTML, API, hoặc tập tin tài nguyên tĩnh (ví dụ hình ảnh, âm thanh)
+
+Cú pháp của một URL: ```protocol://domain:port/path?query#fragment```
+
+Giải thích các thành phần của một URL:
+- protocol (giao thức): xác định phương thức giao tiếp mà trình duyệt sử dụng để giao tiếp với server. Các giao thức phổ biến bao gồm http (Hypertext Transfer Protocol) và https (Hypertext Transfer Protocol Secure).
+- domain (tên miền): tên của máy server. Ví dụ: google.com, wikipedia.org, localhost.
+- port (cổng) (tùy chọn): số cổng mà server sử dụng để lắng nghe yêu cầu (request). Cổng mặc định cho http là 80 và cho https là 443.
+- path (đường dẫn): đường dẫn đến một vị trí (thư mục, tập tin, API) trên server. Ví dụ: /images/logo.png, /articles/how-to-use-url, /users.
+- query (truy vấn) (tùy chọn): chuỗi các tham số được sử dụng để truyền dữ liệu đến server. Ví dụ: ?name=shoes&size=40.
+- fragment (phân mảnh) (tùy chọn): một phần cụ thể của tài nguyên, thường là một phần của trang HTML. Ví dụ: #section-2.
