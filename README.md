@@ -973,7 +973,69 @@ Express-handlebars là một server-side template engine được tích hợp v�
 E:\TeoShop>pnpm i -s express-handlebars
 - Lệnh trên sẽ tải express-handlebars từ npm registry về máy và cài đặt
 - Nếu không có thông báo lỗi, nghĩa là việc cài đặt đã thành công
-- Mở tập tin package.json trong dự án, mục dependencies sẽ thấy có thông tin của 
+- Mở tập tin package.json trong dự án, mục dependencies sẽ thấy có thông tin của
+![image](md_assets/Handlebar.png)
+#### 1.15.3 Sử dụng Express-handlebars trong Express
+**Khai báo để sử dụng gói express-handlebars**
+```const expressHandlebars = require(expressHandlebars);```
+
+**Tổ chức thư mục, tập tin**
+```
+express_handlebars/
+├── views/
+│   ├── layouts/ 
+│   │   └── main.hbs 
+│   ├── partials/
+│   │   ├── header.hbs
+│   │   └── footer.hbs
+│   ├── index.hbs
+│   └── cart.hbs
+└── index.js
+```
+- Thư mục views: là thư mục chứa tất cả các template của ứng dụng. Express sẽ tìm kiếm các template trong thư mục này khi bạn gọi phương thức res.render().
+
+- Thư mục layouts: chứa các layout chính (main layout - main.hbs) của ứng dụng. Main layout là một template HTML chung, là bộ khung thống nhất cho các giao diện có bố cục tương tự nhau. Ví dụ: main.hbs có thể chứa cấu trúc HTML cơ bản, header, footer. Việc sử dụng layout giúp bạn tránh việc lặp lại mã HTML trên nhiều trang.
+
+- Thư mục partials: chứa các template con. Partial nghĩa là các thành phần con. Partials là các đoạn mã HTML có thể tái sử dụng, được nhúng vào các “view” hoặc “layout”. Ví dụ: bạn có thể tạo một partial cho header, footer, hoặc một form đăng nhập. Việc sử dụng partials giúp bạn chia nhỏ giao diện thành các thành phần nhỏ hơn, dễ quản lý hơn.
+
+Việc tổ chức thư mục, tập tin như trên có một số ưu điểm là:
+- Tách biệt logic xử lý và giao diện: giúp dễ đọc mã nguồn, dễ bảo trì và dễ mở rộng.
+- Tái sử dụng mã: tránh lặp lại mã HTML, giảm thiểu lỗi và tăng tốc độ phát triển.
+- Quản lý giao diện dễ dàng: cho phép bạn thay đổi giao diện một cách nhất quán trên toàn bộ ứng dụng.
+
+![image](md_assets/Handlebar.png)
+
+**Cấu hình để sử dụng express-handlebars trong mã nguồn**
+Trong tập tin index.js, thêm đoạn mã sau:
+```
+const port = process.env.PORT || 9000
+const expressHandlebars = require('express-handlebars');
+// cau hinh de su dung express handlebars, dinh nghia engine
+app.engine('hbs', expressHandlebars.engine({
+    // thu muc chua cac layout
+    layoutsDir: __dirname + '/views/layouts',
+    // thu muc chua cac template con
+    partialsDir: __dirname + '/views/partials',
+    // duoi cua tap tin layout
+    extname: 'hbs',
+    // tap tin layout chinh la
+    defaultLayout: 'main'
+}));
+// khai bao de su dung engine da dinh nghia
+app.set('view engine', 'hbs');
+```
+Ví dụ trong ```express_handlebars```
+
+**Tạo các tập tin template, gồm mã HTML và cú pháp của express-handlebars**
+
+Trong thư mục views/layouts chúng ta sẽ tạo main.hbs bao gồm mã nguồn của header và footer.
+
+Cách làm:
+- Trong trình duyệt, bạn mở trang http://localhost:9000/index.html
+- Dùng chế độ inspect để phân tích giao diện, để biết đoạn mã nguồn nào là của phần header, của “nội dung trang con” và của footer.
+- Chép toàn bộ mã nguồn của trang public\index.html vào tập tin main.hbs
+- Trong main.hbs, giữ lại mã nguồn phần header và footer, cắt đi mã nguồn phần chính giữa (“nội dung trang con”) đưa vào tập tin index.hbs (bạn tạo tập tin index.hbs trong views, nếu bạn chưa tạo)
+  
 ## Chương 2: Git thực hành
 ### 2.1 Hệ thống quản lý phiên bản
 * **Phiên bản(version):** là các bản khác nhau của tập tin, thư mục hoặc toàn bộ mã nguồn dự án (từ đây gọi chung là dự án để tiện trình bày)
