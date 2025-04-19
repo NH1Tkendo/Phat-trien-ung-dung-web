@@ -880,6 +880,100 @@ app.get('/',(req, res) => {
 [4] Built-in middleware: các middleware do Express cung cấp sẵn như express.json(), express.static().
 
 [5] Third-party middleware: middleware của các nhà cung cấp khác, ví dụ body-parser, cors, morgan.
+### 1.14 Lập trình trang web động
+#### 1.14.1 Trang web động
+Trang web tĩnh là trang web có nội dung cố định, không thay đổi trừ khi bạn chỉnh sửa mã nguồn (HTML/CSS). Ví dụ trang giới thiệu công ty đơn giản.
+
+Trang web động là trang web mà nội dung hoặc giao diện có thể thay đổi dựa trên dữ liệu, hành động của người dùng, hoặc các yếu tố khác, thay vì chỉ hiển thị nội dung tĩnh cố định. Một trang web động có thể:
+- Hiển thị dữ liệu khác nhau cho từng người dùng (ví dụ: tên người dùng, danh sách sản phẩm).
+- Cập nhật giao diện mà không cần tải lại toàn bộ trang (ví dụ: thêm sản phẩm vào giỏ hàng).
+- Tương tác với người dùng theo thời gian thực (ví dụ: chat, thông báo).
+
+Dữ liệu có thể do người dùng cung cấp, có thể lấy từ server, hoặc lấy từ các hệ thống khác. Khi đã có dữ liệu, chúng ta sẽ kết hợp dữ liệu với HTML/CSS để tạo ra giao diện. Để tiện trình bày, chúng ta sẽ gọi giao diện động là giao diện.
+
+**Các công cụ, kỹ thuật tạo trang web động**
+
+Có 3 cách để tạo ra giao diện cho trang web:
+- [1] Tạo giao diện tại phía server
+- [2] Tạo giao diện tại phía client
+- [3] Tạo giao diện hỗn hợp, gồm cả ở phía server và phía client
+
+#### 1.14.2 Tạo giao diện phía server
+Tạo giao diện tại phía server (server-side rendering - SSR) là kỹ thuật tạo ra nội dung trang web (rendering) bằng cách xử lý logic và tạo ra mã HTML hoàn chỉnh trên máy chủ (server side) trước khi gửi về cho trình duyệt (client).
+
+![image](md_assets/SSR1.png)
+
+**Ưu điểm của SSR:**
+- Tối ưu hóa SEO (search engine optimization): các công cụ tìm kiếm có thể thu thập dữ liệu và lập chỉ mục nội dung trang web dễ dàng hơn vì nội dung đã có đầy đủ trong mã HTML.
+- Tăng tốc độ tải trang ban đầu: người dùng có thể nhìn thấy nội dung trang web nhanh hơn, đặc biệt là trên các thiết bị di động hoặc kết nối mạng chậm.
+- Hỗ trợ tốt cho các thiết bị có cấu hình phần cứng yếu: các thiết bị sẽ không phải thực thi quá nhiều Javascript, giảm tải cho thiết bị.
+**Nhược điểm của SSR:**
+- Tăng tải cho máy chủ: máy chủ phải xử lý nhiều yêu cầu hơn để tạo ra mã HTML cho mỗi trang, dẫn đến tăng tải và yêu cầu tài nguyên máy chủ cao hơn.
+- Phức tạp hơn trong việc phát triển: yêu cầu lập trình viên phải có kiến thức về cả phía máy chủ (backend) và phía trình duyệt (frontend).
+- Khả năng tương tác hạn chế: các tương tác “động” trên trang web có thể bị chậm, vì mỗi tương tác sẽ cần phải gửi một request đến máy chủ.
+
+**Các công cụ sử dụng SSR:**
+- Next.js (React)
+- Nuxt.js (Vue.js)
+- Angular Universal (Angular)
+- Server-side template engines
+- Nestjs
+#### 1.14.3 Tạo giao diện tại phía client
+Tạo giao diện tại phía client (client-side rendering - CSR) là kỹ thuật tạo ra nội dung trang web bằng cách xử lý và tạo ra mã HTML hoàn chỉnh trên trình duyệt (client) bằng Javascript. Khi người dùng truy cập một ứng dụng web sử dụng CSR, máy chủ chỉ gửi về một tập tin HTML rỗng và một tập tin Javascript. Trình duyệt sẽ nhận tập tin Javascript và thực thi mã JavaScript để tạo ra nội dung trang web.
+
+**Ưu điểm của CSR:**
+- Tăng tốc độ hiển thị “các trang sau”: sau khi trang web được tải lần đầu tiên, các trang tiếp theo sẽ được hiển thị nhanh hơn vì trình duyệt chỉ cần tải dữ liệu từ máy chủ mà không cần tải lại toàn bộ
+mã HTML.
+- Tương tác người dùng tốt hơn: CSR cho phép tạo ra các trang web tương tác cao, với các hiệu ứng động và cập nhật nội dung mà không cần tải lại trang.
+- Giảm tải cho máy chủ: máy chủ chỉ cần gửi về tập tin HTML rỗng và tập tin Javascript, giúp giảm tải cho máy chủ.
+
+**Nhược điểm của CSR:**
+- SEO không tốt: các công cụ tìm kiếm có thể gặp khó khăn trong việc thu thập dữ liệu và lập chỉ mục nội dung trang web vì nội dung được tạo ra bằng Javascript.
+- Tốc độ tải trang ban đầu chậm: người dùng phải chờ trình duyệt tải và thực thi tập tin Javascript trước khi nhìn thấy nội dung trang web.
+- Yêu cầu thiết bị người dùng phải mạnh: CSR yêu cầu trình duyệt của người dùng phải có khả năng xử lý Javascript tốt.
+
+**Các công cụ sử dụng CSR:**
+- React
+- Angular
+- Vue
+![image](md_assets/CSR1.png)
+
+#### 1.14.4 Tạo giao diện hỗn hợp, gồm cả ở phía server và phía client
+Tạo giao diện hỗn hợp là phương pháp tạo giao diện bằng cách kết hợp SSR và CSR. Mục tiêu là tận dụng ưu điểm của cả hai kỹ thuật để tạo ra các trang web có hiệu suất cao, tối ưu hóa SEO và trải nghiệm người dùng tốt.
+
+Cách thức sử dụng:
+- Tạo trang web ban đầu trên máy chủ (SSR), khi người dùng truy cập lần đầu tiên. Mã HTML hoàn chỉnh được gửi về cho trình duyệt, giúp hiển thị nội dung nhanh chóng và tối ưu hóa SEO.
+- Sau khi trang web được tải, các tương tác của người dùng sẽ được xử lý bằng JavaScript trên trình duyệt (CSR). Điều này cho phép tạo ra các trang web tương tác cao, với các hiệu ứng động và cập nhật nội dung mà không cần tải lại trang.
+
+### 1.15 Express-handlebars
+#### 1.15.1 Server-side template engine
+Server-side template engine là công cụ phần mềm được sử dụng trên server để tạo ra giao diện web (HTML động) bằng cách kết hợp dữ liệu (data) với các mẫu giao diện (templates). Với các thành phần và cách hoạt động như sau:
+- Mẫu giao diện (template): một tập tin chứa mã HTML, kết hợp với cú pháp đặc biệt (placeholder, vòng lặp, điều kiện) để chèn dữ liệu.
+- Dữ liệu: được cung cấp từ server (từ cơ sở dữ liệu, API, hoặc xử lý logic tại backend).
+- Kết xuất (rendering): template engine xử lý các template, thay thế các placeholder bằng dữ liệu thực tế, tạo ra HTML hoàn chỉnh.
+- Trả về client: server gửi HTML hoàn chỉnh về trình duyệt để hiển thị.
+
+**Một ví dụ đơn giản khi sử dụng template:**
+- Template: ```<h1>Hello {{name}}</h1>```
+- Dữ liệu: ```{ name: "Ngô Bá Tài" }```
+- Kết quả HTML hoàn chỉnh: ```<h1>Hello Ngô Bá Tài</h1>```
+
+**Ưu điểm khi sử dụng template engine:**
+- Tạo giao diện động: hiển thị nội dung thay đổi dựa trên dữ liệu (danh sách sản phẩm, thông tin người dùng).
+- Tách biệt logic xử lý và giao diện: backend xử lý dữ liệu, template engine xử lý hiển thị.
+- Hỗ trợ SEO: với HTML hoàn chỉnh sẽ tốt cho công cụ tìm kiếm.
+- Dễ sử dụng
+- Tải nhanh lần đầu
+**Nhược điểm**
+- Không phù hợp với ứng dụng nặng về tương tác (SPA), vì cần tải lại trang khi thay đổi nội dung.
+#### 1.15.2 Express-handlebars
+Express-handlebars là một server-side template engine được tích hợp vào framework Express để tạo ra “HTML động” từ phía server. Express-handlebars dựa trên cú pháp Mustache, cho phép bạn tạo các template với các placeholder ```({{variable}})``` và các cấu trúc điều khiển như vòng lặp ```({{#each}})``` hoặc điều kiện ```({{#if}}).```
+
+**Thực hiện cài đặt**
+E:\TeoShop>pnpm i -s express-handlebars
+- Lệnh trên sẽ tải express-handlebars từ npm registry về máy và cài đặt
+- Nếu không có thông báo lỗi, nghĩa là việc cài đặt đã thành công
+- Mở tập tin package.json trong dự án, mục dependencies sẽ thấy có thông tin của 
 ## Chương 2: Git thực hành
 ### 2.1 Hệ thống quản lý phiên bản
 * **Phiên bản(version):** là các bản khác nhau của tập tin, thư mục hoặc toàn bộ mã nguồn dự án (từ đây gọi chung là dự án để tiện trình bày)
@@ -1665,6 +1759,38 @@ B. Xử lý request (như xác thực, ghi log).
 C. Sửa đổi đối tượng req hoặc res.
 
 **D. Middleware nhận 2 tham số: req, res.**
+
+Câu hỏi 16.1 Trang web động là gì. Phát biểu nào sau đây KHÔNG ĐÚNG?
+
+A. Nội dung hiển thị có thể khác nhau tùy thuộc vào người dùng truy cập. 
+
+**B. Nội dung trang web luôn cố định và không thay đổi theo thời gian.**
+
+C. Giao diện có khả năng cập nhật một phần mà không cần tải lại toàn bộ trang. 
+
+D. Trang web có thể tương tác với người dùng theo thời gian thực.
+
+Câu hỏi 16.2 Ưu điểm của SSR (Server-Side Rendering) là gì? Phát biểu nào dưới đây KHÔNG đúng?
+
+A. Tối ưu hóa SEO vì các công cụ tìm kiếm có thể thu thập và lập chỉ mục nội dung dễ dàng hơn nhờ nội dung đầy đủ trong mã HTML.
+
+B. Tăng tốc độ tải trang ban đầu, giúp người dùng thấy nội dung nhanh hơn, đặc biệt trên thiết bị di động hoặc mạng chậm.
+
+C. Hỗ trợ tốt cho thiết bị cấu hình yếu bằng cách giảm tải việc thực thi JavaScript trên thiết bị.
+
+D. Loại bỏ hoàn toàn sự phụ thuộc vào JavaScript để hiển thị nội dung trang web.
+
+Câu hỏi 16.3 Nhược điểm của CSR (Client-Side Rendering) là gì? Phát biểu nào dưới đây KHÔNG đúng?
+
+**A. CSR luôn tiêu tốn nhiều tài nguyên server hơn so với SSR để hiển thị nội dung trang web.**
+
+B. SEO không tốt vì các công cụ tìm kiếm có thể gặp khó khăn trong việc thu thập và lập chỉ mục nội dung được tạo bởi JavaScript.
+
+C. Tốc độ tải trang ban đầu chậm do người dùng phải chờ trình duyệt tải và thực thi tập tin JavaScript trước khi thấy nội dung.
+
+D. Yêu cầu thiết bị người dùng phải mạnh để xử lý tốt các tác vụ JavaScript.
+
+-----
 ## Chương 4: Kiến thức thêm
 ### 4.1 Cách để biết ngôn ngữ mà phía server sử dụng của 1 website
 ### 4.2 Phân tích quá trình xử lý của web server (Quan trọng)
