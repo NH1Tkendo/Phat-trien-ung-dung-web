@@ -1852,7 +1852,15 @@ C. Tốc độ tải trang ban đầu chậm do người dùng phải chờ trì
 
 D. Yêu cầu thiết bị người dùng phải mạnh để xử lý tốt các tác vụ JavaScript.
 
------
+Câu hỏi 17.1 Express-handlebars là một _________được tích hợp vào framework Express để tạo ra “HTML động” từ phía server.
+
+A. client-side template engine
+
+B. server-side template machine
+
+C. server-site template engine
+
+**D. server-side template engine**
 ## Chương 4: Kiến thức thêm
 ### 4.1 Cách để biết ngôn ngữ mà phía server sử dụng của 1 website
 ### 4.2 Phân tích quá trình xử lý của web server (Quan trọng)
