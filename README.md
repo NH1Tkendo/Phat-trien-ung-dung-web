@@ -1035,7 +1035,14 @@ Cách làm:
 - Dùng chế độ inspect để phân tích giao diện, để biết đoạn mã nguồn nào là của phần header, của “nội dung trang con” và của footer.
 - Chép toàn bộ mã nguồn của trang public\index.html vào tập tin main.hbs
 - Trong main.hbs, giữ lại mã nguồn phần header và footer, cắt đi mã nguồn phần chính giữa (“nội dung trang con”) đưa vào tập tin index.hbs (bạn tạo tập tin index.hbs trong views, nếu bạn chưa tạo)
-  
+### 1.16 Tạo giao diện các trang con
+Chúng ta sẽ tạo giao diện cho các trang con theo các bước sau:
+
+- Bước 1: Di chuyển toàn bộ các trang  cart.html, checkout.html, contact.html, login.html, my-account.html, product-detail.html, product-list.html, wishlist.html từ thư mục public sang thư mục views.
+
+- Bước 2: Đổi đuôi tập tin của các trang con từ .html sang .hbs
+
+- Bước 3: Vào mỗi tập tin xóa đi mã nguồn từ đầu đến hết phần header, và từ phần footer đến hết tập tin (giống như bạn đã làm cho tập tin index.hbs). Xem hình minh họa về cấu trúc các tập tin trong views.
 ## Chương 2: Git thực hành
 ### 2.1 Hệ thống quản lý phiên bản
 * **Phiên bản(version):** là các bản khác nhau của tập tin, thư mục hoặc toàn bộ mã nguồn dự án (từ đây gọi chung là dự án để tiện trình bày)
