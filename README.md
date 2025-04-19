@@ -1037,12 +1037,20 @@ Cách làm:
 - Trong main.hbs, giữ lại mã nguồn phần header và footer, cắt đi mã nguồn phần chính giữa (“nội dung trang con”) đưa vào tập tin index.hbs (bạn tạo tập tin index.hbs trong views, nếu bạn chưa tạo)
 ### 1.16 Tạo giao diện các trang con
 Chúng ta sẽ tạo giao diện cho các trang con theo các bước sau:
-
-- Bước 1: Di chuyển toàn bộ các trang  cart.html, checkout.html, contact.html, login.html, my-account.html, product-detail.html, product-list.html, wishlist.html từ thư mục public sang thư mục views.
-
+- Bước 1: Di chuyển toàn bộ các trang từ thư mục public sang thư mục views.
 - Bước 2: Đổi đuôi tập tin của các trang con từ .html sang .hbs
-
 - Bước 3: Vào mỗi tập tin xóa đi mã nguồn từ đầu đến hết phần header, và từ phần footer đến hết tập tin (giống như bạn đã làm cho tập tin index.hbs). Xem hình minh họa về cấu trúc các tập tin trong views.
+- Bước 4: Vào tập tin main.hbs, sửa lại URL của các liên kết thành giá trị mới sau: ```[giá trị cũ > giá trị mới]```
+VD: index.html thành /index
+- Bước 5: Vào tập tin index.js, thêm đoạn mã xử lý để hiển thị các trang con.
+```
+app.get('/:page', (req, res) =>{
+    res.render(req.params.page);
+});
+```
+- Bước 6: Lưu lại các tập tin mã nguồn, khởi động lại server, vào trình duyệt, mở lại web app, bấm vào các mục của menu sẽ thấy giao diện đã hoạt động tốt.
+#### 1.15.3 Sử dụng partial
+Partial là các thành phần con, là các đoạn mã HTML có thể tái sử dụng, được nhúng vào các “view” hoặc “layout”. Việc sử dụng partial giúp bạn chia nhỏ giao diện thành các thành phần nhỏ hơn, dễ quản lý hơn.
 ## Chương 2: Git thực hành
 ### 2.1 Hệ thống quản lý phiên bản
 * **Phiên bản(version):** là các bản khác nhau của tập tin, thư mục hoặc toàn bộ mã nguồn dự án (từ đây gọi chung là dự án để tiện trình bày)
@@ -1338,7 +1346,130 @@ This commit addresses a bug where users were unable to log in due to an incorrec
 - Modified the password validation logic in `auth.py`. 
 - Added unit tests to verify the fix.
 ```
-## Chương 3: Trắc nghiệm
+## Chương 3: CSDL thực hành
+### 3.1 Dữ liệu và CSDL
+#### 3.1.1 Dữ liệu là gì
+- Một chuỗi gồm một hoặc nhiều ký hiệu (sequence of one or more symbols), như chữ cái, số, ký hiệu đặc biệt (ví dụ: A, 1, $). Đây là cách dữ liệu được biểu diễn ở mức người dùng hoặc mức trừu tượng cao hơn, trước khi máy tính xử lý. Ví dụ, chuỗi "123" hoặc "Xin chào" là dữ liệu dạng ký hiệu mà con người nhập vào hệ thống. Ở mức cơ bản (mức máy tính xử lý), các ký hiệu này sẽ được mã hóa để máy tính hiểu.
+
+- Ở mức lưu trữ thấp nhất (cấp độ phần cứng), mọi dữ liệu trong máy tính đều được biểu diễn bằng bit (binary digits) – tức là 0 và 1. Đây là ngôn ngữ cơ bản mà máy tính sử dụng để lưu trữ và xử lý. Ví dụ: chuỗi "Xin chào” sẽ được mã hóa thành một dãy bit (ví dụ: 01011000  01101001 trong mã ASCII cho chữ "X" và "i"). Tất cả văn bản, hình ảnh, âm thanh cuối cùng đều quy về nhị phân.
+
+- Cần được thông dịch (diễn dịch, xử lý) để trở thành thông tin. Dữ liệu thô (raw data) chỉ là tập hợp ký hiệu hoặc số liệu, không có ý nghĩa cho đến khi được xử lý hoặc diễn dịch để trở thành thông tin (information) – dữ liệu có ngữ cảnh và ý nghĩa. Ví dụ, số "19" là dữ liệu; khi được diễn dịch là "tuổi của bạn", nó trở thành thông tin. Máy tính hoặc con người cần xử lý dữ liệu để hiểu và sử dụng nó.
+
+- Biểu diễn số lượng, tính chất của các đối tượng hoặc chỉ dẫn hoạt động. Ví dụ, biểu diễn số lượng: "5" là số sản phẩm trong kho; biểu diễn tính chất: "đỏ" là màu của một chiếc xe; chỉ dẫn hoạt động: mã lệnh "1010" yêu cầu CPU thực hiện phép cộng.
+
+- Dữ liệu được lưu trữ trên ổ đĩa (HDD, SSD) hoặc các thiết bị khác như RAM, đám mây
+
+- Được tổ chức theo dạng cấu trúc, bán cấu trúc hoặc không cấu trúc.
+
+#### 3.1.2 Cơ sở dữ liệu là gì
+Cơ sở dữ liệu (database) là một tập hợp dữ liệu được tổ chức, lưu trữ và quản lý một cách có hệ thống trên máy tính, để bạn có thể dễ dàng truy cập, thêm, sửa, xóa hoặc tìm kiếm thông tin khi cần. Hãy nghĩ về CSDL như một "kho lưu trữ thông minh".
+Ưu điểm khi sử dụng cơ sở dữ liệu:
+- Giúp người dùng dễ dàng truy cập, quản lý, khai thác và cập nhật thông tin
+- Giảm sự trùng lặp thông tin xuống mức thấp nhất
+- Có thể truy xuất thông tin theo nhiều cách
+- Cho phép nhiều người cùng sử dụng một lúc
+- Tăng tính bảo mật cho dữ liệu
+- Tăng tính toàn vẹn dữ liệu
+- Khả năng mở rộng dễ dàng
+#### 3.1.3 Làm việc với CSDL
+Khi làm việc với CSDL, chúng ta quan tâm tới 3 thành phần sau:
+- Dữ liệu
+- Cách thức tổ chức dữ liệu
+- Phần mềm quản lý CSDL
+
+**Dữ liệu**
+Dữ liệu là tập hợp các thông tin thô (raw facts) được thu thập, lưu trữ và xử lý trong cơ sở dữ liệu. Đây là thành phần cốt lõi, đại diện cho các giá trị thực tế mà hệ thống cần quản lý. Dữ liệu có thể ở dạng số, văn bản, hình ảnh, âm thanh, hoặc bất kỳ định dạng nào khác tùy thuộc vào mục đích sử dụng.
+
+* Đặc điểm:
+- Nguyên bản: chưa qua xử lý hoặc tổ chức thành thông tin có ý nghĩa.
+- Đa dạng: có thể là dữ liệu có cấu trúc (structured), bán cấu trúc (semi-structured), hoặc không cấu trúc (unstructured).
+- Nguồn gốc: được thu thập từ người dùng, hệ thống, cảm biến, hoặc các nguồn khác.
+**Cách thức tổ chức dữ liệu**
+  Có hai mô hình tổ chức dữ liệu đang được sử dụng phổ biến, gồm:
+- Mô hình quan hệ (relational model): dữ liệu được tổ chức dưới dạng các bảng
+- Mô hình phi quan hệ (noSQL): dữ liệu được tổ chức dưới dạng phi cấu trúc, hoặc bán cấu trúc như JSON, XML.
+**Phần mềm quản lý CSDL**
+Khi đã có cơ sở dữ liệu (CSDL), bao gồm dữ liệu và mô hình tổ chức dữ liệu, chúng ta cần sử dụng các công cụ (phần mềm) để chuyển CSDL vào hệ thống máy tính.
+
+Phần mềm đảm nhận vai trò này được gọi là Phần mềm quản lý CSDL, hay còn được gọi là Hệ quản trị CSDL (Database Management System - DBMS).
+
+Hệ quản trị CSDL (DBMS) là một phần mềm chuyên dụng, cho phép người dùng thực hiện các thao tác như tạo lập, quản lý và truy xuất dữ liệu trong CSDL. DBMS cung cấp các công cụ hỗ trợ định nghĩa cấu trúc dữ liệu, nhập liệu, thực hiện truy vấn dữ liệu, đồng thời đảm bảo tính bảo mật cho dữ liệu được lưu trữ.
+
+Một số DBMS phổ biến:
+- MySQL
+- PostgreSQL
+- Oracle Database
+- Microsoft SQL Server
+- MongoDB(NoSQL)
+### 3.2 DBMS
+Phần mềm quản lý CSDL (hay Hệ quản trị cơ sở dữ liệu, DataBase Management System), gọi tắt là DBMS, là một phần mềm chuyên dụng, cho phép người dùng thực hiện các thao tác như tạo lập, quản lý và truy xuất dữ liệu trong CSDL. 
+
+DBMS cung cấp các công cụ hỗ trợ để định nghĩa cấu trúc dữ liệu, nhập liệu, thực hiện truy vấn dữ liệu, đồng thời đảm bảo tính bảo mật cho dữ liệu được lưu trữ.
+
+Một số DBMS phổ biến gồm: MySQL, PostgreSQL, Oracle Database, Microsoft SQL Server, MongoDB (NoSQL). 
+#### 3.2.1 RDBMS là gì
+RDBMS là viết tắt của Relational Database Management System - Hệ quản trị CSDL quan hệ, là một DBMS, dùng để quản lý CSDL theo Mô hình quan hệ.
+
+Một số RDBMS phổ biến:
+- MySQL
+- PostgreSQL
+- Oracle Database
+- Microsoft SQL Server
+- IBM DB2
+
+#### 3.2.2 Làm việc với RDBMS
+**Các thành phần của RDBMS**
+Khi cài đặt một RDBMS, bạn không chỉ cài đặt một phần mềm đơn lẻ mà là một tập hợp các thành phần và công cụ phối hợp để quản lý dữ liệu hiệu quả.
+
+Cụ thể, khi cài đặt SQL Server, bạn đã cài đặt các thành phần sau:
+
+- Công cụ cơ sở dữ liệu (Database engine), đây là thành phần cốt lõi của một RDBMS, chịu trách nhiệm lưu trữ, quản lý, và truy xuất dữ liệu theo mô hình quan hệ. Nó xử lý các lệnh SQL, quản lý bảng, chỉ mục, giao dịch, và tối ưu hóa truy vấn.
+
+- Công cụ dòng lệnh (sqlcmd), cho phép bạn làm việc với Database engine bằng lệnh, thông qua Command Prompt, CMD hoặc PowerShell
+
+- Công cụ đồ họa (SQL Server Management Studio-SSMS), là một công cụ  mạnh mẽ cho phép bạn quản lý và phát triển cơ sở dữ liệu SQL Server. SSMS cung cấp các công cụ để tạo bảng, truy vấn dữ liệu, quản lý người dùng và thực hiện nhiều tác vụ quản trị khác.
+
+- Các công cụ quản lý khác, dịch vụ nền, thư viện và các tính năng bổ sung khác.
+
+![image](md_assets/rdbms.jpg)
+#### 3.2.3 Khóa chính và Khóa ngoại
+Khóa (key) là gì?
+
+Trong cơ sở dữ liệu quan hệ, "khóa" là một hoặc một tập hợp các thuộc tính (cột) trong một bảng (quan hệ), được sử dụng để xác định duy nhất một bản ghi (hàng) trong bảng đó hoặc để liên kết các bảng với nhau.
+
+Khóa chính (primary key) là gì?
+- Là khóa dùng để xác định duy nhất mỗi bản ghi trong một bảng.
+- Mỗi bảng chỉ có một khóa chính.
+- Giá trị của khóa chính không được trùng lặp và không được mang giá trị NULL.
+- Ví dụ: Mã nhân viên (MANV) trong bảng Nhân viên.
+
+Khóa ngoại (foreign key) là gì?
+- Là khóa được sử dụng để liên kết hai bảng với nhau.
+- Khóa ngoại của một bảng tham chiếu đến khóa chính của một bảng khác.
+- Khóa ngoại giúp đảm bảo tính toàn vẹn tham chiếu giữa các bảng.
+- Ví dụ: Mã chi nhánh (MSCN) trong bảng Nhân viên, tham chiếu đến Mã chi nhánh
+### 3.3 Truy vấn dữ liệu
+Truy vấn dữ liệu là quá trình tìm kiếm, lấy ra và xử lý thông tin từ một nguồn dữ liệu, thường là cơ sở dữ liệu.
+
+Mục đích chính của truy vấn dữ liệu:
+- Lấy thông tin cần thiết: giúp người dùng hoặc ứng dụng tìm kiếm và lấy ra thông tin cụ thể từ một lượng lớn dữ liệu được lưu trữ.
+- Phân tích dữ liệu: có thể được sử dụng để lọc, sắp xếp, tính toán và tổng hợp dữ liệu, giúp người dùng hiểu rõ hơn về dữ liệu.
+- Báo cáo dữ liệu: được sử dụng để tạo ra các báo cáo dữ liệu, hiển thị dữ liệu theo định dạng dễ hiểu.
+- Tự động hóa tác vụ: có thể được sử dụng để tự động hóa các tác vụ quản lý dữ liệu, chẳng hạn như cập nhật dữ liệu, xóa dữ liệu hoặc tạo bản sao lưu dữ liệu.
+
+Phép chọn (SELECT) là gì?
+
+Trong SQL (Structured Query Language), phép chọn (SELECT) là một trong những lệnh cơ bản và quan trọng nhất, được sử dụng để truy xuất dữ liệu từ một hoặc nhiều bảng trong cơ sở dữ liệu.
+
+Chức năng chính của phép chọn:
+- Truy xuất dữ liệu: lệnh SELECT cho phép bạn lấy dữ liệu từ các cột cụ thể hoặc tất cả các cột trong một bảng.
+- Lọc dữ liệu: bạn có thể sử dụng mệnh đề WHERE để lọc dữ liệu dựa trên các điều kiện cụ thể.
+- Sắp xếp dữ liệu: mệnh đề ORDER BY cho phép bạn sắp xếp dữ liệu theo thứ tự tăng dần hoặc giảm dần.
+- Nhóm dữ liệu: mệnh đề GROUP BY cho phép bạn nhóm các bản ghi có giá trị giống nhau trong một cột.
+- Kết hợp dữ liệu: lệnh SELECT có thể được sử dụng để kết hợp dữ liệu từ nhiều bảng khác nhau bằng cách sử dụng các phép kết nối (JOIN).
+
+## Chương 4: Dự án cá nhân
+## Chương 5: Trắc nghiệm
 Câu 1.3: Phát biểu nào không đúng khi nói về web, trang web và website?
 
 A. Web là hệ thống thông tin toàn cầu
@@ -1868,9 +1999,139 @@ B. server-side template machine
 C. server-site template engine
 
 **D. server-side template engine**
-## Chương 4: Kiến thức thêm
-### 4.1 Cách để biết ngôn ngữ mà phía server sử dụng của 1 website
-### 4.2 Phân tích quá trình xử lý của web server (Quan trọng)
+
+Câu 1.1 Trong lĩnh vực Công nghệ Thông tin, dữ liệu là gì? Phát biểu nào sau đây không đúng?
+
+**A. Dữ liệu thô (raw data) đã có ngữ cảnh và ý nghĩa, không cần phải thông dịch (xử lý) để trở thành thông tin.**
+
+B. Dữ liệu là một chuỗi gồm một hoặc nhiều ký hiệu, như chữ cái, số, ký hiệu đặc biệt.
+
+C. Ở mức lưu trữ thấp nhất (cấp độ phần cứng), mọi dữ liệu trong máy tính đều được biểu diễn bằng bit (binary digits) – tức là 0 và 1.
+
+D. Dữ liệu được lưu trữ trên ổ đĩa (HDD, SSD) hoặc các thiết bị khác như RAM, đám mây.
+
+Câu 1.2 Cơ sở dữ liệu (database) là gì? Phát biểu nào sau đây không đúng?
+
+A. Cơ sở dữ liệu là một tập hợp dữ liệu được tổ chức, lưu trữ và quản lý một cách có hệ thống trên máy tính.
+
+**B. Cơ sở dữ liệu làm tăng sự trùng lặp thông tin lên mức cao nhất.**
+
+C. Cơ sở dữ liệu giúp người dùng dễ dàng truy cập, quản lý, khai thác và cập nhật thông tin.
+
+D. Cơ sở dữ liệu cho phép nhiều người cùng sử dụng một lúc.
+
+Câu 1.3 DBMS là gì? Phát biểu nào sau đây không đúng?
+
+A. DBMS là phần mềm cho phép người dùng tạo, quản lý và truy xuất dữ liệu trong CSDL.
+
+B. DBMS cung cấp các công cụ để định nghĩa cấu trúc dữ liệu, nhập dữ liệu, truy vấn dữ liệu và bảo mật dữ liệu.
+
+C. MySQL, PostgreSQL, Oracle Database, Microsoft SQL Server, MongoDB là các ví dụ về DBMS.
+
+**D. DBMS chỉ hỗ trợ các mô hình dữ liệu quan hệ, không hỗ trợ mô hình phi quan hệ.**
+
+Câu 1.4 Theo “Tháp xử lý thông tin”, quá trình chuyển đổi dữ liệu được thực hiện theo thứ tự nào?
+
+A. Data > Knowledge > Information > Wisdom
+
+B. Information > Data > Knowledge > Wisdom
+
+C. Data > Information  > Wisdom > Knowledge
+
+**D. Data > Information > Knowledge > Wisdom**
+
+Câu 2.2 RDBMS là gì? Phát biểu nào sau đây không đúng?
+
+A. RDBMS là viết tắt của Relational Database Management System - Hệ quản trị CSDL quan hệ.
+
+B. RDBMS là một DBMS dùng để quản lý CSDL theo Mô hình quan hệ.
+
+C. MySQL, PostgreSQL, Oracle Database, Microsoft SQL Server và IBM DB2 là các ví dụ về RDBMS.
+
+**D. RDBMS chỉ hỗ trợ các loại dữ liệu phi cấu trúc, không hỗ trợ dữ liệu có cấu trúc.**
+
+Câu 2.3 SQL Server là gì? Phát biểu nào sau đây không đúng?
+
+A. SQL Server là một hệ quản trị cơ sở dữ liệu quan hệ (RDBMS) do Microsoft phát triển.
+
+**B. SQL Server không có các công cụ phân tích dữ liệu, không thể tích hợp các công cụ phân tích dữ liệu.**
+
+C. SQL Server tuân thủ mô hình quan hệ, tổ chức dữ liệu thành các bảng với các hàng và cột.
+
+D. SQL Server có nhiều phiên bản khác nhau, từ phi
+
+Câu 3.2 Hệ quản trị cơ sở dữ liệu quan hệ (RDBMS) bao gồm những thành phần nào? Phát biểu nào sau đây không đúng?
+
+**A. Công cụ đồ họa (SQL Server Management Studio - SSMS) dùng để vẽ các hình khối cơ bản.**
+
+B. Công cụ cơ sở dữ liệu (Database engine) là thành phần cốt lõi, chịu trách nhiệm lưu trữ và quản lý dữ liệu.
+
+C. Công cụ dòng lệnh (sqlcmd) cho phép làm việc với Database engine thông qua Command Prompt hoặc PowerShell.
+
+D. RDBMS còn bao gồm các công cụ quản lý khác, dịch vụ nền, thư viện và các tính năng bổ sung.
+
+Câu 3.3 Một số mục quan trọng của cửa sổ Connect to Server là gì? Phát biểu nào sau đây không đúng?
+
+A. Server type cho phép chọn loại máy chủ SQL Server muốn kết nối
+
+B. Server name là mục nhập tên hoặc địa chỉ IP của máy chủ SQL Server.
+
+**C. Authentication cho phép chọn phương thức xác thực. Kiểu xác thực SQL Server Authentication sử dụng thông tin đăng nhập của Windows.**
+
+D. Có 2 kiểu xác thực là Windows Authentication và SQL Server Authentication.
+
+Câu 4.1 Khi tạo bảng trong cơ sở dữ liệu, một số ràng buộc thường được sử dụng. Phát biểu nào sau đây không đúng?
+
+A. NOT NULL đảm bảo cột không được phép có giá trị NULL.
+
+**B. FOREIGN KEY chỉ định cột là khóa chính của bảng khác.**
+
+C. PRIMARY KEY chỉ định cột là khóa chính, giá trị phải duy nhất và không được NULL.
+
+D. UNIQUE đảm bảo giá trị của cột là duy nhất.
+
+Câu 4.2 Khi tạo bảng trong cơ sở dữ liệu, một số kiểu dữ liệu thường được sử dụng. Phát biểu nào sau đây không đúng?
+
+**A. CHAR(n) dùng để lưu trữ chuỗi ký tự có độ dài thay đổi.**
+
+B. INT dùng để lưu trữ số nguyên.
+
+C. VARCHAR(n) dùng để lưu trữ chuỗi ký tự có độ dài tối đa là n.
+
+D. DATE dùng để lưu trữ ngày tháng năm.
+
+Câu 5.1 Khóa chính (primary key) là gì? Phát biểu nào sau đây không đúng?
+
+A. Khóa chính dùng để xác định duy nhất mỗi bản ghi trong một bảng.
+
+**B. Giá trị của khóa chính có thể trùng lặp.**
+
+C. Mỗi bảng chỉ có một khóa chính.
+
+D. Giá trị của khóa chính không được mang giá trị NULL.
+
+Câu 5.2 Khóa ngoại (foreign key) là gì? Phát biểu nào sau đây không đúng?
+
+A. Khóa ngoại được sử dụng để liên kết hai bảng với nhau.
+
+B. Khóa ngoại của một bảng tham chiếu đến khóa chính của một bảng khác.
+
+C. Khóa ngoại giúp đảm bảo tính toàn vẹn tham chiếu giữa các bảng.
+
+**D. Khóa ngoại dùng để xác định duy nhất mỗi bản ghi trong một bảng.**
+
+Câu hỏi 6.2 Phép chọn (SELECT) trong SQL được sử dụng để làm gì? Phát biểu nào sau đây không đúng?
+
+A. Lệnh SELECT cho phép lấy dữ liệu từ các cột cụ thể hoặc tất cả các cột trong một bảng.
+
+B. Mệnh đề WHERE được sử dụng để lọc dữ liệu dựa trên các điều kiện cụ thể.
+
+**C. Mệnh đề ORDER BY được sử dụng để nhóm các bản ghi có giá trị giống nhau trong một cột.**
+
+D. Mệnh đề GROUP BY cho phép nhóm các bản ghi có giá trị giống nhau trong một cột.
+## Chương 6: Kiến thức thêm
+### 6.1 Cách để biết ngôn ngữ mà phía server sử dụng của 1 website
+### 6.2 Phân tích quá trình xử lý của web server (Quan trọng)
 ![image](md_assets/webserver.png)
 
 [1] nhận request
