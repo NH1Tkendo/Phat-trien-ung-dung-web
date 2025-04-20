@@ -1469,6 +1469,22 @@ Chức năng chính của phép chọn:
 - Kết hợp dữ liệu: lệnh SELECT có thể được sử dụng để kết hợp dữ liệu từ nhiều bảng khác nhau bằng cách sử dụng các phép kết nối (JOIN).
 
 ## Chương 4: Dự án cá nhân
+**Mô tả:** Đây là ứng dụng web tổng hợp các câu hỏi trắc nghiệm trong môn học phát triển ứng dụng web, có thể làm bài trên này để kiểm tra kiến thức của mình
+
+**Tổ chức cấu trúc dự án:** 
+```
+du_an_ca_nhan_quizapp/
+├── views/
+|   ├── css/
+│   │   └── style.css
+|   ├── js
+│   │   └── script.js
+│   ├── layouts/ 
+│   │   └── main.hbs 
+│   ├── partials/
+│   ├── index.hbs
+└── index.js
+```
 ## Chương 5: Trắc nghiệm
 Câu 1.3: Phát biểu nào không đúng khi nói về web, trang web và website?
 
