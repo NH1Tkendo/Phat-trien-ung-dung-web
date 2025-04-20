@@ -1775,26 +1775,6 @@ B. Lập trình bất đồng bộ đặc biệt hữu ích khi xử lý các t�
 
 D. Async/await cho phép viết mã bất đồng bộ trông giống như mã đồng bộ, giúp mã trở nên dễ đọc và dễ hiểu hơn
 
-Câu 9.2: Hàm mũi tên (arrow function) là gì? Phát biểu nào sau đây không đúng về hàm mũi tên?
-
-A. Hàm mũi tên có cú pháp ngắn gọn, giúp viết mã dễ đọc hơn.
-
-**B. Hàm mũi tên có this (ngữ cảnh) riêng, không kế thừa từ phạm vi bên ngoài.**
-
-C. Hàm mũi tên không thể được dùng làm hàm tạo (constructor).
-
-D. Hàm mũi tên không có biến arguments để truy cập danh sách tham số.
-
-Câu 9.3: Lập trình bất đồng bộ là gì? Phát biểu nào sau đây không đúng về lập trình bất đồng bộ?
-
-A. Lập trình bất đồng bộ cho phép chương trình thực hiện nhiều tác vụ cùng lúc mà không cần chờ đợi tác vụ trước đó hoàn thành.
-
-B. Lập trình bất đồng bộ đặc biệt hữu ích khi xử lý các tác vụ tốn thời gian như yêu cầu mạng, đọc/ghi tập tin hoặc tương tác với cơ sở dữ liệu.
-
-**C. Callback là một kỹ thuật bất đồng bộ, nó sẽ làm cho code dễ đọc và dễ bảo trì hơn khi code có nhiều callback lồng nhau.**
-
-D. Async/await cho phép viết mã bất đồng bộ trông giống như mã đồng bộ, giúp mã trở nên dễ đọc và dễ hiểu hơn.
-
 Câu 10.2 Hàm callback trong JavaScript là gì? Phát biểu nào sau đây không đúng?
 
 A. Hàm callback là một hàm được truyền vào một hàm khác như một tham số.
@@ -1994,7 +1974,7 @@ B. Tăng tốc độ tải trang ban đầu, giúp người dùng thấy nội d
 
 C. Hỗ trợ tốt cho thiết bị cấu hình yếu bằng cách giảm tải việc thực thi JavaScript trên thiết bị.
 
-D. Loại bỏ hoàn toàn sự phụ thuộc vào JavaScript để hiển thị nội dung trang web.
+**D. Loại bỏ hoàn toàn sự phụ thuộc vào JavaScript để hiển thị nội dung trang web.**
 
 Câu hỏi 16.3 Nhược điểm của CSR (Client-Side Rendering) là gì? Phát biểu nào dưới đây KHÔNG đúng?
 
