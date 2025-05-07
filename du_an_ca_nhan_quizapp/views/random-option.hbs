@@ -1,0 +1,20 @@
+<a href="/">
+    <img src="/img/back.png" alt="Back" class="back-icon">
+</a>
+
+<div class="content-box">
+    <form method="POST" action="/option">
+        <!-- Combo chọn số câu hỏi -->
+        <div class="form-group">
+            <label for="maxquestion">Chọn số câu hỏi:</label>
+            <select name="maxquestion" id="maxquestion" required>
+                <option value="5">5 câu</option>
+                <option value="10">10 câu</option>
+                <option value="15">15 câu</option>
+            </select>
+        </div>
+
+        <!-- Submit -->
+        <button id="btnSubmit" type="submit">Submit</button>
+    </form>
+</div>

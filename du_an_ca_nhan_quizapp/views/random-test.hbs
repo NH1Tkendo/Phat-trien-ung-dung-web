@@ -1,0 +1,21 @@
+<a href="/">
+    <img src="/img/back.png" alt="Back" class="back-icon">
+</a>
+
+<div class="content-box">
+    <form method="POST" action="/answer">
+        <div class="question">{{question.cauHoi}}</div>
+
+        {{#each question.tracNghiem}}
+        <div>
+            <label>
+                <input type="radio" name="answer" value="{{@index}}" data-dapan="{{this.dapAn}}" required>
+                {{this.cauTraLoi}}
+            </label>
+        </div>
+        {{/each}}
+
+        <input type="hidden" name="index" value="{{currentIndex}}">
+        <button id="btnSubmit" type="submit">Submit</button>
+    </form>
+</div>
