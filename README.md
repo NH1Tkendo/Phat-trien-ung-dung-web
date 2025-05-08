@@ -1134,6 +1134,38 @@ Khi bạn chạy lệnh sequelize init trong thư mục gốc của dự án Nod
 Migration là các tập tin JavaScript chứa mã nguồn để thực hiện các thay đổi lược đồ cơ sở dữ liệu theo thời gian (ví dụ: tạo bảng, thêm cột, sửa đổi cột). Sequelize-CLI cung cấp các lệnh để tạo, chạy và rollback các migration.
 - seeders/: thư mục này sẽ chứa các tập tin seeder. Seeder là các tập tin JavaScript chứa mã nguồn để chèn dữ liệu mẫu ban đầu vào cơ sở dữ liệu (ví dụ: tạo các tài khoản người dùng quản trị ban đầu, thêm các danh mục sản phẩm mặc định). Sequelize-CLI cũng cung cấp các lệnh để chạy các seeder.
 ### 1.17 Tạo cơ sở dữ liệu bằng Sequelize
+B1: Tạo cơ sở dữ liệu rỗng
+ * Gõ lệnh ```psql -U postgres``` để đăng nhập
+ * Gõ lệnh ```CREATE DATABASE db_name;```
+ * Thoát postgres bằng lệnh ```\q```
+ * Dùng lệnh ```psql -U postgres -d construction_site``` để truy cập vào cơ sở dữ liệu
+
+B2: Chỉnh sửa thông tin đăng nhập trong file config 
+
+B3:Tạo bảng ```sequelize model:create --name Test --attributes name:string,imagePath:string```
+```
+Sequelize CLI [Node: 22.11.0, CLI: 6.6.3, ORM: 6.37.7]
+
+New model was created at D:\Code\web\Phat-trien-ung-dung-web\express_handlebars\models\test.js .
+New migration was created at D:\Code\web\Phat-trien-ung-dung-web\express_handlebars\migrations\20250508145903-create-test.js
+```
+B4: Thêm các thuộc tính còn lại
+B5: Viết phương thức định tuyến để tạo bảng
+```
+app.get('/createTables', (req, res) => {
+    let models = require('./models');
+    models.sequelize.sync().then(()=> {
+        res.send('tables created');
+    });
+});
+```
+Ý nghĩa của đoạn mã:
+- Đoạn mã này định nghĩa một route GET tại /createTables. Khi người dùng truy cập đường dẫn này, ứng dụng sẽ:
+- Tham chiếu tới (import) các định nghĩa model từ thư mục ./models.
+- Gọi phương thức sync() của Sequelize để tạo các bảng trong cơ sở dữ liệu (nếu chúng chưa tồn tại) dựa trên các model đã định nghĩa.
+- Sau khi quá trình đồng bộ hóa hoàn tất thành công, ứng dụng sẽ gửi phản hồi 'tables created' về cho client (trình duyệt). Học thêm về viết hàm theo kiểu Promise (.then()).
+Lưu ý: đoạn mã này thường được sử dụng trong quá trình phát triển (development) hoặc trong các thiết lập ban đầu để nhanh chóng tạo cấu trúc cơ sở dữ liệu dựa trên các model đã định nghĩa. Trong môi trường triển khai (production), việc tự động tạo hoặc cập nhật bảng theo cách này thường không được khuyến khích hoặc cần được kiểm soát chặt chẽ hơn. Việc thay đổi schema cơ sở dữ liệu trong môi trường production có thể gây ra rủi ro mất dữ liệu hoặc ngưng hệ thống (downtime). Thay vào đó, người ta thường sử dụng migrations để
+quản lý các thay đổi lược đồ cơ sở dữ liệu một cách an toàn và có kiểm soát.
 ## Chương 2: Git thực hành
 ### 2.1 Hệ thống quản lý phiên bản
 * **Phiên bản(version):** là các bản khác nhau của tập tin, thư mục hoặc toàn bộ mã nguồn dự án (từ đây gọi chung là dự án để tiện trình bày)
