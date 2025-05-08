@@ -1051,6 +1051,89 @@ app.get('/:page', (req, res) =>{
 - Bước 6: Lưu lại các tập tin mã nguồn, khởi động lại server, vào trình duyệt, mở lại web app, bấm vào các mục của menu sẽ thấy giao diện đã hoạt động tốt.
 #### 1.15.3 Sử dụng partial
 Partial là các thành phần con, là các đoạn mã HTML có thể tái sử dụng, được nhúng vào các “view” hoặc “layout”. Việc sử dụng partial giúp bạn chia nhỏ giao diện thành các thành phần nhỏ hơn, dễ quản lý hơn.
+
+### 1.16 Lập trình với cơ sở dữ liệu
+#### 1.16.1 Code first và Database first
+**Code first**
+Code first là cách tiếp cận mà bạn định nghĩa mô hình dữ liệu trong mã nguồn trước (thường là các lớp hoặc đối tượng trong ngôn ngữ lập trình), sau đó sử dụng ORM để tự động tạo hoặc cập nhật schema cơ sở dữ liệu (bảng, cột, mối quan hệ) dựa trên mã nguồn.
+
+**Database first**
+Database first là cách tiếp cận mà bạn thiết kế cơ sở dữ liệu trước (tạo bảng, cột, mối quan hệ bằng SQL hoặc công cụ GUI), sau đó sử dụng ORM để sinh ra các mô hình (lớp hoặc đối tượng) trong mã nguồn dựa trên schema cơ sở dữ liệu
+
+**Chọn cách tiếp cận nào?**
+**Code first**
+Ưu điểm:
+- Tăng tốc phát triển: tập trung vào mã nguồn, không cần viết   SQL thủ công.
+- Linh hoạt: dễ dàng thay đổi mô hình bằng cách cập nhật mã nguồn và cập nhật hệ thống kiểm soát lược đồ dữ liệu (migration).
+- Phù hợp dự án mới: thích hợp khi cơ sở dữ liệu chưa tồn tại hoặc đang được thiết kế từ đầu.
+- Tích hợp tốt với ORM: tận dụng các tính năng của ORM như quản lý mối quan hệ, validation.
+Nhược điểm:
+- Khó tích hợp với cơ sở dữ liệu đã tồn tại: nếu cơ sở dữ liệu đã được thiết kế sẵn, việc ánh xạ mô hình có thể phức tạp.
+- Hiệu suất: migration tự động có thể tạo schema không tối ưu (ví dụ: thiếu chỉ mục hoặc cấu hình không phù hợp).
+- Phụ thuộc vào ORM: cần hiểu sâu về cách ORM ánh xạ để tránh lỗi.
+**Database first**
+Ưu điểm:
+- Tương thích với cơ sở dữ liệu hiện có: thích hợp khi làm việc với cơ sở dữ liệu đã được thiết kế sẵn.
+- Kiểm soát schema chặt chẽ: người thiết kế có thể tối ưu hóa cơ sở dữ liệu (chỉ mục, phân vùng, v.v.) trước khi tích hợp với mã nguồn.
+- Phù hợp với đội ngũ lớn: phân tách trách nhiệm giữa lập trình viên back-end và người quản trị cơ sở dữ liệu.
+- Đảm bảo tối ưu hóa: schema được thiết kế thủ công, tránh các vấn đề từ migration tự động.
+Nhược điểm:
+- Tốn thời gian ban đầu: cần thiết kế và tạo schema bằng SQL hoặc công cụ GUI trước.
+- Đồng bộ phức tạp: khi muốn thay đổi schema, yêu cầu cập nhật cơ sở dữ liệu trước, sau đó tái tạo hoặc chỉnh sửa mô hình (model).
+- Ít linh hoạt: không phù hợp với các dự án mà cấu trúc dữ liệu thay đổi thường xuyên.
+
+**Khi nào nên sử dung ?**
+Code first:
+- Dự án mới, chưa có cơ sở dữ liệu.
+- Đội phát triển muốn kiểm soát schema thông qua mã nguồn.
+- Ưu tiên phát triển nhanh và tập trung nhiều vào logic ứng dụng.
+
+Database first:
+- Làm việc với cơ sở dữ liệu hiện có hoặc được thiết kế sẵn.
+- Dự án có đội ngũ thiết kế dữ liệu chuyên trách, nhiều kinh nghiệm.
+- Cần kiểm soát chặt chẽ schema hoặc có yêu cầu phức tạp về hiệu suất.
+
+#### 1.16.2 ORM
+ORM (Object-Relational Mapping: Ánh xạ Quan hệ - Đối tượng) là một kỹ thuật (công cụ) lập trình cho phép ánh xạ giữa các đối tượng trong mã nguồn (thường là các lớp trong lập
+trình hướng đối tượng) và các bảng trong cơ sở dữ liệu quan hệ. 
+
+ORM giúp lập trình viên thao tác với cơ sở dữ liệu bằng cú pháp của ngôn ngữ lập trình thay vì viết câu lệnh SQL trực tiếp, từ đó tăng hiệu suất phát triển, giảm độ phức tạp và cải thiện tính bảo trì của mã nguồn.
+
+Một số ORM phổ biến:
+- Node.js: Sequelize, TypeORM, Prisma.
+- Python: Django ORM, SQLAlchemy.
+- Java: Hibernate, Spring Data JPA.
+- Ruby: ActiveRecord (Ruby on Rails).
+- PHP: Eloquent (Laravel).
+#### 1.16.3 Sequelize
+Sequelize là công cụ để ánh xạ các đối tượng trong mã nguồn thành các bảng trong cơ sở dữ liệu
+
+**Gói pg**: Pg là trình điều khiển (driver) PostgreSQL phổ biến và mạnh mẽ nhất cho Node.js. Nó cung cấp một bộ API để bạn có thể kết nối đến máy chủ PostgreSQL, thực hiện các truy vấn SQL, và xử lý kết quả trả về.
+
+**Gói pg-hstore**: PostgreSQL cung cấp một kiểu dữ liệu đặc biệt gọi là hstore, cho phép bạn lưu trữ các cặp khóa-giá trị (key-value) trong một cột của bảng. Điều này rất hữu ích khi bạn có các thuộc tính động hoặc bán cấu trúc mà không muốn tạo ra các cột riêng biệt cho mỗi thuộc tính.
+
+pg-hstore là một plugin hoặc tiện ích mở rộng cho thư viện pg. Nó cung cấp khả năng:
+
+- Chuyển đổi giữa kiểu dữ liệu hstore của PostgreSQL và các đối tượng JavaScript. Khi bạn truy vấn dữ liệu có cột kiểu hstore, pg-hstore sẽ tự động chuyển đổi giá trị hstore từ cơ sở dữ liệu thành một đối tượng JavaScript (ví dụ: { key1: 'value1', key2: 'value2' }).
+
+- Chuyển đổi các đối tượng JavaScript thành kiểu dữ liệu hstore khi bạn chèn hoặc cập nhật dữ liệu. Khi bạn muốn lưu trữ dữ liệu dưới dạng hstore từ ứng dụng Node.js, pg-hstore sẽ chuyển đổi đối tượng JavaScript của bạn thành định dạng hstore mà PostgreSQL có thể hiểu được.
+
+Cài đặt sqeuqlize, pg và pg-hstore:
+* Nhập lệnh ```pnpm i -s pg pg-hstore```
+* Nhập lệnh ```pnpm i -s sequelize```
+Cài đặt sequelize-cli:
+- sequelize-cli là công cụ dòng lệnh (cli - command line interface) để ra lệnh cho sequelize
+- Dùng lệnh ```npm i g sequelize-cli```
+#### 1.16.4 Sử dụng sequelize
+Lệnh ```sequelize init``` Lệnh sequelize init được sử dụng để khởi tạo cấu trúc thư mục và các tập tin cấu hình cần thiết cho một dự án có sử dụng sequelize.
+
+Khi bạn chạy lệnh sequelize init trong thư mục gốc của dự án Node.js, Sequelize-CLI sẽ tạo ra các thư mục và tập tin sau:
+- config/config.json (hoặc config/config.js tùy thuộc vào cấu hình): tập tin này chứa các cấu hình kết nối đến cơ sở dữ liệu cho các môi trường khác nhau (development, test, production). Bạn sẽ cần chỉnh sửa tập tin này để cung cấp thông tin đăng nhập và chi tiết kết nối đến cơ sở dữ liệu bạn muốn sử dụng (ví dụ: PostgreSQL, MySQL, SQLite, SQL Server).
+- models/: thư mục này sẽ chứa các tập tin định nghĩa model của bạn. Mỗi tập tin model thường tương ứng với một bảng trong cơ sở dữ liệu. Bạn sẽ định nghĩa tên bảng, các cột, kiểu dữ liệu, và các ràng buộc trong các tập tin này.
+- migrations/: thư mục này sẽ chứa các tập tin migration.
+Migration là các tập tin JavaScript chứa mã nguồn để thực hiện các thay đổi lược đồ cơ sở dữ liệu theo thời gian (ví dụ: tạo bảng, thêm cột, sửa đổi cột). Sequelize-CLI cung cấp các lệnh để tạo, chạy và rollback các migration.
+- seeders/: thư mục này sẽ chứa các tập tin seeder. Seeder là các tập tin JavaScript chứa mã nguồn để chèn dữ liệu mẫu ban đầu vào cơ sở dữ liệu (ví dụ: tạo các tài khoản người dùng quản trị ban đầu, thêm các danh mục sản phẩm mặc định). Sequelize-CLI cũng cung cấp các lệnh để chạy các seeder.
+### 1.17 Tạo cơ sở dữ liệu bằng Sequelize
 ## Chương 2: Git thực hành
 ### 2.1 Hệ thống quản lý phiên bản
 * **Phiên bản(version):** là các bản khác nhau của tập tin, thư mục hoặc toàn bộ mã nguồn dự án (từ đây gọi chung là dự án để tiện trình bày)
@@ -1468,6 +1551,47 @@ Chức năng chính của phép chọn:
 - Nhóm dữ liệu: mệnh đề GROUP BY cho phép bạn nhóm các bản ghi có giá trị giống nhau trong một cột.
 - Kết hợp dữ liệu: lệnh SELECT có thể được sử dụng để kết hợp dữ liệu từ nhiều bảng khác nhau bằng cách sử dụng các phép kết nối (JOIN).
 
+### 3.4 Postgresql 
+Postgresql là một hệ quản trị cơ sở dữ liệu quan hệ (RDBMS) mã nguồn mở, mạnh mẽ, và đáng tin cậy, được phát triển từ năm 1986 tại Đại học California, Berkeley.
+
+Đặc điểm nổi bật:
+- Mã nguồn mở: miễn phí, cộng đồng phát triển tích cực, có thể tùy chỉnh.
+- Tuân thủ chuẩn SQL: hỗ trợ đầy đủ các truy vấn SQL phức tạp và chuẩn ACID (atomicity - tính nguyên tử, consistency - tính nhất quán, isolation - tính độc lập, durability - tính bền vững).
+- Hỗ trợ dữ liệu đa dạng: ngoài các kiểu dữ liệu cơ bản (INTEGER, VARCHAR, TIMESTAMP), Postgresql còn hỗ trợ JSON/JSONB, ARRAY, UUID, và dữ liệu địa lý (PostGIS).
+- Tính năng nâng cao: hỗ trợ múi giờ (TIMESTAMP WITH TIME ZONE); truy vấn phức tạp (window functions, common table expressions, full-text search); khả năng mở rộng (hỗ trợ replication, sharding, và xử lý khối lượng dữ liệu lớn).
+- Độ tin cậy: được sử dụng bởi các công ty lớn như Apple, Instagram, và Spotify nhờ khả năng xử lý ổn định và bảo mật cao.
+- Đa nền tảng: chạy trên Windows, Linux, macOS, và các hệ thống đám mây như AWS, Google Cloud.
+  
+Postgresql phù hợp cho:
+- Ứng dụng web (ví dụ: dùng với Django, Node.js).
+- Kho dữ liệu (data warehouse) và phân tích dữ liệu.
+- Ứng dụng cần xử lý dữ liệu JSON hoặc dữ liệu địa lý.
+
+**Khởi chạy Postgresql**
+Postgresql sẽ tự chạy dưới dạng một dịch vụ (services), chứ không phải chạy như một chương trình có giao diện (như Microsoft Word). Điều này có nghĩa là nó hoạt động liên tục trong nền (background) để xử lý các yêu cầu truy vấn cơ sở dữ liệu mà không cần giao diện người dùng.
+
+**Làm việc với Postgresql**
+Gõ lệnh ```psql -U postgres``` để sử dụng
+
+Nếu đăng nhập thành công, dấu nhắc lệnh sẽ chuyển từ > thành #:
+
+![image](md_assets/postpres.png)
+
+Cũng như các hệ quản trị cơ sở dữ liệu khác (Mysql, SQL server), bạn cũng có 3 cách để kết nối và làm việc với Postgresql:
+- Dùng công cụ dòng lệnh: psql.
+- Dùng công cụ GUI: pgAdmin hoặc DBeaver.
+- API/Thư viện (gắn với một ngôn ngữ lập trình): JDBC hoặc Sequelize.
+
+Ví dụ một số lệnh trong psql:
+* ```\list```: để xem các cơ sở dữ liệu đang có trong Postgresql
+* ```create database testdb```: tạo cơ sở dữ liệu có tên là testdb.
+* ```exit```: Thoát postgres
+### 3.5 Tạo csdl bằng Sequelize
+B1: Tạo cơ sở dữ liệu rỗng
+
+B2: Chỉnh thông tin password, database theo cài đặt trên máy của bạn trong file config.json
+
+B3: Tạo các bảng của đối tượng
 ## Chương 4: Dự án cá nhân
 **Mô tả:** Đây là ứng dụng web tổng hợp các câu hỏi trắc nghiệm trong môn học phát triển ứng dụng web, có thể làm bài trên này để kiểm tra kiến thức của mình
 
@@ -2125,6 +2249,76 @@ B. Mệnh đề WHERE được sử dụng để lọc dữ liệu dựa trên c
 **C. Mệnh đề ORDER BY được sử dụng để nhóm các bản ghi có giá trị giống nhau trong một cột.**
 
 D. Mệnh đề GROUP BY cho phép nhóm các bản ghi có giá trị giống nhau trong một cột.
+
+Câu hỏi 19.1 Kiểu dữ liệu VARCHAR trong thiết kế dữ liệu là gì? Phát biểu nào sau đây không đúng?
+
+A. VARCHAR luôn chiếm một lượng bộ nhớ cố định, bằng với độ dài tối đa đã khai báo.
+
+B. VARCHAR là kiểu dữ liệu chuỗi ký tự có độ dài thay đổi. 
+
+C. VARCHAR(n) định nghĩa một chuỗi ký tự có độ dài tối đa là 'n' ký tự. 
+
+**D. VARCHAR giúp tiết kiệm không gian lưu trữ so với kiểu CHAR khi độ dài chuỗi thực tế nhỏ hơn độ dài tối đa.**
+
+Câu hỏi 19.2 Các mối quan hệ giữa các bảng trong thiết kế dữ liệu thường bao gồm những kiểu nào? Phát biểu nào sau đây không đúng?
+
+A. Mối quan hệ một-một (1-1), trong đó một bản ghi ở bảng này liên kết với tối đa một bản ghi ở bảng kia và ngược lại. 
+
+**B. Mối quan hệ một-nhiều (1-N), trong đó một bản ghi ở bảng này có thể liên kết với nhiều bản ghi ở bảng kia, nhưng một bản ghi ở bảng kia chỉ có thể liên kết với một bản ghi ở bảng này.**
+
+C. Mối quan hệ nhiều-nhiều (N-N), trong đó nhiều bản ghi ở bảng này có thể liên kết với nhiều bản ghi ở bảng kia và ngược lại, thường được giải quyết bằng bảng trung gian.
+
+D. Mối quan hệ không-một (0-1), trong đó một bản ghi ở bảng này có thể không liên kết hoặc liên kết với tối đa một bản ghi ở bảng kia. Đây là một kiểu quan hệ cơ bản thường được nhắc đến trong mọi mô hình dữ liệu.
+
+Câu hỏi 20.1 Postgresql là gì? Phát biểu nào sau đây không đúng?
+
+A. Postgresql là một hệ quản trị cơ sở dữ liệu quan hệ (RDBMS) mã nguồn mở, mạnh mẽ và đáng tin cậy. 
+
+**B. Postgresql là một cơ sở dữ liệu mã nguồn mở.**
+
+C. Postgresql tuân thủ chuẩn SQL và hỗ trợ đầy đủ các thuộc tính ACID cho giao dịch.
+
+D. Postgresql hỗ trợ nhiều kiểu dữ liệu đa dạng, bao gồm JSON/JSONB, ARRAY và dữ liệu địa lý (PostGIS).
+
+Câu hỏi 20.2 Bạn có thể sử dụng các công nào để kết nối và làm việc với Postgresql? Phát biểu nào không đúng?
+
+A. Dùng công cụ dòng lệnh: psql.
+
+**B. Dùng giao thức ping**
+
+C. Dùng công cụ GUI: pgAdmin hoặc DBeaver.
+
+D. API/Thư viện (gắn với một ngôn ngữ lập trình): JDBC hoặc Sequelize.
+
+Câu hỏi 21.1 Phát biểu nào sau đây KHÔNG đúng về Code First và Database First trong lập trình với cơ sở dữ liệu?
+
+A. Code First là phương pháp định nghĩa mô hình dữ liệu trong mã nguồn trước, sau đó ORM sẽ tạo hoặc cập nhật schema cơ sở dữ liệu.
+
+B. Database First là phương pháp thiết kế cơ sở dữ liệu trước, sau đó ORM sẽ sinh ra các mô hình trong mã nguồn dựa trên schema đã có.
+
+**C. Cả Code First và Database First đều bỏ qua vai trò của ORM và cho phép lập trình viên tương tác trực tiếp với cơ sở dữ liệu bằng SQL.**
+
+D. Code First thường phù hợp với các dự án mới, trong khi Database First thích hợp với các dự án làm việc trên cơ sở dữ liệu đã tồn tại.
+
+Câu hỏi 21.2 Phát biểu nào sau đây KHÔNG đúng về ORM (Object-Relational Mapping)?
+
+A. ORM là một kỹ thuật lập trình giúp ánh xạ giữa các đối tượng trong mã nguồn và các bảng trong cơ sở dữ liệu quan hệ.
+
+**B. ORM làm tăng độ phức tạp của mã nguồn và giảm hiệu suất phát triển ứng dụng.**
+
+C. ORM cho phép lập trình viên thao tác với cơ sở dữ liệu bằng cú pháp của ngôn ngữ lập trình thay vì viết câu lệnh SQL trực tiếp.
+
+D. Sequelize (Node.js) và Django ORM (Python) là những ví dụ về các ORM phổ biến
+
+Câu hỏi 21.3 Bốn thư mục chính được tạo ra bởi lệnh sequelize init là config, models, migrations, và seeders. Phát biểu nào sau đây về mục đích của các thư mục này là KHÔNG đúng?
+
+**A. Thư mục migrations chứa các tập tin SQL script để thực hiện các thay đổi lược đồ cơ sở dữ liệu theo thời gian.**
+
+B. Thư mục config chứa các tập tin cấu hình kết nối đến cơ sở dữ liệu cho các môi trường phát triển, kiểm thử và sản xuất.
+
+C. Thư mục models chứa các tập tin định nghĩa cấu trúc các bảng trong cơ sở dữ liệu dưới dạng các model (lớp) JavaScript.
+
+D. Thư mục seeders chứa các tập tin JavaScript để chèn dữ liệu mẫu ban đầu vào cơ sở dữ liệu.
 ## Chương 6: Kiến thức thêm
 ### 6.1 Cách để biết ngôn ngữ mà phía server sử dụng của 1 website
 ### 6.2 Phân tích quá trình xử lý của web server (Quan trọng)
